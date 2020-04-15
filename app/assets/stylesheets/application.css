@@ -13,6 +13,3 @@
  *= require_tree .
  *= require_self
  */
-.bg-login-image {
-	background-image: https://www.stavangertk.no/wp-content/uploads/2019/08/utebaner-1030x687.jpg;
-}
