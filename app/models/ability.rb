@@ -6,7 +6,9 @@ class Ability
   def initialize(user)
        user ||= User.new # guest user (not logged in)
         #can :create, User
-    can :create , User
+    
+      can [:create, :new], User
+    
     if user.admin? || user.coach? # additional permissions for administrators
           can :manage, :all
 

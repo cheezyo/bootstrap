@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-    load_and_authorize_resource
-   skip_before_action :authorized, only: [:new, :create]
+   load_and_authorize_resource :except => [:new]
+   #skip_before_action :configure_permitted_parameters, only: [:create, :new]
+   skip_before_action :authorized, only: [:new, :create, :register]
 	 before_action :set_user, only: [:show, :edit, :update, :destroy]
 	 #before_action :check_if_admin, except: [:new, :create]
   def index
@@ -18,9 +19,14 @@ class UsersController < ApplicationController
    end
 
    def new 
-   	
+   	if current_user.present? && !current_user.admin? 
+      redirect_to current_user
+    else
+
     @user = User.new
     render :layout => 'devise/sessions'
+
+  end
    end
 
     def create

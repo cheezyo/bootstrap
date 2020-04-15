@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
       format.html { redirect_to current_user, :notice => exception.message }
     end
   end
+    
     protected
 
     def authorized
