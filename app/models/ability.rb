@@ -7,7 +7,7 @@ class Ability
        user ||= User.new # guest user (not logged in)
         #can :create, User
     
-      can [:create, :new], User
+      can [:create, :new, :sign_up], User
     
     if user.admin? || user.coach? # additional permissions for administrators
           can :manage, :all

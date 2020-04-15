@@ -18,15 +18,13 @@
 
 
 
-
-<% if !@user.got_parent? && current_user.admin? && @user.got_profile? %>
-	<%= form_for(UserPlayer.new) do |f| %>
-		<%= f.collection_select :user_id, User.where(parent: true), :id, :name, :class => "form-control form-control-user" %>
-		<%= f.hidden_field :player_id, :value => @user.get_player_profile.id %>
-		<%= f.submit "Save" , :class => "btn btn-success"%>
-	<% end %>
-
-
+<% if @user.got_profile? || current_user.admin?  %>
+	<% if !@user.got_parent? %>
+		<%= form_for(UserPlayer.new) do |f| %>
+			<%= f.collection_select :user_id, User.where(parent: true), :id, :name, :class => "form-control form-control-user" %>
+			<%= f.hidden_field :player_id, :value => @user.get_player_profile.id %>
+			<%= f.submit "Save" , :class => "btn btn-success"%>
+		<% end %>
 <% elsif !@user.got_parent? %>
 	<p> Parent:  "No parent" </p>
 <% elsif @user.got_parent? %>
@@ -41,4 +39,4 @@
 <hr/>
 
 <%= link_to "Go to activity profile", @user.get_player_profile %>
-
+<% end %>

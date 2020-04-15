@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-   load_and_authorize_resource :except => [:new]
+   load_and_authorize_resource :except => [:new, :create]
    #skip_before_action :configure_permitted_parameters, only: [:create, :new]
-   skip_before_action :authorized, only: [:new, :create, :register]
+   skip_before_action :authorized, only: [:new, :create]
 	 before_action :set_user, only: [:show, :edit, :update, :destroy]
 	 #before_action :check_if_admin, except: [:new, :create]
   def index
@@ -19,27 +19,30 @@ class UsersController < ApplicationController
    end
 
    def new 
-   	if current_user.present? && !current_user.admin? 
+    if current_user.present? && !current_user.admin?
       redirect_to current_user
     else
-
-    @user = User.new
-    render :layout => 'devise/sessions'
-
+      @user = User.new
+      render :layout => 'devise/sessions'
   end
    end
 
     def create
-    @user = User.new(user_params)
+     if current_user.present? && !current_user.admin?
+      redirect_to current_user
+    else
+      @user = User.new(user_params)
 
-    respond_to do |format|
-      if @user.save
-      	sign_in(@user) unless current_user.admin? 
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @user.save
+
+        	sign_in(@user) unless current_user.present?
+          format.html { redirect_to @user, notice: 'User was successfully created.' }
+          format.json { render :show, status: :created, location: @user }
+        else
+          format.html { render :new }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -67,7 +70,7 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:name, :email, :password, :admin, :coach, :parent)
+      params.require(:user).permit(:name, :email, :password, :admin, :coach, :parent, :lastname)
     end
 
     def check_if_admin
