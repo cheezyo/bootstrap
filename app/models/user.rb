@@ -40,12 +40,12 @@ def get_coach
 end
 
 def got_coach?
-	 !get_player_profile.users.select{|u| u.coach == true || u.admin == true }.empty?
+	 !get_player_profile.users.select{|u| u.coach == true || u.admin == true }.empty? unless !got_profile?
 	 #!help_to_fetch_my_relations("coach").empty? 
 end	
 
 def got_parent? 
-	 !get_player_profile.users.select{|u| u.parent == true }.empty?
+	 !get_player_profile.users.select{|u| u.parent == true }.empty? unless !got_profile?
 end
 
 
