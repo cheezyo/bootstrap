@@ -1,15 +1,61 @@
-<p id="notice"><%= notice %></p>
+ 
+ <div class="d-sm-flex align-items-center justify-content-between mb-4">
+	<h1 class="h3 mb-0 text-gray-800"><%= @player.fullname %> <%= @player.age.strftime("%d-%m-%Y")  %> (<%= @player.get_age %> years)
+		<% if @player.got_user? %>
+			<i class="far fa-user fa"></i>
+		<% else %>
+			<i class="fas fa-user-alt-slash"></i>
+		<% end %>
+ 	</h1>
+ </div>
+ <hr/>
+<div class="row">	
+	<div class="col-xl-12 col-md-12 mb-4">
 
-<p>
-  <strong>Name:</strong>
-  <%= @player.name %>
-</p>
+		<% if !@player.got_user? && current_user.admin? %>  
+			<br/><small>Add profile:</small>               
+			<%= form_for UserPlayer.new do |f| %>
+				<%= f.collection_select :user_id, User.where(parent: false, coach: false, admin: false), :id, :name, :class => "form-control form-control-user", :include_blank => 'choose user' %>
+				<%= f.hidden_field :player_id, :value => @player.id %>
+				<%= f.submit "Save" , :class => "btn btn-success"%>
+			<% end %>
+		
+		<% end %>
 
-<p>
-  <strong>Age:</strong>
-  <%= @player.age %>
-</p>
+		<% if !@player.got_parent? && current_user.admin? %>  
+			<br/><small>Add parent:</small>               
+			<%= form_for UserPlayer.new do |f| %>
+				<%= f.collection_select :user_id, User.where(parent: true), :id, :name, :class => "form-control form-control-user", :include_blank => 'choose user' %>
+				<%= f.hidden_field :player_id, :value => @player.id %>
+				<%= f.submit "Save" , :class => "btn btn-success"%>
+			<% end %>
+		
+		<% end %>
+		<% if !@player.got_coach? && current_user.admin? %>  
+			<br/><small>Add coach:</small>               
+			<%= form_for UserPlayer.new do |f| %>
+				<%= f.collection_select :user_id, User.where(coach: true), :id, :name, :class => "form-control form-control-user", :include_blank => 'choose user' %>
+				<%= f.hidden_field :player_id, :value => @player.id %>
+				<%= f.submit "Save" , :class => "btn btn-success"%>
+			<% end %>
+		
+		<% end %>
 
+		
+	   		
+	 
+	  	
+	  	<% if @player.got_parent? %>
+	  	<p>Parent: <%= @player.parent.name %></p>
+	  	<% else %>
+	  	<p>NO PARENT</p>
+	  	<% end %>
+	  		
+	  	<% if @player.got_coach? %>
+	  		<p>Coach: <%= @player.coach.name %></p>
+	  	<% else %>
+	  		<p>NO COACH</p>
+	  	<% end %>	
 
-<%= link_to 'Edit', edit_player_path(@player) %> |
-<%= link_to 'Back', players_path %>
+	</div>
+</div>

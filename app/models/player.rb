@@ -21,7 +21,30 @@ class Player < ApplicationRecord
 
 		now = Time.now.utc.to_date
 		now.year - self.age.year - ((now.month > self.age.month || (now.month == self.age.month && now.day >= self.age.day)) ? 0 : 1)
+	end
 
+	def got_parent? 
+		!self.users.select{|u| u.parent == true }.empty?
+	end
+
+	def got_coach? 
+		!self.users.select{|u| u.coach == true || u.admin == true }.empty?
+	end
+
+	def got_user? 
+		!self.users.select{|u| u.coach == false && u.admin == false && u.parent == false }.empty?
+	end
+
+	def user
+		self.users.select{|u| u.coach == false && u.admin == false && u.parent == false }.first
+	end
+
+	def parent
+		self.users.select{|u| u.parent == true }.first
+	end
+
+	def coach 
+		self.users.select{|u| u.coach == true || u.admin == true }.first
 	end
 
 end

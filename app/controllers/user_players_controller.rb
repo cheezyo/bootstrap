@@ -7,10 +7,10 @@ def create
     
       if @user_player.save
       	
-     	redirect_to User.find(@user_player.user_id), notice: 'User was successfully created.'
+     	redirect_to Player.find(@user_player.player_id), notice: 'Player was successfully created.'
         
       else
-     	 redirect_to users_path, notice: 'User was updatet.'
+     	 redirect_to users_path, notice: 'Player was updatet.'
        
       end
 
