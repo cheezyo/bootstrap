@@ -1,4 +1,5 @@
 class PlayersController < ApplicationController
+  load_and_authorize_resource
   before_action :set_player, only: [:show, :edit, :update, :destroy]
 
   # GET /players
@@ -69,6 +70,6 @@ class PlayersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def player_params
-      params.require(:player).permit(:name)
+      params.require(:player).permit(:name, :age, :user_id)
     end
 end

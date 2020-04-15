@@ -10,12 +10,77 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_26_163751) do
+ActiveRecord::Schema.define(version: 2020_04_14_212641) do
+
+  create_table "coaches", force: :cascade do |t|
+    t.string "name"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "players", force: :cascade do |t|
     t.string "name"
+    t.date "age"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "gender"
+    t.string "lastname"
+  end
+
+  create_table "test_groups", force: :cascade do |t|
+    t.string "title"
+    t.date "date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tests", force: :cascade do |t|
+    t.float "sprint"
+    t.float "spider"
+    t.float "jump"
+    t.float "fh_throw"
+    t.float "bh_throw"
+    t.integer "box"
+    t.integer "player_id"
+    t.integer "test_group_id"
+    t.integer "chins"
+    t.integer "situps"
+    t.integer "pushups"
+    t.float "back_stretch"
+    t.float "front_stretch"
+    t.float "test_score"
+    t.float "beep"
+    t.string "gender"
+    t.string "test_type"
+    t.integer "age"
+    t.integer "program1"
+    t.integer "program2"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "user_players", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "player_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "name"
+    t.boolean "admin", default: false
+    t.boolean "coach", default: false
+    t.boolean "parent", default: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
 end

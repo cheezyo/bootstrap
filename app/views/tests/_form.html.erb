@@ -1,0 +1,117 @@
+<%= form_with(model: test, local: true) do |form| %>
+  <% if test.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(test.errors.count, "error") %> prohibited this test from being saved:</h2>
+
+      <ul>
+        <% test.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :sprint %>
+    <%= form.text_field :sprint %>
+  </div>
+
+  <div class="field">
+    <%= form.label :spider %>
+    <%= form.text_field :spider %>
+  </div>
+
+  <div class="field">
+    <%= form.label :jump %>
+    <%= form.text_field :jump %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fh_throw %>
+    <%= form.text_field :fh_throw %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bh_throw %>
+    <%= form.text_field :bh_throw %>
+  </div>
+
+  <div class="field">
+    <%= form.label :box %>
+    <%= form.number_field :box %>
+  </div>
+
+  <div class="field">
+    <%= form.label :player_id %>
+    <%= form.number_field :player_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :test_group_id %>
+    <%= form.number_field :test_group_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :chins %>
+    <%= form.number_field :chins %>
+  </div>
+
+  <div class="field">
+    <%= form.label :situps %>
+    <%= form.number_field :situps %>
+  </div>
+
+  <div class="field">
+    <%= form.label :pushups %>
+    <%= form.number_field :pushups %>
+  </div>
+
+  <div class="field">
+    <%= form.label :back_stretch %>
+    <%= form.text_field :back_stretch %>
+  </div>
+
+  <div class="field">
+    <%= form.label :front_stretch %>
+    <%= form.text_field :front_stretch %>
+  </div>
+
+  <div class="field">
+    <%= form.label :test_score %>
+    <%= form.text_field :test_score %>
+  </div>
+
+  <div class="field">
+    <%= form.label :beep %>
+    <%= form.text_field :beep %>
+  </div>
+
+  <div class="field">
+    <%= form.label :gender %>
+    <%= form.text_field :gender %>
+  </div>
+
+  <div class="field">
+    <%= form.label :test_type %>
+    <%= form.text_field :test_type %>
+  </div>
+
+  <div class="field">
+    <%= form.label :age %>
+    <%= form.number_field :age %>
+  </div>
+
+  <div class="field">
+    <%= form.label :program1 %>
+    <%= form.number_field :program1 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :program2 %>
+    <%= form.number_field :program2 %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

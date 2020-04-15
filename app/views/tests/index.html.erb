@@ -1,0 +1,96 @@
+<style type="text/css">
+  @media print {
+       table td:gender {display:none}
+       table th:gender {display:none}
+   }
+</style>
+
+<div class="page-header">
+<% if @group_id > 0 %>  
+  <%= link_to "Update all scores", update_test_score_tests_path + "?group=" + @group_id.to_s %>
+<% elsif @group_id == 0 %>
+  <%= link_to "Update all scores", update_test_score_tests_path  %>
+<% end %>
+</div>
+<h1>On court tests:</h1>
+ <div class="ironman">
+<table id="edit_test_grou" >
+  <thead>
+    <tr>
+      <th>Player</th>
+      <th id="gender">Gender</th>
+      <th>Sprint</th>
+      <th>Spider</th>
+      <th>Jump</th>
+      <th>Fh throw</th>
+      <th>Bh throw</th>
+      <th>Box</th>  
+      <th>Beep</th>  
+      <th> Submit </th>
+      
+    </tr>
+  </thead>
+
+  <tbody>
+   
+    <% @tests.each do |test| %>
+      <%= form_for test do |f| %>
+        <tr> 
+          <td class="player"><%= link_to test.player.name, test.player %> - <%= test.test_score %></td>
+          <td class="gender"><%= f.text_field :gender%></td> 
+          <td><%= f.text_field :sprint%></td>
+          <td><%= f.text_field :spider %></td>
+          <td><%= f.text_field :jump %></td>
+          <td><%= f.text_field :fh_throw %></td>
+          <td><%= f.text_field :bh_throw %></td>
+          <td><%= f.text_field :box %></td>
+          <td><%= f.text_field :beep %></td>
+          <%= hidden_field_tag(:group, test.test_group_id.to_s) %>
+          <td> <%= f.submit %></td>
+          
+        </tr>
+        <% end %>
+    <% end %>
+
+  </tbody>
+</table>
+ </div>
+
+<h1>Fitness rom tests:</h1>
+ <div class="ironman">
+<table id="edit_test_grou">
+  <thead>
+    <tr>
+      <th>Player</th>
+      <th>Chins</th>
+      <th>Sit ups</th>
+      <th>Push ups</th>
+      <th>Back stretch</th>
+      <th>Front stretch</th>   
+      <th> Submit </th>
+      
+    </tr>
+  </thead>
+
+  <tbody>
+   
+    <% @tests.each do |test| %>
+      <%= form_for test do |f| %>
+        <tr> 
+          <td class="player"><%= link_to test.player.name, test.player %> - <%= test.test_score %></td>
+          <td><%= f.text_field :chins%></td>
+          <td><%= f.text_field :situps %></td>
+          <td><%= f.text_field :pushups %></td>
+          <td><%= f.text_field :back_stretch %></td>
+          <td><%= f.text_field :front_stretch %></td>
+          
+          <%= hidden_field_tag(:group, test.test_group_id.to_s) %>
+          <td> <%= f.submit  %></td>
+          
+        </tr>
+        <% end %>
+    <% end %>
+
+  </tbody>
+</table>
+ </div>

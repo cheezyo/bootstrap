@@ -1,0 +1,58 @@
+
+
+<p id="notice"><%= notice %></p>
+
+<!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Users</h1>
+            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+          </div>
+          <hr/>
+
+ <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Users</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Player profile</th>
+                      <th>Edit</th>
+                      <th>Delete</th>
+                      
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Player profile</th>
+                      <th>Edit</th>
+                      <th>Delete</th>
+                 
+                    </tr>
+                  </tfoot>
+                  <tbody>
+
+                    <% @users.each do |user| %>
+                    <tr>
+                      <td><%= link_to user.name, user %></td>
+                      <td><%= user.email %></td>
+                      <td><%= user.got_profile? ? "Yes" : "No" %> </td>
+                      <td><%= link_to 'Edit', edit_user_path(user) %></td>
+                      <td><%= link_to 'Delete', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                     
+
+                    </tr>
+                  <% end %>
+                 
+                    </tbody>
+                </table>
+              </div>
+            </div>
+          </div>

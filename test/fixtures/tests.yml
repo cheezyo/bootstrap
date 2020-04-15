@@ -1,0 +1,45 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sprint: 1.5
+  spider: 1.5
+  jump: 1.5
+  fh_throw: 1.5
+  bh_throw: 1.5
+  box: 1
+  player_id: 1
+  test_group_id: 1
+  chins: 1
+  situps: 1
+  pushups: 1
+  back_stretch: 1.5
+  front_stretch: 1.5
+  test_score: 1.5
+  beep: 1.5
+  gender: MyString
+  test_type: MyString
+  age: 1
+  program1: 1
+  program2: 1
+
+two:
+  sprint: 1.5
+  spider: 1.5
+  jump: 1.5
+  fh_throw: 1.5
+  bh_throw: 1.5
+  box: 1
+  player_id: 1
+  test_group_id: 1
+  chins: 1
+  situps: 1
+  pushups: 1
+  back_stretch: 1.5
+  front_stretch: 1.5
+  test_score: 1.5
+  beep: 1.5
+  gender: MyString
+  test_type: MyString
+  age: 1
+  program1: 1
+  program2: 1

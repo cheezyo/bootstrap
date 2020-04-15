@@ -1,0 +1,14 @@
+
+       
+
+<% if @user.coach? || @user.admin? %>
+<%= render 'users/partials/show_coach' %>
+<% elsif  @user.parent? %>
+<%= render 'users/partials/show_parent' %>
+
+<% else %>
+<%= render 'users/partials/show_player' %>	
+<% end %>
+
+
+

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Test Groups</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Date</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @test_groups.each do |test_group| %>
+      <tr>
+        <td><%= test_group.title %></td>
+        <td><%= test_group.date %></td>
+        <td><%= link_to 'Show', test_group %></td>
+        <td><%= link_to 'Edit', edit_test_group_path(test_group) %></td>
+        <td><%= link_to 'Destroy', test_group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Test Group', new_test_group_path %>

@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @test_group.title %>
+</p>
+<%= link_to 'Edit', edit_test_group_path(@test_group) %> |
+<%= link_to 'Back', test_groups_path %>
+
+<% if @test_group.tests.count > 0 %>
+	<% @test_group.tests.each do |t| %>
+		<p> <%= link_to t.player.name, t %></p>
+	<% end %>
+
+
+<% end %>
+<%= link_to "Start test", tests_path + "?group=" + @test_group.id.to_s, :class => "btn btn-warning" %>
+
+<%= form_tag add_player_to_group_test_groups_path, method: :put do %>
+<table class="table table-striped" id="lesson-player">
+  <thead>
+    <tr>
+      	<th></th>
+      	<th>Name</th>
+        <th>Lastname</th>
+	    <th>Age</th>
+      <th>Gender</th>
+	    
+    </tr>
+  </thead>
+  <tbody>
+  
+    <%Player.all.each do |p|%>
+    
+      <tr>
+        <td><%= check_box_tag "player_ids[]", p.id%></td>
+        <td><%= p.name %></td>
+        <td><%= p.lastname %></td>
+         <td><%= p.age %></td>
+         <td><%= p.gender %></td>
+        
+       </tr>
+	<% end %>
+        </tbody>
+        </table>
+
+
+<div class="row-fluid">
+	 <%= hidden_field_tag "id", @test_group.id %>
+	<%= submit_tag "Add Checked", :class => "btn" %>
+	<% end %>

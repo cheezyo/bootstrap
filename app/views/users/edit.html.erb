@@ -1,0 +1,46 @@
+<h2>Edit <%= @user.name.to_s.humanize %></h2>
+
+<%= form_for(@user) do |f| %>
+  <%= render "devise/shared/error_messages", resource: @user %>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name,  autocomplete: "name" %>
+  </div>
+
+ 
+
+  
+ <% if can? :assign_roles, @user %>
+  <div class="field">
+    <%= f.label :admin %>
+    <%= f.check_box :admin %><br />
+    <%= f.label :coach %>
+    <%= f.check_box :coach %><br />
+    <%= f.label :parent %>
+    <%= f.check_box :parent %>
+  </div>
+  <% end %>
+  <h3>Change password</h3>
+  <div class="field">
+    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+    <%= f.password_field :password, autocomplete: "new-password" %>
+    <% if @minimum_password_length %>
+      <br />
+      <em><%= @minimum_password_length %> characters minimum</em>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Update" %>
+  </div>
+<% end %>
+

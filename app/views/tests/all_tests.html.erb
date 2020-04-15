@@ -1,0 +1,68 @@
+<div class="page-header">
+	<h1>All tests</h1>
+</div>
+<ul class="nav nav-tabs">
+   <li class="active"><a href="#ironman" data-toggle="tab">Ironman</a></li>
+   
+</ul>
+
+<div class="tab-content">
+	<div class="tab-pane active" id="ironman">
+
+		<div class="col-xs-12 fluid">
+		<table class="table table-dark" id="tests">
+				  <thead>
+				    <tr>
+				      <th>Player</th>
+				      <th>Date</th>
+				      <th>Test age</th>
+				      <th>Sprint</th>
+				      <th>Spider</th>
+				      <th>Jump</th>
+				      <th>Fh throw</th>
+				      <th>Bh throw</th>
+				      <th>Box</th>
+				      <th>Chins</th>
+				      <th>Sit ups</th>
+				      <th>Push ups</th> 
+				      <th>Front stretch</th>
+				       <th>Back stretch</th>	
+				      <th>Beep test</th>
+				      <th>Test score</th>  
+				      <th>Edit test</th> 	      
+				    </tr>
+				  </thead>
+
+				  <tbody>
+				  	<% @tests.each do |t| %>
+				  
+				  	<tr>
+				  		<td><%= t.player.name %>- <%= t.player.gender %> - <%= t.age %></td>
+				  		<td><%= t.test_group.date %></td>
+				  		<td> <%= t.age %> </td>
+				  		<td><%= t.sprint %></td>
+				  		<td><%= t.spider %></td>
+				  		<td><%= t.jump %></td>
+				  		<td><%= t.fh_throw %></td>
+				  		<td><%= t.bh_throw %></td>
+				  		<td><%= t.box %></td>
+				  		<td><%= t.chins %></td>
+				  		<td><%= t.situps %></td>
+				  		<td><%= t.pushups %></td>
+				  		<td><%= t.front_stretch %></td>
+				  		<td><%= t.back_stretch %></td>
+				  		<td><%= t.beep %></td>
+				  		<td><%= t.test_score %></td>
+				  		<td><%= link_to t.test_group.title, tests_path + "?group=" + t.test_group.id.to_s %></td>
+				  		
+				  	</tr>
+				  	
+				  	<% end %>
+				  </tbody>
+
+				</table>
+
+		</div>
+	</div>
+	
+</div>

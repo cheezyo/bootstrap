@@ -1,0 +1,44 @@
+   <div class="d-sm-flex align-items-center justify-content-between mb-4">
+	<h1 class="h3 mb-0 text-gray-800"><%= @user.name %> 
+		<% if @user.got_profile? %>
+		<%= @user.get_player_profile.age.strftime("%d-%m-%Y")  %> (<%= @user.get_age %> years)
+		
+		<% elsif current_user.admin? && !@user.got_profile? %>  
+			<br/><small>Add profile:</small>               
+			<%= form_for(UserPlayer.new) do |f| %>
+				<%= f.collection_select :player_id, Player.all, :id, :name, :class => "form-control form-control-user" %>
+				<%= f.hidden_field :user_id, :value => @user.id %>
+				<%= f.submit "Save" , :class => "btn btn-success"%>
+	   		<% end %>
+		<% else %>
+			NO PROFILE
+		<% end %>
+	</h1>       
+  </div>
+
+
+
+
+<% if !@user.got_parent? && current_user.admin? && @user.got_profile? %>
+	<%= form_for(UserPlayer.new) do |f| %>
+		<%= f.collection_select :user_id, User.where(parent: true), :id, :name, :class => "form-control form-control-user" %>
+		<%= f.hidden_field :player_id, :value => @user.get_player_profile.id %>
+		<%= f.submit "Save" , :class => "btn btn-success"%>
+	<% end %>
+
+
+<% elsif !@user.got_parent? %>
+	<p> Parent:  "No parent" </p>
+<% elsif @user.got_parent? %>
+	<p> Parent: <%= @user.get_parent.name %></p>
+	
+
+<% end %>
+
+	
+</p>
+<p> Coach: <%= @user.got_coach? ? @user.get_coach.name : "No coach" %></p>
+<hr/>
+
+<%= link_to "Go to activity profile", @user.get_player_profile %>
+
