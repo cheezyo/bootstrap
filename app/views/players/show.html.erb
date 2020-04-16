@@ -10,52 +10,87 @@
  </div>
  <hr/>
 <div class="row">	
+	
+</div>
+
+
+<div class="row">
 	<div class="col-xl-12 col-md-12 mb-4">
+		<ul class="nav nav-tabs">
+		   <li class="nav-item "><a href="#profile" data-toggle="tab" class="nav-link active">Profile</a></li>
+		   <li class="nav-item "><a href="#practice" data-toggle="tab" class="nav-link">Practice</a></li>
+		   <li class="nav-item "><a href="#ironman" data-toggle="tab" class="nav-link">Ironman</a></li>
+		   <% if current_user.admin? %>
+		   <li class="nav-item "><a href="#settings" data-toggle="tab" class="nav-link">Settings</a></li>
+		   <% end %>
+		</ul>
+	</div>	
+</div>
 
-		<% if !@player.got_user? && current_user.admin? %>  
-			<br/><small>Add profile:</small>               
-			<%= form_for UserPlayer.new do |f| %>
-				<%= f.collection_select :user_id, User.where(parent: false, coach: false, admin: false), :id, :name, :class => "form-control form-control-user", :include_blank => 'choose user' %>
-				<%= f.hidden_field :player_id, :value => @player.id %>
-				<%= f.submit "Save" , :class => "btn btn-success"%>
+<div class="row">
+	<div class="col-xl-12 col-md-12 mb-4">
+		<div class="tab-content">
+
+			
+			  <div class="tab-pane active" id="profile">
+				<div class="col-xl-12 col-md-12 mb-4">
+				  	<% if @player.got_parent? %>
+				  	<p>Parent: <%= @player.parent.name %></p>
+				  	<% else %>
+				  	<p>NO PARENT</p>
+				  	<% end %>
+				  		
+				  	<% if @player.got_coach? %>
+				  		<p>Coach: <%= @player.coach.name %></p>
+				  	<% else %>
+				  		<p>NO COACH</p>
+				  	<% end %>	
+				</div>
+			</div>
+			
+			<div class="tab-pane" id="practice">
+				sdfsdfds
+			</div>
+
+			<div class="tab-pane" id="ironman">
+				<%= render 'layouts/ironman/ironman_table', player: @player %>
+			</div>
+			<% if current_user.admin? %>
+				<div class="tab-pane" id="settings">
+					<div class="col-xl-12 col-md-12 mb-4">	
+						<% if !@player.got_user? %>  
+							<br/><small>Add profile:</small>               
+							<%= form_for UserPlayer.new do |f| %>
+								<%= f.collection_select :user_id, User.where(parent: false, coach: false, admin: false), :id, :name, :class => "form-control form-control-user", :include_blank => 'choose user' %>
+								<%= f.hidden_field :player_id, :value => @player.id %>
+								<%= f.submit "Save" , :class => "btn btn-success"%>
+							<% end %>
+						
+						<% end %>
+
+						<% if !@player.got_parent? %>  
+							<br/><small>Add parent:</small>               
+							<%= form_for UserPlayer.new do |f| %>
+								<%= f.collection_select :user_id, User.where(parent: true), :id, :name, :class => "form-control form-control-user", :include_blank => 'choose user' %>
+								<%= f.hidden_field :player_id, :value => @player.id %>
+								<%= f.submit "Save" , :class => "btn btn-success"%>
+							<% end %>
+						
+						<% end %>
+						<% if !@player.got_coach? && current_user.admin? %>  
+							<br/><small>Add coach:</small>               
+							<%= form_for UserPlayer.new do |f| %>
+								<%= f.collection_select :user_id, User.where(coach: true), :id, :name, :class => "form-control form-control-user", :include_blank => 'choose user' %>
+								<%= f.hidden_field :player_id, :value => @player.id %>
+								<%= f.submit "Save" , :class => "btn btn-success"%>
+							<% end %>
+						
+						<% end %>
+					</div>
+				</div>
 			<% end %>
-		
-		<% end %>
 
-		<% if !@player.got_parent? && current_user.admin? %>  
-			<br/><small>Add parent:</small>               
-			<%= form_for UserPlayer.new do |f| %>
-				<%= f.collection_select :user_id, User.where(parent: true), :id, :name, :class => "form-control form-control-user", :include_blank => 'choose user' %>
-				<%= f.hidden_field :player_id, :value => @player.id %>
-				<%= f.submit "Save" , :class => "btn btn-success"%>
-			<% end %>
-		
-		<% end %>
-		<% if !@player.got_coach? && current_user.admin? %>  
-			<br/><small>Add coach:</small>               
-			<%= form_for UserPlayer.new do |f| %>
-				<%= f.collection_select :user_id, User.where(coach: true), :id, :name, :class => "form-control form-control-user", :include_blank => 'choose user' %>
-				<%= f.hidden_field :player_id, :value => @player.id %>
-				<%= f.submit "Save" , :class => "btn btn-success"%>
-			<% end %>
-		
-		<% end %>
-
-		
-	   		
-	 
-	  	
-	  	<% if @player.got_parent? %>
-	  	<p>Parent: <%= @player.parent.name %></p>
-	  	<% else %>
-	  	<p>NO PARENT</p>
-	  	<% end %>
-	  		
-	  	<% if @player.got_coach? %>
-	  		<p>Coach: <%= @player.coach.name %></p>
-	  	<% else %>
-	  		<p>NO COACH</p>
-	  	<% end %>	
-
+		</div>
 	</div>
 </div>
+

@@ -1,0 +1,130 @@
+<table class="table table-striped" id="player_ironman_test">
+		  <thead>
+		    <tr>
+		    	<th>Date</th>
+		      <th>Sprint</th>
+		      <th>Spider</th>
+		      <th>Jump</th>
+		      <th>Fh throw</th>
+		      <th>Bh throw</th>
+		      <th>Box</th>
+		      <th>Chins</th>
+		      <th>Sit ups</th>
+		      <th>Push ups</th>
+		      <th>Front stretch</th>
+		      <th>Back stretch</th>
+		      <th>Beep</th>
+		      <th>Test score</th>  
+		      <th>Edit test</th> 
+		      <th> Delete test </th>
+		     
+		    </tr>
+		  </thead>
+
+		  <tbody>
+		  	<% @player.tests.each do |t| %>
+
+		  	<% if t.program1.present?  %>
+		  		<% program1 = t.program1 %>
+		  	<% end %>
+		  	<% if t.program2.present?  %>
+		  		<% program2 = t.program2 %>
+		  	<% end %>
+		  	<% counter = 1 %> 
+		  	<tr>
+		  		<td><%= link_to t.test_group.date, tests_path + "?group=" + t.test_group.id.to_s %></td>
+		  		<% if counter == program1 || counter == program2 %>
+		  			<td style="background:yellow;">
+		  		<% else %>
+					<td>
+		  		<% end %>
+		  		<% counter += 1 %>
+		  		<%= t.sprint %></td>
+
+		  		<% if counter == program1 || counter == program2 %>
+		  			<td style="background:yellow;">
+		  		<% else %>
+					<td>
+		  		<% end %>
+		  		<% counter += 1 %>
+		  		<%= t.spider %></td>
+		  		<% if counter == program1 || counter == program2 %>
+		  			<td style="background:yellow;">
+		  		<% else %>
+					<td>
+		  		<% end %>
+		  		<% counter += 1 %>
+		  		<%= t.jump %></td>
+		  		<% if counter == program1 || counter == program2 %>
+		  			<td style="background:yellow;">
+		  		<% else %>
+					<td>
+		  		<% end %>
+		  		
+		  		<%= t.fh_throw %></td>
+		  		<% if counter == program1 || counter == program2 %>
+		  			<td style="background:yellow;">
+		  		<% else %>
+					<td>
+		  		<% end %>
+		  		<% counter += 2 %>
+		  		<%= t.bh_throw %></td>
+		  		<% if counter == program1 || counter == program2 %>
+		  			<td style="background:yellow;">
+		  		<% else %>
+					<td>
+		  		<% end %>
+		  		<% counter += 1 %>
+		  		<%= t.box %></td>
+		  		<% if counter == program1 || counter == program2 %>
+		  			<td style="background:yellow;">
+		  		<% else %>
+					<td>
+		  		<% end %>
+		  		<% counter += 1 %>
+		  		<%= t.chins %></td>
+		  		<% if counter == program1 || counter == program2 %>
+		  			<td style="background:yellow;">
+		  		<% else %>
+					<td>
+		  		<% end %>
+		  		<% counter += 1 %>
+		  		<%= t.situps %></td>
+		  		<% if counter == program1 || counter == program2 %>
+		  			<td style="background:yellow;">
+		  		<% else %>
+					<td>
+		  		<% end %>
+		  		<% counter += 1 %>
+		  		<%= t.pushups %></td>
+		  		<% if counter == program1 || counter == program2 %>
+		  			<td style="background:yellow;">
+		  		<% else %>
+					<td>
+		  		<% end %>
+		  		<% counter += 1 %>
+		  		<%= t.front_stretch %></td>
+		  		<% if counter == program1 || counter == program2 %>
+		  			<td style="background:yellow;">
+		  		<% else %>
+					<td>
+		  		<% end %>
+		  		<% counter += 1 %>
+		  		<%= t.back_stretch %></td>
+		  		<% if counter == program1 || counter == program2 %>
+		  			<td style="background:yellow;">
+		  		<% else %>
+					<td>
+		  		<% end %>
+		  		<% counter += 1 %>
+		  		<%= t.beep %></td>
+		  		<td><%= t.test_score %></td>
+		  		<td><%= link_to "Edit", edit_test_path(t) %></td>
+		  		<td><%= link_to 'Destroy', t, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+		  		
+		  	</tr>
+		  	<% end %>
+
+		  </tbody>
+
+		</table>

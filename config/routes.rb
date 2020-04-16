@@ -15,11 +15,7 @@ Rails.application.routes.draw do
   resources :players
   resources :user_players, only: [:create, :update,:destroy] 
   devise_for :users, :path_prefix => 'my'
-  resources :users do 
-    collection do 
-      get :register
-    end
-  end
+  resources :users 
   resources :pages do 
 	collection do 
 		get :index

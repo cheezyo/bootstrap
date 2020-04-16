@@ -1,18 +1,29 @@
-
-
 <p id="notice"><%= notice %></p>
-
 <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Users</h1>
             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
           </div>
-          <hr/>
-
  <!-- DataTales Example -->
+        <% i = 0 %>
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary p-2" >
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+       
+              <% @names.each do |n| %>
+              <li class="nav-item <%= n == @name ? "active" : ""%> h6">
+                <%= link_to n, users_path + "?user_type=" + n, :class => "nav-link" %>
+              </li>
+                <% i = i + 1 %>
+              <% end %> 
+            </ul>
+          </div>
+        </nav>
+
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Users</h6>
+              <h6 class="m-0 font-weight-bold text-primary"><%= @name %></h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">

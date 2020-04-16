@@ -9,6 +9,10 @@
           <div class="col-lg-7">
             <div class="p-5">
               <div class="text-center">
+                    
+                    <img class="mb-2" src="https://www.stavangertk.no/wp-content/uploads/2019/03/stavangertennisklubb_logo_liggende.svg" >
+                    </div>
+              <div class="text-center">
                 <h1 class="h3 text-gray-700 mb-4">Create an Account!</h1>
               </div>
 
@@ -21,6 +25,7 @@
 
                  <div class="col-sm-12 mb-4">
                     <%= f.email_field :email, autocomplete: "email", :class => "form-control form-control-user", placeholder: 'Email' %>
+                    <div class="text-center"><p><small>(Will be your username)</small></p></div>
                   </div>
               
                 <% if can? :assign_roles, @user %>
@@ -36,6 +41,7 @@
                 
                   <div class="col-sm-12 mb-3 mb-4">
                      <%= f.password_field :password, autocomplete: "new-password", :class => "form-control form-control-user", placeholder: 'Password' %>
+                     <div class="text-center"><p><small>(At least 6 charaters)</small></p></div>
                 </div>
      
 
@@ -47,9 +53,7 @@
                <%= f.submit "Register Account", class: "btn btn-primary btn-user btn-block mb-4" %>
               <% end %>
               <hr>
-              <div class="text-center">
-                <a class="small" href="forgot-password.html">Forgot Password?</a>
-              </div>
+             
               <div class="text-center">
                 <a class="small" href="login.html">Already have an account? Login!</a>
               </div>

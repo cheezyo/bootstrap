@@ -3,19 +3,12 @@
    
   </div>
 		<% if @user.got_profile? %>
-			<p><%= @user.get_player_profile.age.strftime("%d-%m-%Y")  %> (<%= @user.get_age %> years)</p>
+			
 			<p><small> Coach: <%= @user.got_coach? ? @user.get_coach.name : "No coach" %></small></p>
 			<p> <small> Parent: <%= @user.got_parent? ? @user.get_parent.name : "No parent" %></small></p>
 		<% else %>
 			NO PROFILE
-			<% if current_user.admin? %>  
-				<br/><small>Add profile:</small>               
-				<%= form_for(UserPlayer.new) do |f| %>
-					<%= f.collection_select :player_id, Player.all, :id, :name, :class => "form-control form-control-user" %>
-					<%= f.hidden_field :user_id, :value => @user.id %>
-					<%= f.submit "Save" , :class => "btn btn-success"%>
-		   		<% end %>
-			<% end %>
+			
 		<% end %>	
 			
 		<% if @user.got_profile? && !@user.got_parent? %>
