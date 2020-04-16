@@ -47,4 +47,25 @@ class Player < ApplicationRecord
 		self.users.select{|u| u.coach == true || u.admin == true }.first
 	end
 
+	def get_last_ironman
+		self.tests.order(:asc).last rescue nil
+	end
+
+	def get_training_programs
+		last_ironman = get_last_ironman
+		if !last_ironman.nil? && !last_ironman.program1.nil? && !last_ironman.program2.nil? 
+			arr = Array.new
+			program1 = TrainingProgram.where(prog_number: last_ironman.program1).first
+			program2 = TrainingProgram.where(prog_number: last_ironman.program2).first
+			arr = [program1.prog_name, program1.prog_url, program2.prog_name, program2.prog_url]
+		else
+			arr = ["Empty", "Du har gjennomført ny test program er ikke oppdatert av trener enda.", "Empty", "Ingen test"]
+		end
+
+		
+
+	end
+
+
+
 end

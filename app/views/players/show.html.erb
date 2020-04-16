@@ -1,4 +1,3 @@
- 
  <div class="d-sm-flex align-items-center justify-content-between mb-4">
 	<h1 class="h3 mb-0 text-gray-800"><%= @player.fullname %> <%= @player.age.strftime("%d-%m-%Y")  %> (<%= @player.get_age %> years)
 		<% if @player.got_user? %>
@@ -18,8 +17,8 @@
 	<div class="col-xl-12 col-md-12 mb-4">
 		<ul class="nav nav-tabs">
 		   <li class="nav-item "><a href="#profile" data-toggle="tab" class="nav-link active">Profile</a></li>
-		   <li class="nav-item "><a href="#practice" data-toggle="tab" class="nav-link">Practice</a></li>
 		   <li class="nav-item "><a href="#ironman" data-toggle="tab" class="nav-link">Ironman</a></li>
+		    <li class="nav-item "><a href="#practice" data-toggle="tab" class="nav-link">Fys training</a></li>
 		   <% if current_user.admin? %>
 		   <li class="nav-item "><a href="#settings" data-toggle="tab" class="nav-link">Settings</a></li>
 		   <% end %>
@@ -48,13 +47,55 @@
 				</div>
 			</div>
 			
-			<div class="tab-pane" id="practice">
-				sdfsdfds
-			</div>
+			
 
 			<div class="tab-pane" id="ironman">
 				<%= render 'layouts/ironman/ironman_table', player: @player %>
 			</div>
+			<div class="tab-pane" id="practice">
+				
+				<div class="row">
+					<div class="col-xl-12 col-md-12 mb-4">
+						<ul class="nav nav-tabs">
+						   <li class="nav-item "><a href="#program1" data-toggle="tab" class="nav-link active">Program 1</a></li>
+						   <li class="nav-item "><a href="#program2" data-toggle="tab" class="nav-link">Program 2</a></li>
+						</ul>
+					</div>
+				</div>	
+
+				<div class="row">
+					<div class="col-xl-12 col-md-12 mb-4">
+						<div class="tab-content">
+							<% if !@player.get_last_ironman.nil?  %>
+					  		<div class="tab-pane active" id="program1">
+					  			<%= @player.get_training_programs[0] %>
+					  			<% if  @player.get_training_programs[0] == "Empty" %>
+					  				<h1 class="h4 mb-0 text-gray-800">Du har gjennomført ny test program er ikke oppdatert av trener enda.  </h1><br/>
+					  			<% else %>
+								<iframe src= "<%= @player.get_training_programs[1] %>" width="750"style="border: none;  width:100%; height:750px;"> </iframe>
+								<% end %>
+							</div>
+							<div class="tab-pane" id="program2">
+								<%= @player.get_training_programs[2] %>
+								
+					  			<% if  @player.get_training_programs[2] == "Empty" %>
+					  				<h1 class="h4 mb-0 text-gray-800"><%= @player.get_training_programs[1] %>  </h1><br/>
+					  			<% else %>
+								<iframe src= "<%= @player.get_training_programs[3] %>" width="750"style="border: none;  width:100%; height:750px;"> </iframe>
+								<% end %>
+							</div>
+							<% else %>
+								<div class="tab-pane" id="program1">
+								<h1 class="h4 mb-0 text-gray-800"> </h1><br/>
+					  			
+								<iframe src= "https://app.gomobilus.com/se/open/Mjg3NnxNVEE0TURVPXwxNTJ8LWtaM0MqV0RCaXQ%3D?fbclid=IwAR26rcI1Cj_vPZwq0Xjq9vFXjCYphoQRr56AmQl_V1B_E9gmRVdkfT2AcfU" width="750"style="border: none;  width:100%; height:750px;"> </iframe>
+							</div>
+							<% end %>
+						</div>
+					</div>
+				</div>		
+			</div>
+
 			<% if current_user.admin? %>
 				<div class="tab-pane" id="settings">
 					<div class="col-xl-12 col-md-12 mb-4">	

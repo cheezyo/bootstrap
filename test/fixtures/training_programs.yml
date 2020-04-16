@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  prog_number: 1
+  prog_url: MyString
+  prog_name: MyString
+
+two:
+  prog_number: 1
+  prog_url: MyString
+  prog_name: MyString

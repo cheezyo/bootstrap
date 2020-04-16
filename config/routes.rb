@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :training_programs
   resources :test_groups do 
     collection do
       put :add_player_to_group

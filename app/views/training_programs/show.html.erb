@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Prog number:</strong>
+  <%= @training_program.prog_number %>
+</p>
+
+<p>
+  <strong>Prog url:</strong>
+  <%= @training_program.prog_url %>
+</p>
+
+<p>
+  <strong>Prog name:</strong>
+  <%= @training_program.prog_name %>
+</p>
+
+<%= link_to 'Edit', edit_training_program_path(@training_program) %> |
+<%= link_to 'Back', training_programs_path %>

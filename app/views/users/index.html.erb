@@ -7,26 +7,29 @@
  <!-- DataTales Example -->
         <% i = 0 %>
 
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary p-2" >
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-       
-              <% @names.each do |n| %>
-              <li class="nav-item <%= n == @name ? "active" : ""%> h6">
-                <%= link_to n, users_path + "?user_type=" + n, :class => "nav-link" %>
-              </li>
-                <% i = i + 1 %>
-              <% end %> 
-            </ul>
-          </div>
-        </nav>
+        
 
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary"><%= @name %></h6>
+              <nav class="navbar navbar-expand-lg navbar-light bg-light p-0" >
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                  <ul class="navbar-nav">
+             
+                    <% @names.each do |n| %>
+                    <li class="nav-item <%= n == @name ? "active" : ""%> h6">
+                      <%= link_to n, users_path + "?user_type=" + n, :class => "nav-link" %>
+                    </li>
+                      <% i = i + 1 %>
+                    <% end %> 
+                  </ul>
+                </div>
+              </nav>
             </div>
             <div class="card-body">
-              <div class="table-responsive">
+              <div class="table table-striped table-hover table-sm">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
@@ -43,6 +46,7 @@
                       <th>Name</th>
                       <th>Email</th>
                       <th>Player profile</th>
+             
                       <th>Edit</th>
                       <th>Delete</th>
                  
