@@ -10,11 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_16_210156) do
+ActiveRecord::Schema.define(version: 2020_04_19_205911) do
 
   create_table "coaches", force: :cascade do |t|
     t.string "name"
     t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "levels", force: :cascade do |t|
+    t.string "name"
+    t.string "color"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "next_level"
+    t.integer "prev_level"
+    t.string "url"
+  end
+
+  create_table "player_stickers", force: :cascade do |t|
+    t.integer "player_id"
+    t.integer "sticker_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -26,6 +43,15 @@ ActiveRecord::Schema.define(version: 2020_04_16_210156) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "gender"
     t.string "lastname"
+    t.integer "level_id"
+  end
+
+  create_table "stickers", force: :cascade do |t|
+    t.string "name"
+    t.integer "level_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "trophy"
   end
 
   create_table "test_groups", force: :cascade do |t|

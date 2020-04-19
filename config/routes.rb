@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  resources :stickers
+  resources :levels do 
+  collection do 
+     get :add_sticker
+     get :delete_sticker
+  end
+end
   resources :training_programs
   resources :test_groups do 
     collection do
@@ -13,7 +20,12 @@ Rails.application.routes.draw do
     end
   end
   resources :coaches
-  resources :players
+  resources :players do 
+  collection do 
+    get :add_sticker
+    get :delete_sticker
+  end
+end
   resources :user_players, only: [:create, :update,:destroy] 
   devise_for :users, :path_prefix => 'my'
   resources :users 

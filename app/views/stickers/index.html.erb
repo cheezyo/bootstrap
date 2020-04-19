@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Stickers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Level</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stickers.each do |sticker| %>
+      <tr>
+        <td><%= sticker.name %></td>
+        <td><%= sticker.level_id %></td>
+        <td><%= link_to 'Show', sticker %></td>
+        <td><%= link_to 'Edit', edit_sticker_path(sticker) %></td>
+        <td><%= link_to 'Destroy', sticker, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sticker', new_sticker_path %>

@@ -1,6 +1,6 @@
 class PlayersController < ApplicationController
   load_and_authorize_resource
-  before_action :set_player, only: [:show, :edit, :update, :destroy]
+  before_action :set_player, only: [:show, :edit, :update, :destroy ]
 
   # GET /players
   # GET /players.json
@@ -20,6 +20,31 @@ class PlayersController < ApplicationController
 
   # GET /players/1/edit
   def edit
+  end
+
+  def add_sticker
+    ps = PlayerSticker.new
+    @player = Player.find(params[:player_id])
+    ps.player_id = params[:player_id]
+    ps.sticker_id = params[:sticker_id]
+    ps.save
+    if Sticker.find(params[:sticker_id]).trophy?
+      @player.level_id = @player.level.next_level
+      @player.save
+      
+    end
+    redirect_to @player
+  end
+
+  def delete_sticker
+    @player = Player.find(params[:player_id])
+    ps = PlayerSticker.where(player_id: params[:player_id], sticker_id: params[:sticker_id]).first
+    ps.destroy
+    if Sticker.find(params[:sticker_id]).trophy?
+       @player.level_id = @player.level.prev_level
+       @player.save
+    end
+    redirect_to @player
   end
 
   # POST /players
@@ -70,6 +95,6 @@ class PlayersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def player_params
-      params.require(:player).permit(:name, :age, :user_id)
+      params.require(:player).permit(:name, :age, :user_id, :level_id)
     end
 end

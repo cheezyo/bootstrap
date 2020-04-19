@@ -17,9 +17,10 @@
 	<div class="col-xl-12 col-md-12 mb-4">
 		<ul class="nav nav-tabs">
 		   <li class="nav-item "><a href="#profile" data-toggle="tab" class="nav-link active">Profile</a></li>
+		   <li class="nav-item "><a href="#levels" data-toggle="tab" class="nav-link">Level archive</a></li>
 		   <li class="nav-item "><a href="#ironman" data-toggle="tab" class="nav-link">Ironman</a></li>
 		    <li class="nav-item "><a href="#practice" data-toggle="tab" class="nav-link">Fys training</a></li>
-		   <% if current_user.admin? %>
+		   <% if current_user.admin? || current_user.coach? %>
 		   <li class="nav-item "><a href="#settings" data-toggle="tab" class="nav-link">Settings</a></li>
 		   <% end %>
 		</ul>
@@ -44,10 +45,60 @@
 				  	<% else %>
 				  		<p>NO COACH</p>
 				  	<% end %>	
+
+				  	<% if @player.got_level? %>
+				  		<% stickers = @player.stickers.pluck(:id) %>
+				  		<%= link_to @player.level do %>
+				  		<h3 class="h4 mb-2 text-gray-800"><%= @player.level.name %></h3>
+				  			<% if @player.level.got_stickers? %>
+				  				<h3 class="h5 mb-2 text-gray-800">Stickers:</h3>
+				  			<% end %>
+				  		<% end %>
+				  		<% @player.level.stickers.each do |s| %>
+				  		<p><%= s.name %>
+				  		
+					  		<% if s.id.in?(stickers)%>
+					  			- <%= @player.player_stickers.where(sticker_id: s.id).first.created_at.strftime("%d-%m-%Y") %> 
+					  			<%= link_to delete_sticker_players_path + "?player_id=" + @player.id.to_s + "&sticker_id=" + s.id.to_s do%>
+					  				<i class="fas fa-minus-square"></i>
+					  			<% end %>
+					  		<% else %>
+					  		<%= link_to add_sticker_players_path + "?player_id=" + @player.id.to_s + "&sticker_id=" + s.id.to_s do %>
+					  			<i class="fas fa-plus-square"></i>
+					  		<% end %>
+				  		<% end %>
+				  		 </p>
+				  		
+				  	<% end %>
+				  	
+
+
+				  	<% else %>
+				  		<p>NO LEVEL</p>
+				  	<% end %>
+
+
+
 				</div>
 			</div>
 			
-			
+			<div class="tab-pane" id="levels">
+				<div class="col-xl-12 col-md-12 mb-4">
+
+				  		<% stickers = @player.stickers.pluck(:id) %>
+				  	
+				  		<% @player.stickers.each do |s| %>
+				  		<p><%= link_to s.name, s.level %> - <%= @player.player_stickers.where(sticker_id: s.id).first.created_at.strftime("%d-%m-%Y") %>
+				  			<%= link_to delete_sticker_players_path + "?player_id=" + @player.id.to_s + "&sticker_id=" + s.id.to_s do%>
+					  				<i class="fas fa-minus-square"></i>
+					  			<% end %>
+				  		<% end %>
+				  		 </p>
+				  		
+				 
+
+				</div>
+			</div>
 
 			<div class="tab-pane" id="ironman">
 				<%= render 'layouts/ironman/ironman_table', player: @player %>
@@ -96,9 +147,10 @@
 				</div>		
 			</div>
 
-			<% if current_user.admin? %>
+			<% if current_user.coach? || current_user.admin? %>
 				<div class="tab-pane" id="settings">
 					<div class="col-xl-12 col-md-12 mb-4">	
+					<% if current_user.admin? %>
 						<% if !@player.got_user? %>  
 							<br/><small>Add profile:</small>               
 							<%= form_for UserPlayer.new do |f| %>
@@ -127,6 +179,15 @@
 							<% end %>
 						
 						<% end %>
+
+					<% end %>
+					
+						<%= form_for @player do |f| %>
+								<%= f.collection_select :level_id, Level.all, :id, :name, :class => "form-control form-control-user" %>
+								
+								<%= f.submit "Add level" , :class => "btn btn-success"%>
+							<% end %>
+				
 					</div>
 				</div>
 			<% end %>

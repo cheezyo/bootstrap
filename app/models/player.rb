@@ -1,7 +1,10 @@
 class Player < ApplicationRecord
+	belongs_to :level
 	has_many :user_players
 	has_many :users, through: :user_players
 	has_many :tests, :dependent => :delete_all
+	has_many :player_stickers
+	has_many :stickers, through: :player_stickers, :dependent => :delete_all
 	def parent
 		user_ids = UserPlayer.where(player_id: self.id).pluck(:user_id)
 		parent = User.find(user_ids).select{|u| u.parent == true }
@@ -47,9 +50,13 @@ class Player < ApplicationRecord
 		self.users.select{|u| u.coach == true || u.admin == true }.first
 	end
 
+	def got_level? 
+		!self.level_id.blank? 
+	end
 	def get_last_ironman
 		self.tests.order(:asc).last rescue nil
 	end
+
 
 	def get_training_programs
 		last_ironman = get_last_ironman

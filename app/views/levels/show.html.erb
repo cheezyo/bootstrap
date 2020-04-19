@@ -1,0 +1,80 @@
+<p id="notice"><%= notice %></p>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+	<h1 class="h3 mb-0 text-gray-800">
+		<%= link_to Level.find(@level.prev_level) do %>  <i class="fas fa-arrow-circle-left"></i><% end %>
+		<%= @level.name %>
+		<%= link_to Level.find(@level.next_level) do %>  <i class="fas fa-arrow-circle-right"></i><% end %>
+ 	</h1>
+ </div>
+ <hr/>
+
+<div id="accordion">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Diploma
+        </button>
+      </h5>
+    </div>
+
+    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+           <img src="<%= @level.url %>">
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Players
+        </button>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+    	
+    	
+   <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <% @level.stickers.each do |s| %>
+      <th><%= s.name %></th>
+      <% end %>
+ 
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @level.players.each do |p| %>
+      <tr>
+        <td><%= link_to p.fullname, p  %></td>
+        <% @level.stickers.each do |s| %>
+        <td style="text-align: center;"><% if s.id.in? (p.stickers.pluck(:id)) %> 
+        		<%= PlayerSticker.where(player_id: p.id, sticker_id: s.id).first.created_at.strftime("%d-%d-%Y") %>
+        		<%= link_to delete_sticker_levels_path + "?player_id=" + p.id.to_s + "&sticker_id=" + s.id.to_s + "&id=" + @level.id.to_s do %>
+					  			<i class="fas fa-minus-square"></i>
+				<% end %>
+    		<% else %>
+    			<%= link_to add_sticker_levels_path + "?player_id=" + p.id.to_s + "&sticker_id=" + s.id.to_s + "&id=" + @level.id.to_s do %>
+					  			<i class="fas fa-plus-square fa-3x" style="color:<%= @level.color %>;"></i> 
+				<% end %>
+        	<% end %>
+    	</td>
+        <% end %>
+
+        
+      
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+    
+      </div>
+    </div>
+  </div>
+  
+</div>
