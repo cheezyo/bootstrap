@@ -1,4 +1,5 @@
 class TestGroupsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_test_group, only: [:show, :edit, :update, :destroy, :add_player_to_group]
 
   # GET /test_groups

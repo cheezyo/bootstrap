@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @task_category.category %>
+</p>
+
+<%= link_to 'Edit', edit_task_category_path(@task_category) %> |
+<%= link_to 'Back', task_categories_path %>

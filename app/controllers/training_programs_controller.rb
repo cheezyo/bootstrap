@@ -1,4 +1,5 @@
 class TrainingProgramsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_training_program, only: [:show, :edit, :update, :destroy]
 
   # GET /training_programs

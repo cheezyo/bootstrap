@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resources :task_categories
+  resources :tasks do 
+    collection do
+      get :add_progress
+    end
+  end
   resources :stickers
   resources :levels do 
   collection do 

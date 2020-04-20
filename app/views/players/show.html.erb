@@ -19,6 +19,7 @@
 		   <li class="nav-item "><a href="#profile" data-toggle="tab" class="nav-link active">Profile</a></li>
 		   <li class="nav-item "><a href="#levels" data-toggle="tab" class="nav-link">Level archive</a></li>
 		   <li class="nav-item "><a href="#ironman" data-toggle="tab" class="nav-link">Ironman</a></li>
+		   <li class="nav-item "><a href="#tasks" data-toggle="tab" class="nav-link">Tasks</a></li>
 		    <li class="nav-item "><a href="#practice" data-toggle="tab" class="nav-link">Fys training</a></li>
 		   <% if current_user.admin? || current_user.coach? %>
 		   <li class="nav-item "><a href="#settings" data-toggle="tab" class="nav-link">Settings</a></li>
@@ -49,22 +50,28 @@
 				  	<% if @player.got_level? %>
 				  		<% stickers = @player.stickers.pluck(:id) %>
 				  		<%= link_to @player.level do %>
-				  		<h3 class="h4 mb-2 text-gray-800"><%= @player.level.name %></h3>
-				  			<% if @player.level.got_stickers? %>
-				  				<h3 class="h5 mb-2 text-gray-800">Stickers:</h3>
-				  			<% end %>
+				  			<h3 class="h4 mb-2 text-gray-800"><%= @player.level.name %></h3>
 				  		<% end %>
+			  			<% if @player.level.got_stickers? %>
+			  				<h3 class="h5 mb-2 text-gray-800">Stickers:</h3>
+			  			<% end %>
+				  		
 				  		<% @player.level.stickers.each do |s| %>
-				  		<p><%= s.name %>
+				  		<p><%= s.name %> 
+
 				  		
 					  		<% if s.id.in?(stickers)%>
 					  			- <%= @player.player_stickers.where(sticker_id: s.id).first.created_at.strftime("%d-%m-%Y") %> 
-					  			<%= link_to delete_sticker_players_path + "?player_id=" + @player.id.to_s + "&sticker_id=" + s.id.to_s do%>
+					  			<% if can? :edit, Level %>
+					  				<%= link_to delete_sticker_players_path + "?player_id=" + @player.id.to_s + "&sticker_id=" + s.id.to_s do%>
 					  				<i class="fas fa-minus-square"></i>
 					  			<% end %>
+					  			<% end %>
 					  		<% else %>
-					  		<%= link_to add_sticker_players_path + "?player_id=" + @player.id.to_s + "&sticker_id=" + s.id.to_s do %>
-					  			<i class="fas fa-plus-square"></i>
+					  		<% if can? :edit, Level %>
+						  		<%= link_to add_sticker_players_path + "?player_id=" + @player.id.to_s + "&sticker_id=" + s.id.to_s do %>
+						  			<i class="fas fa-plus-square"></i>
+						  		<% end %>
 					  		<% end %>
 				  		<% end %>
 				  		 </p>
@@ -89,9 +96,14 @@
 				  	
 				  		<% @player.stickers.each do |s| %>
 				  		<p><%= link_to s.name, s.level %> - <%= @player.player_stickers.where(sticker_id: s.id).first.created_at.strftime("%d-%m-%Y") %>
-				  			<%= link_to delete_sticker_players_path + "?player_id=" + @player.id.to_s + "&sticker_id=" + s.id.to_s do%>
+				  			<% if s.trophy? %>
+				  			<i class="fas fa-trophy"></i>
+				  			<% end %>
+				  			<% if can? :edit, Level %>
+				  				<%= link_to delete_sticker_players_path + "?player_id=" + @player.id.to_s + "&sticker_id=" + s.id.to_s do%>
 					  				<i class="fas fa-minus-square"></i>
-					  			<% end %>
+				  				<% end %>
+					  		<% end %>
 				  		<% end %>
 				  		 </p>
 				  		
@@ -102,6 +114,51 @@
 
 			<div class="tab-pane" id="ironman">
 				<%= render 'layouts/ironman/ironman_table', player: @player %>
+			</div>
+
+			<div class="tab-pane" id="tasks">
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<th>Category</th>
+						<th>Task</th>
+						<th>Progress</th>
+						<% if can? :edit, Task %>
+						<th></th>
+						<% end %>
+					</thead>
+					<tbody>
+						<% @player.tasks.each do |t| %>
+						<tr>
+							<td><%= t.task_category.category %></td>
+							<td><%= t.created_at.strftime("%d-%m-%Y") + ": " + t.task %></td>
+							
+							<td>
+								
+								<div class="progress">
+									 
+							  		<div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: <%= t.progress %>%;" aria-valuenow="<%= t.progress %>" aria-valuemin="0" aria-valuemax="100">
+							  			<%= t.progress %>%
+							  		</div>
+						 		</div>
+						 		<%= t.done? ? "Done: " + t.done_date.strftime("%d-%m-%Y") : "" %>
+						 		
+						 	</td>
+					 		<% if can? :edit, Task %>
+						 		<td>
+						 			<%= link_to "Edit", edit_task_path(t) %>  
+						 			<% if t.done? %>
+						 			<% else%>
+							 			| <%= link_to add_progress_tasks_path + "?progress=5" + "&id=" + t.id.to_s do %> 
+							 			<i class="fas fa-plus-square"></i> 5%
+						 				<% end %>
+					 				<% end %>
+					 			</td>
+					 		<% end %>
+						 	</tr>	
+						<% end %>
+					</tbody>
+				</table>
+				<%= link_to "Add task", new_task_path + "?player_id=" + @player.id.to_s, :class => "btn btn-primary" %>
 			</div>
 			<div class="tab-pane" id="practice">
 				

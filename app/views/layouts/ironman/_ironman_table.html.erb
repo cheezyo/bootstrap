@@ -15,9 +15,10 @@
 		      <th>Back stretch</th>
 		      <th>Beep</th>
 		      <th>Test score</th>  
+		      <% if can? :edit, Test %>
 		      <th>Edit test</th> 
 		      <th> Delete test </th>
-		     
+		     <% end %>
 		    </tr>
 		  </thead>
 
@@ -32,7 +33,14 @@
 		  	<% end %>
 		  	<% counter = 1 %> 
 		  	<tr>
-		  		<td><%= link_to t.test_group.date, tests_path + "?group=" + t.test_group.id.to_s %></td>
+		  		<td>
+		  			<% if can? :edit, Test %>
+		  				<%= link_to t.test_group.date, tests_path + "?group=" + t.test_group.id.to_s %>
+		  			<% else %>
+		  				<%= t.test_group.date %>
+		  			<% end %>
+		  				
+		  		</td>
 		  		<% if counter == program1 || counter == program2 %>
 		  			<td style="background:yellow;">
 		  		<% else %>
@@ -119,9 +127,10 @@
 		  		<% counter += 1 %>
 		  		<%= t.beep %></td>
 		  		<td><%= t.test_score %></td>
+		  		 <% if can? :edit, Test %>
 		  		<td><%= link_to "Edit", edit_test_path(t) %></td>
 		  		<td><%= link_to 'Destroy', t, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-		  		
+		  		<% end %>
 		  	</tr>
 		  	<% end %>
 

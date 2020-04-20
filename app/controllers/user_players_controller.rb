@@ -1,5 +1,5 @@
 class UserPlayersController < ApplicationController
-
+load_and_authorize_resource
 
 def create
     @user_player = UserPlayer.new(user_player_params)

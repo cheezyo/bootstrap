@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_19_205911) do
+ActiveRecord::Schema.define(version: 2020_04_20_204924) do
 
   create_table "coaches", force: :cascade do |t|
     t.string "name"
@@ -52,6 +52,23 @@ ActiveRecord::Schema.define(version: 2020_04_19_205911) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "trophy"
+  end
+
+  create_table "task_categories", force: :cascade do |t|
+    t.string "category"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string "task"
+    t.integer "task_category_id"
+    t.integer "player_id"
+    t.boolean "done"
+    t.date "done_date"
+    t.integer "progress"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "test_groups", force: :cascade do |t|

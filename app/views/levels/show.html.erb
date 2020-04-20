@@ -17,13 +17,16 @@
         </button>
       </h5>
     </div>
-
-    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+    <% if can? :edit, Level %>
+      <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+     <% end %>
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
       <div class="card-body">
            <img src="<%= @level.url %>">
       </div>
     </div>
   </div>
+  <% if can? :edit, Level %>
   <div class="card">
     <div class="card-header" id="headingTwo">
       <h5 class="mb-0">
@@ -76,5 +79,5 @@
       </div>
     </div>
   </div>
-  
+  <% end %>
 </div>
