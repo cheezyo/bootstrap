@@ -119,9 +119,27 @@
       </li>
       <!-- Nav Item - Utilities Collapse Menu -->
       
-
+       <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseIronman" aria-expanded="true" aria-controls="collapseIronman">
+         <i class="fas fa-dumbbell mr-2"></i>
+          <span>Ironman</span>
+        </a>
+        <div id="collapseIronman" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+           <!-- <h6 class="collapse-header">Edit companies :</h6>-->
+           
+           <%= link_to all_tests_tests_path, :class => "collapse-item" do %>
+           <span>
+            <i class="fas fa-dumbbell mr-2"></i>
+           All tests
+         </span>
+           
+           <% end %>
+          </div>
+        </div>
+      </li>
       
-
+     
        
 
       <!-- Divider -->

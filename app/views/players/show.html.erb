@@ -41,7 +41,7 @@
 				  	<p>Parent: <%=  @player.got_parent? ? @player.parent.name : "NO PARENT" %></p>
 				  	<p>Coach: <%= @player.got_coach? ? @player.coach.name : "NO COACH" %></p>				 
 				  	<p>Planet: 
-				  		<% if @player.planet.title.present? %>
+				  		<% if @player.planet.present? %>
 				  		<%= link_to @player.planet.title, @player.planet %>
 				  		<% else %>
 				  		NO PLANET
