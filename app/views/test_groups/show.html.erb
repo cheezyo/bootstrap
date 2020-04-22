@@ -1,10 +1,10 @@
-<p id="notice"><%= notice %></p>
+<p id="notice" class="bg-success"><%= notice %></p>
 <h1 class="h3 mb-0 text-gray-800"><%= @test_group.title %> <small><%= @test_group.date.strftime("%d-%m-%Y") %> | <%= link_to 'Edit', edit_test_group_path(@test_group) %></small></h1>
 <%= link_to "Start test", tests_path + "?group=" + @test_group.id.to_s, :class => "btn btn-success btn-lg mt-4" %>
   <p class="mt-2 text-gray-800"><b>Players:</b>
   <% if @test_group.tests.count > 0 %>
     <% @test_group.tests.each do |t| %>
-       <%= link_to t.player.name, t %>,
+       <%= link_to t.player.name, t %><%= link_to test_path(t) + "?group_id=" +@test_group.id.to_s, method: :delete, data: { confirm: 'Are you sure you want to remove ' + t.player.name + ' from test?' } do %> <i class="fas fa-2x fa-minus-square ml-1"></i><% end %>,
     <% end %>
 <% end %>
   </p>

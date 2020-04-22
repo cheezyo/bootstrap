@@ -91,9 +91,10 @@ class TestsController < ApplicationController
   # DELETE /tests/1.json
   def destroy
     @test.destroy
-    respond_to do |format|
-      format.html { redirect_to tests_url, notice: 'Test was successfully destroyed.' }
-      format.json { head :no_content }
+    if params[:group_id].present? 
+        redirect_to TestGroup.find(params[:group_id].to_i), notice: 'Test group was successfully destroyed.'
+    else
+     redirect_to tests_url, notice: 'Test was successfully destroyed.'
     end
   end
 
