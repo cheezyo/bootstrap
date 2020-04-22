@@ -1,4 +1,5 @@
-<%= bootstrap_form_for(@test_group) do |form| %>
+<hr/>
+<%= form_for(@test_group) do |form| %>
   <% if test_group.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(test_group.errors.count, "error") %> prohibited this test_group from being saved:</h2>
@@ -11,8 +12,12 @@
     </div>
   <% end %>
 <div class="col-xl-4 col-md-8 col-sm-12 mb-4">
-    <%= form.text_field :title %>
-    <%= form.date_select :date %>
-    <%= form.primary %>
-
+    <div class="form-group">
+    <h1 class="h5 mb-0 text-gray-500 mb-2">Group name</h1>
+    <%= form.text_field :title, :class => "form-control mb-3" %>
+    <h1 class="h5 mb-0 text-gray-500 mb-2">Date</h1>
+    <%= form.date_select :date, :class => "form-control mb-3" %>
+    <br/>
+    <%= form.submit "Create group", :class => "btn btn-primary mt-4" %>
+</div>
 <% end %>

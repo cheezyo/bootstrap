@@ -10,6 +10,7 @@ class TestsController < ApplicationController
     else
       @tests = Test.where(:test_group_id => params[:group]) 
       @group_id = params[:group].to_i
+      @group = TestGroup.find(params[:group].to_i)
     end
    
   end

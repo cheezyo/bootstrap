@@ -1,51 +1,33 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @test_group.title %>
-</p>
-<%= link_to 'Edit', edit_test_group_path(@test_group) %> |
-<%= link_to 'Back', test_groups_path %>
-
-<% if @test_group.tests.count > 0 %>
-	<% @test_group.tests.each do |t| %>
-		<p> <%= link_to t.player.name, t %></p>
-	<% end %>
-
-
+<h1 class="h3 mb-0 text-gray-800"><%= @test_group.title %> <small><%= @test_group.date.strftime("%d-%m-%Y") %> | <%= link_to 'Edit', edit_test_group_path(@test_group) %></small></h1>
+<%= link_to "Start test", tests_path + "?group=" + @test_group.id.to_s, :class => "btn btn-success btn-lg mt-4" %>
+  <p class="mt-2 text-gray-800"><b>Players:</b>
+  <% if @test_group.tests.count > 0 %>
+    <% @test_group.tests.each do |t| %>
+       <%= link_to t.player.name, t %>,
+    <% end %>
 <% end %>
-<%= link_to "Start test", tests_path + "?group=" + @test_group.id.to_s, :class => "btn btn-warning" %>
+  </p>
+<hr/>
 
 <%= form_tag add_player_to_group_test_groups_path, method: :put do %>
-<table class="table table-striped" id="lesson-player">
+<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
   <thead>
     <tr>
       	<th></th>
-      	<th>Name</th>
-        <th>Lastname</th>
-	    <th>Age</th>
-      <th>Gender</th>
-	    
+      	<th>Name</th>	    
     </tr>
   </thead>
   <tbody>
-  
     <%Player.all.each do |p|%>
-    
       <tr>
         <td><%= check_box_tag "player_ids[]", p.id%></td>
-        <td><%= p.name %></td>
-        <td><%= p.lastname %></td>
-         <td><%= p.age %></td>
-         <td><%= p.gender %></td>
-        
+        <td><%= p.fullname %> (<%= p.get_age %>) <%= p.gender.present? ? p.gender[0].chr : "NaN" %> </td>
        </tr>
 	<% end %>
         </tbody>
         </table>
-
-
 <div class="row-fluid">
-	 <%= hidden_field_tag "id", @test_group.id %>
-	<%= submit_tag "Add Checked", :class => "btn" %>
+  <%= hidden_field_tag "id", @test_group.id %>
+	<%= submit_tag "Add Players", :class => "btn btn-primary" %>
 	<% end %>
