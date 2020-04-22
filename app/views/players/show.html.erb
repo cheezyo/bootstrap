@@ -12,22 +12,24 @@
 	
 </div>
 
-
+<div class="card shadow mb-4">
+ <div class="card-header py-1">
 <div class="row">
-	<div class="col-xl-12 col-md-12 mb-4">
+	<div class="col-xl-12 col-md-12 mb-4 ">
 		<ul class="nav nav-tabs">
-		   <li class="nav-item "><a href="#profile" data-toggle="tab" class="nav-link active">Profile</a></li>
-		   <li class="nav-item "><a href="#levels" data-toggle="tab" class="nav-link">Level archive</a></li>
-		   <li class="nav-item "><a href="#ironman" data-toggle="tab" class="nav-link">Ironman</a></li>
-		   <li class="nav-item "><a href="#tasks" data-toggle="tab" class="nav-link">Tasks</a></li>
-		    <li class="nav-item "><a href="#practice" data-toggle="tab" class="nav-link">Fys training</a></li>
+		   <li class="nav-item "><a href="#profile" data-toggle="tab" class="nav-link text-secondary active">Profile</a></li>
+		   <li class="nav-item "><a href="#levels" data-toggle="tab" class="nav-link text-secondary">Level archive</a></li>
+		   <li class="nav-item "><a href="#ironman" data-toggle="tab" class="nav-link text-secondary">Ironman</a></li>
+		   <li class="nav-item "><a href="#tasks" data-toggle="tab" class="nav-link text-secondary">Tasks</a></li>
+		    <li class="nav-item "><a href="#practice" data-toggle="tab" class="nav-link text-secondary">Fys training</a></li>
 		   <% if current_user.admin? || current_user.coach? %>
-		   <li class="nav-item "><a href="#settings" data-toggle="tab" class="nav-link">Settings</a></li>
+		   <li class="nav-item "><a href="#settings" data-toggle="tab" class="nav-link text-secondary">Settings</a></li>
 		   <% end %>
 		</ul>
 	</div>	
 </div>
-
+</div>
+<div class="card-body">
 <div class="row">
 	<div class="col-xl-12 col-md-12 mb-4">
 		<div class="tab-content">
@@ -35,17 +37,18 @@
 			
 			  <div class="tab-pane active" id="profile">
 				<div class="col-xl-12 col-md-12 mb-4">
-				  	<% if @player.got_parent? %>
-				  	<p>Parent: <%= @player.parent.name %></p>
-				  	<% else %>
-				  	<p>NO PARENT</p>
-				  	<% end %>
+				
+				  	<p>Parent: <%=  @player.got_parent? ? @player.parent.name : "NO PARENT" %></p>
+				  	<p>Coach: <%= @player.got_coach? ? @player.coach.name : "NO COACH" %></p>				 
+				  	<p>Planet: 
+				  		<% if @player.planet.title.present? %>
+				  		<%= link_to @player.planet.title, @player.planet %>
+				  		<% else %>
+				  		NO PLANET
+				  		<% end %>
 				  		
-				  	<% if @player.got_coach? %>
-				  		<p>Coach: <%= @player.coach.name %></p>
-				  	<% else %>
-				  		<p>NO COACH</p>
-				  	<% end %>	
+				  	</p>
+				  	
 
 				  	<% if @player.got_level? %>
 				  		<% stickers = @player.stickers.pluck(:id) %>
@@ -238,13 +241,18 @@
 						<% end %>
 
 					<% end %>
-					
+						<h3>Level</h3>
 						<%= form_for @player do |f| %>
 								<%= f.collection_select :level_id, Level.all, :id, :name, :class => "form-control form-control-user" %>
 								
 								<%= f.submit "Add level" , :class => "btn btn-success"%>
 							<% end %>
-				
+						<h3>Planet</h3>
+						<%= form_for @player do |f| %>
+								<%= f.collection_select :planet_id, Planet.all, :id, :title, :class => "form-control form-control-user" %>
+								
+								<%= f.submit "Add planet" , :class => "btn btn-success"%>
+							<% end %>
 					</div>
 				</div>
 			<% end %>
@@ -252,4 +260,5 @@
 		</div>
 	</div>
 </div>
-
+</div>
+</div>

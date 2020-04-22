@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :planets
   resources :task_categories
   resources :tasks do 
     collection do

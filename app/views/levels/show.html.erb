@@ -53,7 +53,7 @@
   <tbody>
     <% @level.players.each do |p| %>
       <tr>
-        <td><%= link_to p.fullname, p  %></td>
+        <td><%= link_to p.fullname, p  %>(<%= p.get_age %>)</td>
         <% @level.stickers.each do |s| %>
         <td style="text-align: center;"><% if s.id.in? (p.stickers.pluck(:id)) %> 
         		<%= PlayerSticker.where(player_id: p.id, sticker_id: s.id).first.created_at.strftime("%d-%d-%Y") %>

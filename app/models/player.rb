@@ -1,5 +1,6 @@
 class Player < ApplicationRecord
 	belongs_to :level
+	belongs_to :planet
 	has_many :tasks
 	has_many :user_players
 	has_many :users, through: :user_players

@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Planets</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Age</th>
+      <th>Color</th>
+      <th>Planet coach</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @planets.each do |planet| %>
+      <tr>
+        <td><%= planet.title %></td>
+        <td><%= planet.age %></td>
+        <td><%= planet.color %></td>
+        <td><%= planet.planet_coach_id %></td>
+        <td><%= link_to 'Show', planet %></td>
+        <td><%= link_to 'Edit', edit_planet_path(planet) %></td>
+        <td><%= link_to 'Destroy', planet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Planet', new_planet_path %>

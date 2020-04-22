@@ -17,11 +17,11 @@
 
   <body>
   <div id="wrapper">
-<div id="modal-holder"></div>
+  <div id="modal-holder"></div>
 
-
-   
-
+  <% if current_user.admin? || current_user.coach? %>
+    <%= render 'layouts/partials/side_bar' %>
+  <% end %>
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
 

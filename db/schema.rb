@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_20_204924) do
+ActiveRecord::Schema.define(version: 2020_04_21_194123) do
 
   create_table "coaches", force: :cascade do |t|
     t.string "name"
@@ -29,6 +29,22 @@ ActiveRecord::Schema.define(version: 2020_04_20_204924) do
     t.string "url"
   end
 
+  create_table "planet_coaches", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "planet_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "planets", force: :cascade do |t|
+    t.string "title"
+    t.string "age"
+    t.string "color"
+    t.integer "planet_coach_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "player_stickers", force: :cascade do |t|
     t.integer "player_id"
     t.integer "sticker_id"
@@ -44,6 +60,7 @@ ActiveRecord::Schema.define(version: 2020_04_20_204924) do
     t.string "gender"
     t.string "lastname"
     t.integer "level_id"
+    t.integer "planet_id"
   end
 
   create_table "stickers", force: :cascade do |t|

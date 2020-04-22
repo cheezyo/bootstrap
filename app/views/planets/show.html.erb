@@ -1,0 +1,60 @@
+<p id="notice"><%= notice %></p>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+	<h1 class="h3 mb-0 text-gray-800"><i class="fas fa-baseball-ball" style="color:<%= @planet.color %>"></i> <%= @planet.title %> - <%= @planet.age %> <small>| <%= link_to 'Edit', edit_planet_path(@planet) %></small>
+ 	</h1>
+ </div>
+ <hr/>
+
+
+
+
+
+<div class="row">
+	<div class="col-xl-12 col-md-12 mb-4">
+		<ul class="nav nav-tabs">
+		   <li class="nav-item "><a href="#players" data-toggle="tab" class="nav-link active">Players</a></li>
+		   <li class="nav-item "><a href="#settings" data-toggle="tab" class="nav-link">Settings</a></li>
+		
+		</ul>
+	</div>	
+</div>
+
+<div class="row">
+	<div class="col-xl-12 col-md-12 mb-4">
+		<div class="tab-content">
+
+			
+		  	<div class="tab-pane active" id="players">
+				<div class="col-xl-12 col-md-12 mb-4">
+					 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+						  <thead>
+						    <tr>
+						      <th>Name</th>
+						      <th>Level</th>
+						    </tr>
+						  </thead>
+
+						  <tbody>
+						    <% @planet.players.each do |p| %>
+						      <tr>
+						        <td><%= link_to p.fullname, p  %> (<%= p.get_age %>)</td>
+						        <td><%= link_to p.level.stickers.last.name, p.level %></td>
+						        
+						      
+						      </tr>
+						    <% end %>
+						  </tbody>
+						</table>
+				</div>
+			</div>
+
+			<div class="tab-pane" id="settings">
+				<div class="col-xl-12 col-md-12 mb-4">
+
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+</div>
