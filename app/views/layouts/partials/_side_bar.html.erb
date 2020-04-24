@@ -1,5 +1,6 @@
 
-<ul class="navbar-nav bg-gradient-light sidebar sidebar-light accordion" id="accordionSidebar">
+
+<ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion shadow-sm" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
      
@@ -126,16 +127,20 @@
         </a>
         <div id="collapseIronman" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-           <!-- <h6 class="collapse-header">Edit companies :</h6>-->
-           
            <%= link_to all_tests_tests_path, :class => "collapse-item" do %>
-           <span>
-            <i class="fas fa-dumbbell mr-2"></i>
-           All tests
-         </span>
-           
+            <span>
+              <i class="fas fa-dumbbell mr-2"></i>
+              All tests
+            </span>
+           <% end %>
+           <%= link_to toplist_tests_path, :class => "collapse-item" do %>
+            <span>
+              <i class="fas fa-trophy mr-2"></i>
+              Toplists
+            </span>
            <% end %>
           </div>
+          
         </div>
       </li>
       
@@ -150,3 +155,4 @@
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
       </div>
     </ul>
+

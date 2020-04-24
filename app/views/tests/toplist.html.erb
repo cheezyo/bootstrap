@@ -1,0 +1,118 @@
+<style type="text/css">
+	.pagebreak { page-break-before: always; }
+</style>
+
+
+<% test_types = [@junior_female, @junior_male, @senior_female, @senior_male] %>
+<% test_types_norsk = ["Jenter", "Gutter", "Damer", "Herrer"] %>
+
+<% exercises = [:sprint, :spider] %>
+<% norsk = ["20 meter sprint", "Spider test"] %>
+<% counter = 0 %>
+<% exercises.each do |e| %>
+
+	
+		<h1 class="h2 mb-3 mt-3 text-gray-800"> <%= norsk[counter] %> </h1>
+		<% counter2 = 0 %>
+		<% test_types.each do |tt| %>
+		<% if counter2 == 2 || counter2 == 0 %>
+		<div class="row">
+		<% end %>
+			<div class="col-md-12 col-lg-6">
+				<h1 class="h3 mb-0 text-gray-800"><%= test_types_norsk[counter2]  %></h1>
+				<%= render :partial => 'tests/partials/table_start' %>
+
+				<% if test_types[counter2].count >= 5 %>
+				<% ex = tt.pluck(e, :player_id, :id).sort{ |a,b| a <=> b} %>
+				<% (0..4).each do |i| %>
+
+					<% t = Test.find(ex[i][2]) %>	
+					  	<% if i == 0 %>
+					  	<tr style="background-color: 	#FFD700;">
+					  	<% elsif i == 1 %>
+					  	<tr style="background-color: #C0C0C0;">
+					  	<% elsif i == 2 %>
+					  	<tr style="background-color: #cd7f32;">
+					  	<% else %>
+					  	<tr>
+					  	<% end %>
+					    <td><%= Player.find(ex[i][1]).fullname %></td>
+					    <td><%= t.age %></td>
+					    <td><%= t.test_group.date %></td>
+					    <td><%= ex[i][0] %></td>
+						</tr>
+				<% end %>
+			<% else %>
+				<%= render :partial => 'tests/partials/empty_rows' %>
+			<% end %><!--END IF -->
+	  </tbody>
+	</table>
+</div>
+<% if counter2 == 3 || counter2 == 1%>
+	</div>
+<% end %>
+<% counter2 = counter2 + 1 %>
+<% end %><!--END test_types -->
+
+
+<% counter = counter + 1 %>
+<div class="pagebreak"> </div>
+<% end %><!--END exercises -->
+
+
+
+<% exercises = [:jump, :fh_throw, :bh_throw, :box, :chins, :situps, :pushups, :front_stretch, :back_stretch, :beep, :test_score] %>
+<% norsk = ["Stille lengde", "Forehand 2 kg kast", "Backhand 2 kg kast", "90 sek kassehopp", "Chins", "Brutalbenk", "Push-ups", "Front stretch", "Back stretch", "Beep test", "Sammenlagt"] %>
+<% counter = 0 %>
+<% exercises.each do |e| %>
+
+	
+		<h1 class="h2 mb-3 mt-3 text-gray-800"> <%= norsk[counter] %> </h1>
+		<% counter2 = 0 %>
+		<% test_types.each do |tt| %>
+			<% if counter2 == 2 || counter2 == 0 %>
+			<div class="row">
+				<% end %>
+				<div class="col-md-12 col-lg-6">
+					<h1 class="h3 mb-0 text-gray-800"><%= test_types_norsk[counter2]  %></h1>
+					<%= render :partial => 'tests/partials/table_start' %>
+
+					<% if test_types[counter2].count >= 5 %>
+						<% ex = tt.pluck(e, :player_id, :id).sort{ |a,b| b <=> a} %>
+						
+						<% (0..4).each do |i| %>
+
+							<% t = Test.find(ex[i][2]) %>	
+							  	<% if i == 0 %>
+							  	<tr class="warning">
+							  	<% elsif i == 1 %>
+							  	<tr class="secondary">
+							  	<% elsif i == 2 %>
+							  	<tr class="primary">
+							  	<% else %>
+							  	<tr>
+							  	<% end %>
+								    <td><%= Player.find(ex[i][1]).fullname %></td>
+								    <td><%= t.age %></td>
+								    <td><%= t.test_group.date %></td>
+								    <td><%= ex[i][0] %></td>
+								</tr>
+						<% end %>
+					<% else %>
+						<%= render :partial => 'tests/partials/empty_rows' %>
+					<% end %><!--END IF -->
+						  </tbody>
+						</table>
+				</div>
+
+			<% if counter2 == 3 || counter2 == 1%>
+			</div>
+			<% end %>
+
+			<% counter2 = counter2 + 1 %>
+		<% end %><!--END test_types -->
+	
+
+<% counter = counter + 1 %>
+<div class="pagebreak"> </div>
+<% end %><!--END exercises -->

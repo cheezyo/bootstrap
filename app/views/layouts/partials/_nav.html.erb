@@ -1,29 +1,42 @@
  
 <!-- Topbar -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-          <a class="navbar-brand" href="#">STK</a>
+        <nav class="navbar navbar-expand-lg bg-white navbar-light mb-4 p-3 shadow-sm">
+          <%= link_to root_url, :class => "navbar-brand" do %>
+          STK
+          <% end %>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
+              <% if !current_user.admin? && !current_user.coach? || current_user.parent? %>
               <li class="nav-item">
-                <a class="nav-link" href="#">Test</a>
+                <%= link_to levels_path, :class => "nav-link" do %>
+                <i class="fas fa-layer-group mr-2"></i>
+                Levels
+                <% end %>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Test2</a>
+                
+                <%= link_to toplist_tests_path, :class => "nav-link" do %>
+                  <i class="fas fa-trophy mr-2"></i>
+                  Toplist Ironman
+                <% end %>
               </li>
+              <% end %>
+              <% if current_user.parent? %>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Dropdown link
+                  <i class="fas fa-child mr-2"></i>
+                  My kids
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <%= link_to "Players", players_path, :class => "dropdown-item" %>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <a class="dropdown-item" href="#">Something else here</a>
+                  <% current_user.players.each do |p| %>
+                    <%= link_to p.fullname, p, :class => "dropdown-item" %>
+                  <% end %>
                 </div>
               </li>
-              
+              <% end %>
 
             </ul>
             
@@ -32,7 +45,7 @@
             <li class="nav-item dropdown no-arrow">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-users-cog mr-2"></i>
-                        <span class="mr-2 d-lg-inline text-gray-600 small">Settings</span>
+                        <span class="mr-2 d-lg-inline text-gray-600">Settings</span>
                       </a>
                       <!-- Dropdown - Users settings -->
                       <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -50,7 +63,7 @@
                     <li class="nav-item dropdown no-arrow ">
                       <a class="nav-link dropdown-toggle " href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="far fa-user fa mr-2"></i>
-                        <span class="mr-2 d-lg-inline text-gray-600 small"><%= current_user.name %></span>
+                        <span class="mr-2 d-lg-inline text-gray-600"><%= current_user.name %></span>
                       </a>
                       <!-- Dropdown - User Information -->
                       <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

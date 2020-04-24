@@ -1,46 +1,71 @@
-<h2>Edit <%= @user.name.to_s.humanize %></h2>
-
 <%= form_for(@user) do |f| %>
   <%= render "devise/shared/error_messages", resource: @user %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<div class="col-sm-12 col-lg-7 mb-3 mb-sm-0">
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Edit <%= @user.name.to_s.humanize %></h6>
   </div>
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name,  autocomplete: "name" %>
-  </div>
+  <div class="card-body p-5">
+    <form class="user">
 
- 
-
+      <div class="form-group row">
+       
+        <h5 class="m-0 mb-3 text-gray-800">Email (username)</h5>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", :class => "form-control form-control-user" %>
+      
+      </div>
   
- <% if can? :assign_roles, @user %>
-  <div class="field">
-    <%= f.label :admin %>
-    <%= f.check_box :admin %><br />
-    <%= f.label :coach %>
-    <%= f.check_box :coach %><br />
-    <%= f.label :parent %>
-    <%= f.check_box :parent %>
-  </div>
-  <% end %>
-  <h3>Change password</h3>
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
+      <div class="form-group row">
+        
+          <h5 class="m-0 mb-3 text-gray-800">Name</h5>
+          <%= f.text_field :name,  autocomplete: "name", :class => "form-control form-control-user" %>
+        
+      </div>
+      
+        <div class="form-group row">
+        <h5 class="m-0 mb-0 text-gray-800">Roles</h5>
+      </div>
+       <% if can? :assign_roles, @user %>
+         <div class="form-check row">
+          <%= f.label :admin, :class => "form-check-label"%>
+          <%= f.check_box :admin, :class=> "form-check-input " %>
+        </div>
+         <div class="form-check row">
+          <%= f.label :coach, :class => "form-check-label" %>
+          <%= f.check_box :coach, :class=> "form-check-input" %>
+        </div>
+         <div class="form-check row">
+          <%= f.label :parent, :class => "form-check-label" %>
+          <%= f.check_box :parent, :class=> "form-check-input" %>
+        </div>
+        <% end %>
+      
+     
+      <div class="form-group row mt-3">
+        
+        <h5 class="m-0 mb-3 text-gray-800">Password <i>(leave blank if you don't want to change it)</i></h5>
+          <%= f.password_field :password, autocomplete: "new-password", :class => "form-control form-control-user" %>
+          <% if @minimum_password_length %>
+            <br />
+            <em><%= @minimum_password_length %> characters minimum</em>
+          <% end %>
+      </div>
+      
+      <div class="form-group row">
+        
+        <h5 class="m-0 mb-3 text-gray-800">Passord confirmation</h5>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", :class => "form-control form-control-user" %>
+      </div>
+     
+      <div class="form-group row">
+        
+        <%= f.submit "Update", :class => "btn btn-primary btn-user btn-block" %>
+      </div>
+      
+    </form>
 <% end %>
+</div>
+</div>
+</div>
+
 

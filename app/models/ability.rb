@@ -17,12 +17,13 @@ class Ability
       can [:show, :update], User,id: user.id
       cannot :create, User
       can [:show, :update], Player, player_profile: user 
-      can :show, Level
+      can [:show, :index], Level
+      can :toplist, Test
        
       if user.parent? 
       can [:show, :update], Player, parent: user 
-      can :show, Level
-      can :manage, Task
+      can [:show, :index], Level
+      can :toplist, Test
       end
     end
   
