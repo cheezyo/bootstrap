@@ -1,0 +1,61 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+	<h1 class="h3 mb-0 text-gray-800">Tournamnets</h1>
+</div>
+
+<div class="row">
+	<div class="col-xl-12 col-md-12 mb-4 ">
+				<h1 class="h5 mb-0 text-gray-800 mb-4"><i class="fas fa-plane-departure"></i> = Klubbtur </h1>
+				<h1 class="h5 mb-0 text-gray-800 mb-4"><i class="fas fa-street-view"></i> = Trener til stede</h1>
+				<% today_week = DateTime.now.strftime("%U").to_i %>
+				<% date = 5.weeks.ago(DateTime.now) %>
+				<% start_week = today_week - 5 %>
+				<% end_week = start_week + 52 %>
+				<% arr = [:u10, :u11, :u12, :u13, :u14, :u15, :u16, :u19, :senior] %>
+				<table class="table table-bordered table-striped" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>Week</th>
+							<th>Date</th>
+							<th></th>
+							<% arr.each do |sym| %>
+								<th><%= sym %></th>
+							<% end %>
+						</tr>
+					</thead>
+					<tbody>
+				<% (start_week..end_week).each do |w| %>
+						
+					
+						<tr>
+							<td><b><%= date.strftime("%U").to_i %></b></td>
+							<td><%= date.monday.strftime("%d") + " - " + date.sunday.strftime("%d") + " - " + date.strftime("%y") %></td>
+							
+							<td style="text-align: center">
+								<%= link_to new_tournament_path + "?start_date=" + date.monday.strftime("%d-%m-%Y") + "&end_date=" + date.sunday.strftime("%d-%m-%Y") do %>
+								<i class="far fa-calendar-plus fa-2x "></i>
+								<% end %>
+							</td>
+							<% arr.each do |sym| %>
+							<td>
+								<% Tournament.where(:start_date => date.monday..date.sunday, sym => true).each do |t| %>
+								<p><%= link_to t.title, t %>
+									<% if t.club_trip? %>
+										<i class="fas fa-plane-departure ml-2"></i>
+									<% elsif t.only_coach? %>
+										<i class="fas fa-street-view ml-2"></i>
+									<% end %>
+									<hr/>
+								</p>
+								<% end %>		
+							</td>
+							<% end %>
+							
+						</tr>
+						
+						<% date = 1.week.since(date) %>
+				
+				<% end %>
+					</tbody>
+				</table>
+			</div>
+		</div>

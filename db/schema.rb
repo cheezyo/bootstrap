@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_21_194123) do
+ActiveRecord::Schema.define(version: 2020_04_24_232541) do
 
   create_table "coaches", force: :cascade do |t|
     t.string "name"
@@ -118,6 +118,27 @@ ActiveRecord::Schema.define(version: 2020_04_21_194123) do
     t.integer "program2"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tournaments", force: :cascade do |t|
+    t.string "title"
+    t.string "url"
+    t.boolean "u11"
+    t.boolean "u12"
+    t.boolean "u13"
+    t.boolean "u14"
+    t.boolean "u15"
+    t.boolean "u16"
+    t.boolean "u19"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.date "start_date"
+    t.date "end_date"
+    t.boolean "club_trip"
+    t.integer "user_id"
+    t.boolean "only_coach"
+    t.boolean "u10"
+    t.boolean "senior"
   end
 
   create_table "training_programs", force: :cascade do |t|

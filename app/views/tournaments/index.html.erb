@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Tournaments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Url</th>
+      <th>U11</th>
+      <th>U12</th>
+      <th>U13</th>
+      <th>U14</th>
+      <th>U15</th>
+      <th>U16</th>
+      <th>U19</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tournaments.each do |tournament| %>
+      <tr>
+        <td><%= tournament.title %></td>
+        <td><%= tournament.url %></td>
+        <td><%= tournament.u11 %></td>
+        <td><%= tournament.u12 %></td>
+        <td><%= tournament.u13 %></td>
+        <td><%= tournament.u14 %></td>
+        <td><%= tournament.u15 %></td>
+        <td><%= tournament.u16 %></td>
+        <td><%= tournament.u19 %></td>
+        <td><%= link_to 'Show', tournament %></td>
+        <td><%= link_to 'Edit', edit_tournament_path(tournament) %></td>
+        <td><%= link_to 'Destroy', tournament, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Tournament', new_tournament_path %>

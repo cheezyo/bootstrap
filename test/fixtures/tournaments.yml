@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  url: MyString
+  u11: false
+  u12: false
+  u13: false
+  u14: false
+  u15: false
+  u16: false
+  u19: false
+
+two:
+  title: MyString
+  url: MyString
+  u11: false
+  u12: false
+  u13: false
+  u14: false
+  u15: false
+  u16: false
+  u19: false

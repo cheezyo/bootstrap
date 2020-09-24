@@ -1,0 +1,84 @@
+<%= form_with(model: tournament, local: true) do |form| %>
+  <% if tournament.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(tournament.errors.count, "error") %> prohibited this tournament from being saved:</h2>
+
+      <ul>
+        <% tournament.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :url %>
+    <%= form.text_field :url %>
+  </div>
+  <h3>Week: <%= @tournament.start_date.strftime("%U") %></h3>
+  <div class="field">
+    <%= form.label :start_date %>
+    <%= form.date_select :start_date%>
+  </div>
+
+<div class="field">
+    <%= form.label :end_date %>
+    <%= form.date_select :end_date %>
+  </div>
+
+<div class="field">
+    <%= form.label :club_trip %>
+    <%= form.check_box :club_trip %>
+  </div>
+  <div class="field">
+    <%= form.label :only_coach %>
+    <%= form.check_box :only_coach %>
+  </div>
+  <div class="field">
+    <%= form.label :u11 %>
+    <%= form.check_box :u11 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :u12 %>
+    <%= form.check_box :u12 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :u13 %>
+    <%= form.check_box :u13 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :u14 %>
+    <%= form.check_box :u14 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :u15 %>
+    <%= form.check_box :u15 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :u16 %>
+    <%= form.check_box :u16 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :u19 %>
+    <%= form.check_box :u19 %>
+  </div>
+  <div class="field">
+    <%= form.label :senior %>
+    <%= form.check_box :senior %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

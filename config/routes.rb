@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  resources :tournaments do 
+    collection do
+      get :next_52_weeks
+    end
+  end
   resources :planets
   resources :task_categories
   resources :tasks do 
