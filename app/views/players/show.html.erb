@@ -1,5 +1,5 @@
  <div class="d-sm-flex align-items-center justify-content-between mb-4">
-	<h1 class="h3 mb-0 text-gray-800"><%= @player.fullname %> <%= @player.age.strftime("%d-%m-%Y")  %> (<%= @player.get_age %> years)
+	<h1 class="h3 mb-0 text-gray-800"><%= @player.fullname + " " + @player.gender %> <%= @player.age.strftime("%d-%m-%Y")  %> (<%= @player.get_age %> years)
 		<% if @player.got_user? %>
 			<i class="far fa-user fa"></i>
 		<% else %>
@@ -21,7 +21,9 @@
 		   <li class="nav-item "><a href="#levels" data-toggle="tab" class="nav-link text-secondary">Level archive</a></li>
 		   <li class="nav-item "><a href="#ironman" data-toggle="tab" class="nav-link text-secondary">Ironman</a></li>
 		   <li class="nav-item "><a href="#tasks" data-toggle="tab" class="nav-link text-secondary">Tasks</a></li>
-		    <li class="nav-item "><a href="#practice" data-toggle="tab" class="nav-link text-secondary">Fys training</a></li>
+		   <li class="nav-item "><a href="#fys-program" data-toggle="tab" class="nav-link text-secondary">Fys training</a></li>
+		   <li class="nav-item "><a href="#treningstider" data-toggle="tab" class="nav-link text-secondary">Treningstider</a></li>
+		   <li class="nav-item "><a href="#turneringsplan" data-toggle="tab" class="nav-link text-secondary">Turneringsplan</a></li>
 		   <% if current_user.admin? || current_user.coach? %>
 		   <li class="nav-item "><a href="#settings" data-toggle="tab" class="nav-link text-secondary">Settings</a></li>
 		   <% end %>
@@ -163,7 +165,7 @@
 				</table>
 				<%= link_to "Add task", new_task_path + "?player_id=" + @player.id.to_s, :class => "btn btn-primary" %>
 			</div>
-			<div class="tab-pane" id="practice">
+			<div class="tab-pane" id="fys-program">
 				
 				<div class="row">
 					<div class="col-xl-12 col-md-12 mb-4">
@@ -179,18 +181,18 @@
 						<div class="tab-content">
 							<% if !@player.get_last_ironman.nil?  %>
 					  		<div class="tab-pane active" id="program1">
-					  			<%= @player.get_training_programs[0] %>
+					  			<h1 class="h4 mb-0 text-gray-800"><%= @player.get_training_programs[0] %></h1>
 					  			<% if  @player.get_training_programs[0] == "Empty" %>
-					  				<h1 class="h4 mb-0 text-gray-800"><%= @player.get_training_programs[1] %>  </h1><br/>
+					  				<h1 class="h4 mb-0 text-gray-800 mb-5"><%= @player.get_training_programs[1] %>  </h1><br/>
 					  			<% else %>
 								<iframe src= "<%= @player.get_training_programs[1] %>" width="750"style="border: none;  width:100%; height:750px;"> </iframe>
 								<% end %>
 							</div>
 							<div class="tab-pane" id="program2">
-								<%= @player.get_training_programs[2] %>
+								<h1 class="h4 mb-0 text-gray-800"><%= @player.get_training_programs[2] %></h1>
 								
 					  			<% if  @player.get_training_programs[2] == "Empty" %>
-					  				<h1 class="h4 mb-0 text-gray-800"><%= @player.get_training_programs[1] %>  </h1><br/>
+					  				<h1 class="h4 mb-0 text-gray-800 mb-5"><%= @player.get_training_programs[1] %>  </h1><br/>
 					  			<% else %>
 								<iframe src= "<%= @player.get_training_programs[3] %>" width="750"style="border: none;  width:100%; height:750px;"> </iframe>
 								<% end %>
@@ -206,7 +208,57 @@
 					</div>
 				</div>		
 			</div>
+			<div class="tab-pane" id="treningstider">
+				<p>Dette kommer etterhvert...</p>
+			</div>
+			<div class="tab-pane" id="turneringsplan">
+				<h1 class="h5 mb-0 text-gray-800 mb-4"><i class="fas fa-plane-departure"></i> = Klubbtur </h1>
+				<h1 class="h5 mb-0 text-gray-800 mb-4"><i class="fas fa-street-view"></i> = Trener til stede</h1>
+				<% today_week = DateTime.now.strftime("%U").to_i %>
+				<% date = 5.weeks.ago(DateTime.now) %>
+				<% start_week = today_week - 5 %>
+				<% end_week = start_week + 52 %>
+				<table class="table table-bordered table-striped" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>Week</th>
+							<th>Date</th>
+							<th></th>
 
+						
+						</tr>
+					</thead>
+					<tbody>
+				<% (start_week..end_week).each do |w| %>
+				
+					
+						<tr>
+							<td><b><%= date.strftime("%U").to_i %></b></td>
+							<td><%= date.monday.strftime("%d") + " - " + date.sunday.strftime("%d") + " - " + date.strftime("%y") %>
+							</td>
+							
+							
+							<td>
+								<% Tournament.where(:start_date => date.monday..date.sunday, @sym => true).each do |t| %>
+								<p>
+
+									<%= link_to t.title, t %>
+									<% if t.club_trip? %>
+										<i class="fas fa-plane-departure ml-2"></i>
+									<% end %>
+									<hr/>
+								</p>
+								<% end %>		
+							</td>
+							
+						</tr>
+						
+						<% date = 1.week.since(date) %>
+				
+				<% end %>
+					</tbody>
+				</table>
+			</div>
 			<% if current_user.coach? || current_user.admin? %>
 				<div class="tab-pane" id="settings">
 					<div class="col-xl-12 col-md-12 mb-4">	

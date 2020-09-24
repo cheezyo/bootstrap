@@ -15,14 +15,29 @@
     <%= form.label :name %>
     <%= form.text_field :name %>
   </div>
+   <div class="field">
+    <%= form.label :lastname %>
+    <%= form.text_field :lastname %>
+  </div>
 
   <div class="field">
     <%= form.label :age %>
-    <%= form.date_select :age %>
+     <%= form.date_select :age, start_year: 1940, end_year: Time.now.year, :class => 'form-control'  %>
   </div>
 
-
-
+  <div class="field">
+    <%= form.label :gender %><br />
+    <%= form.label :gender, "male", :value => "male"  %>
+    <%= form.radio_button :gender, "male" %>
+    <%= form.label :gender, "female", :value => "female" %>
+    <%= form.radio_button :gender, "female" %>
+  </div>
+  <div class="field">
+    <%= form.collection_select :level_id, Level.all, :id, :name, :class => "form-control form-control-user" %>
+  </div>
+  <div class="field">
+    <%= form.collection_select :planet_id, Planet.all, :id, :title, :class => "form-control form-control-user" %>
+  </div>  
   <div class="actions">
     <%= form.submit %>
   </div>
