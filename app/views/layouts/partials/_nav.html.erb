@@ -10,12 +10,7 @@
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
               <% if !current_user.admin? && !current_user.coach? || current_user.parent? %>
-              <li class="nav-item">
-                <%= link_to levels_path, :class => "nav-link" do %>
-                <i class="fas fa-layer-group mr-2"></i>
-                Levels
-                <% end %>
-              </li>
+             
               <li class="nav-item">
                 
                 <%= link_to toplist_tests_path, :class => "nav-link" do %>

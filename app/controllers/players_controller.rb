@@ -5,7 +5,12 @@ class PlayersController < ApplicationController
   # GET /players
   # GET /players.json
   def index
-    @players = Player.all
+    arkiv = Planet.where(title: "Arkiv").first.id
+    @players = Player.where.not(planet_id: arkiv)
+
+   
+
+    
   end
 
   # GET /players/1
@@ -19,6 +24,8 @@ class PlayersController < ApplicationController
       @sym = :senior
     end
 
+    @tasks = @player.tasks.where(done: false)
+    @completed_tasks = @player.tasks.where(done: true)
     
   end
 
@@ -104,6 +111,6 @@ class PlayersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def player_params
-      params.require(:player).permit(:name, :age, :user_id, :level_id, :planet_id, :lastname, :gender)
+      params.require(:player).permit(:name, :age, :user_id, :level_id, :planet_id, :lastname, :gender )
     end
 end

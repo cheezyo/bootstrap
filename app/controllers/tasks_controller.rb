@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+  load_and_authorize_resource
   before_action :set_task, only: [:show, :edit, :update, :destroy, :add_progress]
 
   # GET /tasks
@@ -27,12 +28,13 @@ class TasksController < ApplicationController
     @player = @task.player
   end
   def add_progress
-    @task.progress = @task.progress + 5 
-    if @task.progress >= 100 
-          @task.progress = 100
+    if @task.done?
+       @task.done = false
+       @task.done_date = nil 
+    else
           @task.done = true
           @task.done_date = DateTime.now
-    end 
+    end
     @task.save
     redirect_to @task.player
   end 
@@ -40,10 +42,10 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
-
+    @task.done = false
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @task, notice: 'Task was successfully created.' }
+        format.html { redirect_to @task.player, notice: 'Task was successfully created.' }
         format.json { render :show, status: :created, location: @task }
       else
         format.html { render :new }
@@ -68,7 +70,7 @@ class TasksController < ApplicationController
           @task.done_date = nil
           @task.save
         end
-        format.html { redirect_to @task, notice: 'Task was successfully updated.' }
+        format.html { redirect_to @task.player, notice: 'Task was successfully updated.' }
         format.json { render :show, status: :ok, location: @task }
       else
         format.html { render :edit }

@@ -10,13 +10,20 @@
       </ul>
     </div>
   <% end %>
-  <div class="field">
+
+     
+  <div class="col-sm-12">
     <%= form.label :task_category_id %>
-     <%= form.collection_select :task_category_id, TaskCategory.all, :id, :category %>
+    </div>
+    <div class="col-sm-12 mb-4">
+     <%= form.collection_select :task_category_id, TaskCategory.all, :id, :category,:class => "form-control form-control-user" %>
   </div>
-  <div class="field">
+  <div class="col-sm-12 col-lg-6">
     <%= form.label :task %>
-    <%= form.text_area :task %>
+  </div>
+  <div class="col-sm-12 col-lg-6 mb-4">
+    <%= form.text_area :task, :class => "form-control form-control-user" %>
+
   </div>
 
 
@@ -32,12 +39,8 @@
 
  
 
-  <div class="field">
-    <%= form.label :progress %>
-    <%= form.number_field :progress %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+ 
+  <div class="col-sm-12 col-lg-6 mb-4">
+    <%= form.submit :class => "btn btn-success" %>
   </div>
 <% end %>

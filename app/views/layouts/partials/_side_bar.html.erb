@@ -99,25 +99,7 @@
         </div>
       </li>
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLevel" aria-expanded="true" aria-controls="collapseLevel">
-         <i class="fas fa-layer-group mr-2"></i>
-          <span>Levels</span>
-        </a>
-        <div id="collapseLevel" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-           <!-- <h6 class="collapse-header">Edit companies :</h6>-->
-           <% Level.all.each do |l| %>
-           <%= link_to l, :class => "collapse-item" do %>
-           <span>
-           <i class="fas fa-baseball-ball mr-2" style="color:<%= l.color %>"></i>
-           <%= l.name %> (<%= l.players.count %>)
-         </span>
-           <% end %>
-           <% end %>
-          </div>
-        </div>
-      </li>
+      
       <!-- Nav Item - Utilities Collapse Menu -->
       
        <li class="nav-item">
