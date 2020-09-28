@@ -55,7 +55,7 @@ class TaskCommentsController < ApplicationController
   def update
     respond_to do |format|
       if @task_comment.update(task_comment_params)
-        format.html { redirect_to @task_comment.task.player|, notice: 'Task comment was successfully updated.' }
+        format.html { redirect_to @task_comment.task.player, notice: 'Task comment was successfully updated.' }
         format.json { render :show, status: :ok, location: @task_comment }
       else
         format.html { render :edit }
