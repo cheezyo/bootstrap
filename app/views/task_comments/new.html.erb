@@ -1,0 +1,17 @@
+
+
+
+<h3>New Comment</h3>
+
+<%= render 'form', task_comment: @task_comment %>
+
+
+<p><b><%= @task.player.fullname %>: <%= @task.task %></b></p>
+<% if ! @task.task_comments.empty? %>
+	<% @task.task_comments.each do |tc| %>
+		<p><%= tc.created_at.strftime("%d-%m-%Y:") %>
+			<%= tc.comment %>
+		</p>
+		 
+	<% end %>
+<% end %>

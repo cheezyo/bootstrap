@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :task_comments
   resources :tournaments do 
     collection do
       get :next_52_weeks

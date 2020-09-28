@@ -89,10 +89,31 @@
 									
 									<td>
 
+										<% if ! t.task_comments.empty? %>
+											<% t.task_comments.each do |tc| %>
+												<p>
+													<%= tc.created_at.strftime("%d-%m-%Y:") %>
+													<i><%= tc.comment %></i>
+													 <% if can? :edit, TaskComment %>
+													<small>| <%= link_to "Edit", edit_task_comment_path(tc) + "?task_id=" + t.id.to_s %>
+													</small>
+													<% end %>
+												</p>
+											<% end %>
+										<% else %>
+										<% end %>
+										<% if can? :edit, TaskComment %>
+										 <p><%= link_to "Add comment", new_task_comment_path + "?task_id=" + t.id.to_s %></p>
+										 <% end %>
+
+
+																						
+										
 								 	</td>
 							 		<% if can? :edit, Task %>
 								 		<td>
-								 			<%= link_to "Edit", edit_task_path(t) %>  
+								 			<%= link_to "Edit", edit_task_path(t) %>
+								 			| <%= link_to 'Destroy', t, method: :delete, data: { confirm: 'Are you sure?' } %>  
 								 			
 									 			| <%= link_to "Done", add_progress_tasks_path + "?id=" + t.id.to_s, :class => "btn btn-success" %> 
 									 			
@@ -211,8 +232,8 @@
 				<table class="table table-bordered table-striped" width="100%" cellspacing="0">
 					<thead>
 						<tr>
-							<th>Week</th>
-							<th>Date</th>
+							<th>Week (date)</th>
+							<th>Tournament</th>
 							<th></th>
 
 						
@@ -223,11 +244,11 @@
 				
 					
 						<tr>
-							<td><b><%= date.strftime("%U").to_i %></b></td>
-							<td><%= date.monday.strftime("%d") + " - " + date.sunday.strftime("%d") + " - " + date.strftime("%y") %>
+							<td style="width: 200px"><b><%= date.strftime("%U").to_i %></b>
+							(<%= date.monday.strftime("%d")  + "." + date.strftime("%b")+ " - " + date.sunday.strftime("%d") + "." + date.sunday.strftime("%b") %>)
 							</td>
-							
-							
+							<td></td>
+							<td></td>
 							
 							
 						</tr>
