@@ -247,7 +247,18 @@
 							<td style="width: 200px"><b><%= date.strftime("%U").to_i %></b>
 							(<%= date.monday.strftime("%d")  + "." + date.strftime("%b")+ " - " + date.sunday.strftime("%d") + "." + date.sunday.strftime("%b") %>)
 							</td>
-							<td></td>
+							<td><% @tournaments.each do |t| %>
+									<% if t.start_date.strftime("%U").to_i == w && t.start_date.year == date.year %>
+									<%= t.title %>
+									<% end %>
+								<% end %>	 
+
+								<% @player.tournaments.each do |t| %>
+									<% if t.start_date.strftime("%U").to_i == w && t.start_date.year == date.year %>
+									<%= t.title %>
+									<% end %>
+								<% end %>
+							</td>
 							<td></td>
 							
 							

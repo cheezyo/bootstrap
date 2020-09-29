@@ -3,9 +3,12 @@ Rails.application.routes.draw do
   resources :tournaments do 
     collection do
       get :next_52_weeks
+      put :add_player_to_tournament
+      get :remove_player_from_tournament
     end
   end
   resources :planets
+
   resources :task_categories
   resources :tasks do 
     collection do

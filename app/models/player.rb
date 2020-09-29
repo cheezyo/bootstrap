@@ -7,6 +7,8 @@ class Player < ApplicationRecord
 	has_many :tests, :dependent => :delete_all
 	has_many :player_stickers
 	has_many :stickers, through: :player_stickers, :dependent => :delete_all
+	has_many :player_tournaments, :dependent => :delete_all
+	has_many :tournaments, through: :player_tournaments
 	def parent
 		user_ids = UserPlayer.where(player_id: self.id).pluck(:user_id)
 		parent = User.find(user_ids).select{|u| u.parent == true }

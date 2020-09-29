@@ -10,12 +10,12 @@
 				<% date = 5.weeks.ago(DateTime.now) %>
 				<% start_week = today_week - 5 %>
 				<% end_week = start_week + 52 %>
-				<% arr = [:u10, :u11, :u12, :u13, :u14, :u15, :u16, :u19, :senior] %>
+				<% arr = [:u10, :u11, :u12, :u13, :u14, :u15, :u16, :u17, :u18, :u19, :senior, :pluss] %>
 				<table class="table table-bordered table-striped" width="100%" cellspacing="0">
 					<thead>
 						<tr>
-							<th>Week</th>
-							<th>Date</th>
+							<th>Week (Date)</th>
+							
 							<th></th>
 							<% arr.each do |sym| %>
 								<th><%= sym %></th>
@@ -27,8 +27,10 @@
 						
 					
 						<tr>
-							<td><b><%= date.strftime("%U").to_i %></b></td>
-							<td><%= date.monday.strftime("%d") + " - " + date.sunday.strftime("%d") + " - " + date.strftime("%y") %></td>
+							<td style="width: 200px"><b><%= date.strftime("%U").to_i %></b>
+							(<%= date.monday.strftime("%d")  + "." + date.strftime("%b")+ " - " + date.sunday.strftime("%d") + "." + date.sunday.strftime("%b") %>)
+							</td>
+							
 							
 							<td style="text-align: center">
 								<%= link_to new_tournament_path + "?start_date=" + date.monday.strftime("%d-%m-%Y") + "&end_date=" + date.sunday.strftime("%d-%m-%Y") do %>

@@ -24,6 +24,9 @@ class PlayersController < ApplicationController
       @sym = :senior
     end
 
+    @tournaments = Tournament.where(age_str, true)
+    
+
     @tasks = @player.tasks.where(done: false)
     @completed_tasks = @player.tasks.where(done: true)
     
