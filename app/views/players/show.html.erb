@@ -250,13 +250,27 @@
 							<td><% @tournaments.each do |t| %>
 									<% if t.start_date.strftime("%U").to_i == w && t.start_date.year == date.year %>
 									<%= link_to t.title, t.url, target: "_blank" %>
+									<% if t.club_trip? %>
+										<i class="fas fa-plane-departure ml-2"></i>
+									<% elsif t.only_coach? %>
+										<i class="fas fa-street-view ml-2"></i>
 									<% end %>
+									<hr/>
+									<% end %>
+									
 								<% end %>	 
 
 								<% @player.tournaments.each do |t| %>
 									<% if t.start_date.strftime("%U").to_i == w && t.start_date.year == date.year %>
 									<%= link_to t.title, t.url, target: "_blank" %>
+									<% if t.club_trip? %>
+										<i class="fas fa-plane-departure ml-2"></i>
+									<% elsif t.only_coach? %>
+										<i class="fas fa-street-view ml-2"></i>
 									<% end %>
+									<hr/>
+									<% end %>
+
 								<% end %>
 							</td>
 							<td></td>
