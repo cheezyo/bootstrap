@@ -19,6 +19,7 @@ class Ability
       can [:show, :update], Player, player_profile: user 
       can [:show, :index], Level
       can :toplist, Test
+      can :show, Tournament
 
        
       if user.parent? 

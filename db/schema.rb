@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_29_210824) do
+ActiveRecord::Schema.define(version: 2020_09_30_203526) do
 
   create_table "coaches", force: :cascade do |t|
     t.string "name"
@@ -157,6 +157,8 @@ ActiveRecord::Schema.define(version: 2020_09_29_210824) do
     t.boolean "u17"
     t.boolean "u18"
     t.boolean "pluss"
+    t.text "flight_hotel"
+    t.text "commet"
   end
 
   create_table "training_programs", force: :cascade do |t|

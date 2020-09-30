@@ -31,7 +31,9 @@
 <div class="row">
   <div class="col-xl-12 col-md-12 mb-4">
     <ul class="list-group list-group-flush">
-       <% if @tournament.pluss? %>
+      <% if current_user.coach? || current_user.admin %>
+
+       <% if @tournament.pluss? &&  %>
         <h5>Pluss players: </h5><br/>
           <% @tournament.players.each do |p| %>
             <li class="list-group-item">
@@ -43,7 +45,10 @@
           <% else %>
           <li class="list-group-item">This is a public tournament for the choosen age group</li><hr/>
         <% end %>
-    
+      <% end %>
+    <li class="list-group-item"> <b>Responsible:</b> <%= @tournament.user.name %> - <%= @tournament.user.email %> </li><hr/>
+    <li class="list-group-item"><b>Travel and hotel:</b> <%= @tournament.flight_hotel %> </li><hr/>
+    <li class="list-group-item"><b>Other info:</b> <%= @tournament.commet %> </li><hr/>
   </ul>
          
     
@@ -52,17 +57,17 @@
 </div>
 </div>
 
-<div class="card-footer text-muted">
-  
-  
-  <%= link_to "Go to tournament software", @tournament.url, :class => "btn btn-info",  target: '_blank' %>
-</div> 
+  <div class="card-footer text-muted">
+    
+    
+    <%= link_to "Go to tournament software", @tournament.url, :class => "btn btn-info",  target: '_blank' %>
+  </div> 
 </div> 
   
  
 
 
-
+<% if current_user.coach? || current_user.admin %>
 <% if @tournament.pluss %>
   <h5>This is a pluss tournament you can add player:</h5>
 <%= form_tag add_player_to_tournament_tournaments_path, method: :put do %>
@@ -87,5 +92,4 @@
   <%= submit_tag "Add Players", :class => "btn btn-primary" %>
   <% end %>
 <% end %>
-<%= link_to 'Edit', edit_tournament_path(@tournament) %> |
-<%= link_to 'Back', tournaments_path %>
+<% end %>

@@ -10,88 +10,104 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+<div class="card shadow mb-4">
+  
+  <div class="card-body">
+    <div class="row">
+       <div class="col-sm-12 col-lg-4 mb-4"> 
+        <%= form.text_field :title, :class => "form-control form-control-user", placeholder: 'Title' %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-lg-4 mb-4"> 
+        <%= form.text_field :url, :class => "form-control form-control-user", placeholder: 'Tournament Software or Spond link' %>
+      </div>
+    </div>
+    <hr/>
+    <div class="row">
+      <div class="col-sm-12 col-lg-4 mb-4"> 
+        <h3 class="h4 mb-0 text-gray-800">Week: <%= @tournament.start_date.strftime("%U") %></h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-lg-3 mb-4">
+        Start date: <%= form.date_field :start_date, :class => "form-control form-control-user"%>  
+        End date: <%= form.date_field :end_date, :class => "form-control form-control-user" %>
+      </div>
+    </div>
+    <hr/>
+    <div class="row">
+      <div class="col-sm-12 col-lg-4 mb-4"> 
+        <h3 class="h4 mb-0 text-gray-800">Choose age group:</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-lg-12 mb-4">
+        <%= form.label :u11 %>
+        <%= form.check_box :u11 %>
+        <%= form.label :u12 %>
+        <%= form.check_box :u12 %>
+        <%= form.label :u13 %>
+        <%= form.check_box :u13 %>
+        <%= form.label :u14 %>
+        <%= form.check_box :u14 %>
+        <%= form.label :u15 %>
+        <%= form.check_box :u15 %>
+        <%= form.label :u16 %>
+        <%= form.check_box :u16 %>
+        <%= form.label :u17 %>
+        <%= form.check_box :u17 %>
+        <%= form.label :u18 %>
+        <%= form.check_box :u18 %>
+        <%= form.label :u19 %>
+        <%= form.check_box :u19 %>
+        <%= form.label :senior %>
+        <%= form.check_box :senior %>
+        <%= form.label :pluss %>
+        <%= form.check_box :pluss %>
+      </div>
+    </div>
+  <hr/>
+  <div class="row">
+      <div class="col-sm-12 col-lg-4 mb-4"> 
+        <h3 class="h4 mb-0 text-gray-800">Some more info about the tournament:</h3>
+      </div>
   </div>
 
-  <div class="field">
-    <%= form.label :url %>
-    <%= form.text_field :url %>
-  </div>
-  <h3>Week: <%= @tournament.start_date.strftime("%U") %></h3>
-  <div class="field">
-    <%= form.label :start_date %>
-    <%= form.date_select :start_date%>
-  </div>
+    <div class="row">
+      <div class="col-sm-12 col-lg-12 mb-4">
+        Club trip? <%= form.check_box :club_trip %><br/>
+        Only coach?  <%= form.check_box :only_coach %>
+      </div>
+    </div>
+    <hr/>
+    <div class="row">
+      <div class="col-sm-12 col-lg-12 mb-4">
+        <h3 class="h4 mb-0 text-gray-800">Who is traveling?</h3>
+      </div>
+      <div class="col-sm-12 col-lg-12 mb-4">
+          <%= form.collection_select :user_id, User.where(coach: true), :id, :name, :class => "form-control form-control-user", :include_blank => 'Choose a coach' %>
+      </div>
+    </div>
+    <hr/>
+    <div class="row">
+      <div class="col-sm-12 col-lg-12 mb-4">
+        <h3 class="h4 mb-0 text-gray-800">Info about the travel</h3>
+      </div>
+      <div class="col-sm-12 col-lg-4 mb-4">
+        <%= form.text_area :flight_hotel, :class => "form-control form-control-user", placeholder: 'Flight and Hotel information' %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-lg-4 mb-4">
+        <%= form.text_area :commet, :class => "form-control form-control-user", placeholder: 'Comments' %>
+      </div>
+    </div>
+   
 
-<div class="field">
-    <%= form.label :end_date %>
-    <%= form.date_select :end_date %>
+  <div class="card-footer text-muted">
+    <%= form.submit "Save", :class => "btn btn-success" %>
   </div>
+</div>
 
-<div class="field">
-    <%= form.label :club_trip %>
-    <%= form.check_box :club_trip %>
-  </div>
-  <div class="field">
-    <%= form.label :only_coach %>
-    <%= form.check_box :only_coach %>
-  </div>
-  <div class="field">
-    <%= form.label :u11 %>
-    <%= form.check_box :u11 %>
-  </div>
-
-  <div class="field">
-    <%= form.label :u12 %>
-    <%= form.check_box :u12 %>
-  </div>
-
-  <div class="field">
-    <%= form.label :u13 %>
-    <%= form.check_box :u13 %>
-  </div>
-
-  <div class="field">
-    <%= form.label :u14 %>
-    <%= form.check_box :u14 %>
-  </div>
-
-  <div class="field">
-    <%= form.label :u15 %>
-    <%= form.check_box :u15 %>
-  </div>
-
-  <div class="field">
-    <%= form.label :u16 %>
-    <%= form.check_box :u16 %>
-  </div>
-  <div class="field">
-    <%= form.label :u17 %>
-    <%= form.check_box :u17 %>
-  </div>
-  <div class="field">
-    <%= form.label :u18 %>
-    <%= form.check_box :u18 %>
-  </div>
-
-  <div class="field">
-    <%= form.label :u19 %>
-    <%= form.check_box :u19 %>
-  </div>
-  <div class="field">
-    <%= form.label :senior %>
-    <%= form.check_box :senior %>
-  </div>
-
-    <div class="field">
-    <%= form.label :pluss %>
-    <%= form.check_box :pluss %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
 <% end %>

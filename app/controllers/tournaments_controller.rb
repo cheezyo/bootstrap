@@ -1,4 +1,5 @@
 class TournamentsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_tournament, only: [:show, :edit, :update, :destroy, :add_player_to_tournament]
 
   # GET /tournaments
@@ -19,6 +20,7 @@ class TournamentsController < ApplicationController
     @tournament = Tournament.new
     @tournament.start_date = params[:start_date]
     @tournament.end_date = params[:end_date]
+    session[:return_to] ||= request.referer
   end
 
 
@@ -33,7 +35,7 @@ class TournamentsController < ApplicationController
 
     respond_to do |format|
       if @tournament.save
-        format.html { redirect_to @tournament, notice: 'Tournament was successfully created.' }
+        format.html { redirect_to session.delete(:return_to), notice: 'Tournament was successfully created.' }
         format.json { render :show, status: :created, location: @tournament }
       else
         format.html { render :new }
@@ -81,7 +83,7 @@ class TournamentsController < ApplicationController
   def destroy
     @tournament.destroy
     respond_to do |format|
-      format.html { redirect_to tournaments_url, notice: 'Tournament was successfully destroyed.' }
+      format.html { redirect_to session.delete(:return_to), notice: 'Tournament was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -94,6 +96,6 @@ class TournamentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tournament_params
-      params.require(:tournament).permit(:title, :url, :u11, :u12, :u13, :u14, :u15, :u16, :u19, :start_date, :end_date, :club_trip, :only_coach, :user_id, :senior, :u10, :u18, :u17, :pluss)
+      params.require(:tournament).permit(:title, :url, :u11, :u12, :u13, :u14, :u15, :u16, :u19, :start_date, :end_date, :club_trip, :only_coach, :user_id, :senior, :u10, :u18, :u17, :pluss, :flight_hotel, :commet)
     end
 end

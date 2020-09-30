@@ -18,6 +18,7 @@ class TaskCommentsController < ApplicationController
     @task_comment = TaskComment.new
     if params[:task_id].present?
       @task = Task.find( params[:task_id].to_i)
+      session[:return_to] ||= request.referer
 
     else
       redirect_to root_url
@@ -28,6 +29,7 @@ class TaskCommentsController < ApplicationController
   def edit
      if params[:task_id].present?
       @task = Task.find( params[:task_id].to_i)
+      session[:return_to] ||= request.referer
 
     else
       redirect_to root_url
@@ -40,9 +42,9 @@ class TaskCommentsController < ApplicationController
     @task_comment = TaskComment.new(task_comment_params)
     @task_comment.user_id = current_user.id
     respond_to do |format|
-      if @task_comment.save
-        format.html { redirect_to @task_comment.task.player, notice: 'Task comment was successfully created.' }
-        format.json { render :show, status: :created, location: @task_comment }
+      if @task_comment.save        
+          format.html { redirect_to session.delete(:return_to), notice: 'Task comment was successfully created.' }
+          format.json { render :show, status: :created, location: @task_comment }
       else
         format.html { render :new }
         format.json { render json: @task_comment.errors, status: :unprocessable_entity }
@@ -53,10 +55,12 @@ class TaskCommentsController < ApplicationController
   # PATCH/PUT /task_comments/1
   # PATCH/PUT /task_comments/1.json
   def update
+    
     respond_to do |format|
       if @task_comment.update(task_comment_params)
-        format.html { redirect_to @task_comment.task.player, notice: 'Task comment was successfully updated.' }
-        format.json { render :show, status: :ok, location: @task_comment }
+        format.html { redirect_to session.delete(:return_to), notice: 'Task comment was successfully created.' }
+        format.json { render :show, status: :created, location: @task_comment }
+       
       else
         format.html { render :edit }
         format.json { render json: @task_comment.errors, status: :unprocessable_entity }

@@ -26,6 +26,7 @@ class TasksController < ApplicationController
   # GET /tasks/1/edit
   def edit
     @player = @task.player
+    session[:return_to] ||= request.referer
   end
   def add_progress
     if @task.done?
@@ -36,7 +37,8 @@ class TasksController < ApplicationController
           @task.done_date = DateTime.now
     end
     @task.save
-    redirect_to @task.player
+    redirect_to request.referrer
+    
   end 
   # POST /tasks
   # POST /tasks.json
@@ -70,7 +72,7 @@ class TasksController < ApplicationController
           @task.done_date = nil
           @task.save
         end
-        format.html { redirect_to @task.player, notice: 'Task was successfully updated.' }
+        format.html { redirect_to session.delete(:return_to) , notice: 'Task was successfully updated.' }
         format.json { render :show, status: :ok, location: @task }
       else
         format.html { render :edit }

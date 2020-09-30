@@ -46,6 +46,7 @@
 									<% elsif t.only_coach? %>
 										<i class="fas fa-street-view ml-2"></i>
 									<% end %>
+									<%= link_to 'X', t, method: :delete, data: { confirm: 'Are you sure?' } %>
 									<hr/>
 								</p>
 								<% end %>		
