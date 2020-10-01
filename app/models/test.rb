@@ -71,7 +71,7 @@ end
 def self.get_chins_score (gender)
 
 	max = 25
-	low = 1 
+	low = 0 
 	if gender == "female"
 		max = 17
 	end
@@ -80,7 +80,7 @@ end
 
 def self.get_situps_score (gender)
 	max = 30
-	low = 1
+	low = 0
 	if gender == "female"
 		max = 25
 	end
@@ -89,7 +89,7 @@ end
 
 def self.get_pushups_score (gender)
 	max = 85
-	low = 1
+	low = 0
 	if gender == "female"
 		max = 70
 	end
