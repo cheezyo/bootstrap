@@ -4,5 +4,6 @@
             <h1 class="h3 mb-0 text-gray-800">Welcome</h1>
           </div>
           <hr/>
-<%= current_user.players.count %>
+<h3 class="h3 mb-0 text-gray-800">Treningsmengde siste måned</h3>
+<%= pie_chart [[ "Tennis", 20], ["Fys", 8], ["Egentrening tennis", 4], ["Egentrening fys", 3]] %>
 
