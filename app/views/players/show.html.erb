@@ -56,6 +56,54 @@
 
 			<div class="tab-pane" id="ironman">
 				<%= render 'layouts/ironman/ironman_table', player: @player %>
+				<h4 class= "text-gray-800">Sprint</h4>
+				<div class="col-xl-12 col-md-12 mb-4">
+					<%= line_chart @player.tests.pluck(:created_at, :sprint), min: 0, max: 4  %>
+				</div>
+				<h4 class= "text-gray-800">Spider</h4>
+				<div class="col-xl-12 col-md-12 mb-4">
+					<%= line_chart @player.tests.pluck(:created_at, :spider), min: 0, max: 24  %>
+				</div>
+				<h4 class= "text-gray-800">Fh throw</h4>
+				<div class="col-xl-12 col-md-12 mb-4">
+					<%= line_chart @player.tests.pluck(:created_at, :fh_throw), min: 0, max: 20  %>
+				</div>
+				<h4 class= "text-gray-800">Bh throw</h4>
+				<div class="col-xl-12 col-md-12 mb-4">
+					<%= line_chart @player.tests.pluck(:created_at, :bh_throw), min: 0, max: 20  %>
+				</div>
+				<h4 class= "text-gray-800">Jump</h4>
+				<div class="col-xl-12 col-md-12 mb-4">
+					<%= line_chart @player.tests.pluck(:created_at, :jump), min: 0, max: 4  %>
+				</div>
+				<h4 class= "text-gray-800">Box jump</h4>
+				<div class="col-xl-12 col-md-12 mb-4">
+					<%= line_chart @player.tests.pluck(:created_at, :box), min: 0, max: 130  %>
+				</div>
+				<h4 class= "text-gray-800">Chins</h4>
+				<div class="col-xl-12 col-md-12 mb-4">
+					<%= line_chart @player.tests.pluck(:created_at, :chins), min: 0, max: 35  %>
+				</div>
+				<h4 class= "text-gray-800">Push ups</h4>
+				<div class="col-xl-12 col-md-12 mb-4">
+					<%= line_chart @player.tests.pluck(:created_at, :pushups), min: 0, max: 100  %>
+				</div>
+				<h4 class= "text-gray-800">Brutal bench</h4>
+				<div class="col-xl-12 col-md-12 mb-4">
+					<%= line_chart @player.tests.pluck(:created_at, :situps), min: 0, max: 30  %>
+				</div>
+				<h4 class= "text-gray-800">Back stretch</h4>
+				<div class="col-xl-12 col-md-12 mb-4">
+					<%= line_chart @player.tests.pluck(:created_at, :back_stretch), min: 0, max: 70  %>
+				</div>
+				<h4 class= "text-gray-800">Front stretch</h4>
+				<div class="col-xl-12 col-md-12 mb-4">
+					<%= line_chart @player.tests.pluck(:created_at, :front_stretch), min: 0, max: 50  %>
+				</div>
+				<h4 class= "text-gray-800">Beep</h4>
+				<div class="col-xl-12 col-md-12 mb-4">
+					<%= line_chart @player.tests.pluck(:created_at, :beep), min: 0, max: 150  %>
+				</div>
 			</div>
 
 			<div class="tab-pane" id="tasks">
