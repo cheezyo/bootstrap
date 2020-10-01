@@ -58,51 +58,51 @@
 				<%= render 'layouts/ironman/ironman_table', player: @player %>
 				<h4 class= "text-gray-800">Sprint</h4>
 				<div class="col-xl-12 col-md-12 mb-4">
-					<%= line_chart @player.tests.pluck(:created_at, :sprint), min: 0, max: 4  %>
+					<%= line_chart @player.tests.pluck(:test_date, :sprint), min: 0, max: 4  %>
 				</div>
 				<h4 class= "text-gray-800">Spider</h4>
 				<div class="col-xl-12 col-md-12 mb-4">
-					<%= line_chart @player.tests.pluck(:created_at, :spider), min: 0, max: 24  %>
+					<%= line_chart @player.tests.pluck(:test_date, :spider), min: 0, max: 24  %>
 				</div>
 				<h4 class= "text-gray-800">Fh throw</h4>
 				<div class="col-xl-12 col-md-12 mb-4">
-					<%= line_chart @player.tests.pluck(:created_at, :fh_throw), min: 0, max: 20  %>
+					<%= line_chart @player.tests.pluck(:test_date, :fh_throw), min: 0, max: 20  %>
 				</div>
 				<h4 class= "text-gray-800">Bh throw</h4>
 				<div class="col-xl-12 col-md-12 mb-4">
-					<%= line_chart @player.tests.pluck(:created_at, :bh_throw), min: 0, max: 20  %>
+					<%= line_chart @player.tests.pluck(:test_date, :bh_throw), min: 0, max: 20  %>
 				</div>
 				<h4 class= "text-gray-800">Jump</h4>
 				<div class="col-xl-12 col-md-12 mb-4">
-					<%= line_chart @player.tests.pluck(:created_at, :jump), min: 0, max: 4  %>
+					<%= line_chart @player.tests.pluck(:test_date, :jump), min: 0, max: 4  %>
 				</div>
 				<h4 class= "text-gray-800">Box jump</h4>
 				<div class="col-xl-12 col-md-12 mb-4">
-					<%= line_chart @player.tests.pluck(:created_at, :box), min: 0, max: 130  %>
+					<%= line_chart @player.tests.pluck(:test_date, :box), min: 0, max: 130  %>
 				</div>
 				<h4 class= "text-gray-800">Chins</h4>
 				<div class="col-xl-12 col-md-12 mb-4">
-					<%= line_chart @player.tests.pluck(:created_at, :chins), min: 0, max: 35  %>
+					<%= line_chart @player.tests.pluck(:test_date, :chins), min: 0, max: 35  %>
 				</div>
 				<h4 class= "text-gray-800">Push ups</h4>
 				<div class="col-xl-12 col-md-12 mb-4">
-					<%= line_chart @player.tests.pluck(:created_at, :pushups), min: 0, max: 100  %>
+					<%= line_chart @player.tests.pluck(:test_date, :pushups), min: 0, max: 100  %>
 				</div>
 				<h4 class= "text-gray-800">Brutal bench</h4>
 				<div class="col-xl-12 col-md-12 mb-4">
-					<%= line_chart @player.tests.pluck(:created_at, :situps), min: 0, max: 30  %>
+					<%= line_chart @player.tests.pluck(:test_date, :situps), min: 0, max: 30  %>
 				</div>
 				<h4 class= "text-gray-800">Back stretch</h4>
 				<div class="col-xl-12 col-md-12 mb-4">
-					<%= line_chart @player.tests.pluck(:created_at, :back_stretch), min: 0, max: 70  %>
+					<%= line_chart @player.tests.pluck(:test_date, :back_stretch), min: 0, max: 70  %>
 				</div>
 				<h4 class= "text-gray-800">Front stretch</h4>
 				<div class="col-xl-12 col-md-12 mb-4">
-					<%= line_chart @player.tests.pluck(:created_at, :front_stretch), min: 0, max: 50  %>
+					<%= line_chart @player.tests.pluck(:test_date, :front_stretch), min: 0, max: 50  %>
 				</div>
 				<h4 class= "text-gray-800">Beep</h4>
 				<div class="col-xl-12 col-md-12 mb-4">
-					<%= line_chart @player.tests.pluck(:created_at, :beep), min: 0, max: 150  %>
+					<%= line_chart @player.tests.pluck(:test_date, :beep), min: 0, max: 150  %>
 				</div>
 			</div>
 
@@ -133,14 +133,14 @@
 								<% @tasks.each do |t| %>
 								<tr>
 									<td><%= t.task_category.category %></td>
-									<td><%= t.created_at.strftime("%d-%m-%Y") + ": " + t.task %></td>
+									<td><%= t.test_date.strftime("%d-%m-%Y") + ": " + t.task %></td>
 									
 									<td>
 
 										<% if ! t.task_comments.empty? %>
 											<% t.task_comments.each do |tc| %>
 												<p>
-													<%= tc.created_at.strftime("%d-%m-%Y:") %>
+													<%= tc.test_date.strftime("%d-%m-%Y:") %>
 													<i><%= tc.comment %></i>
 													 <% if can? :edit, TaskComment %>
 													<small>| <%= link_to "Edit", edit_task_comment_path(tc) + "?task_id=" + t.id.to_s %>
@@ -201,7 +201,7 @@
 								<% @completed_tasks.each do |t| %>
 								<tr>
 									<td><%= t.task_category.category %></td>
-									<td><%= t.created_at.strftime("%d-%m-%Y") + ": " + t.task %></td>
+									<td><%= t.test_date.strftime("%d-%m-%Y") + ": " + t.task %></td>
 									
 									<td>
 										

@@ -80,6 +80,7 @@ class TestGroupsController < ApplicationController
         t.front_stretch = 0
         t.back_stretch = 0
         t.player_id = player.id
+        t.test_date = @test_group.date
         t.gender = player.gender.capitalize
         t.test_type = "Junior"
         age = @test_group.date.year - player.age.year 
