@@ -61,17 +61,7 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        if @task.progress >= 100 
-          @task.progress = 100
-          @task.done = true
-          @task.done_date = DateTime.now
-          @task.save
-
-        else 
-          @task.done = false 
-          @task.done_date = nil
-          @task.save
-        end
+       
         format.html { redirect_to session.delete(:return_to) , notice: 'Task was successfully updated.' }
         format.json { render :show, status: :ok, location: @task }
       else
@@ -99,6 +89,6 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.require(:task).permit(:task, :task_category_id, :player_id, :done, :done_date, :progress)
+      params.require(:task).permit(:task, :task_category_id, :player_id, :done, :done_date, :progress, :image)
     end
 end

@@ -1,0 +1,2 @@
+module TypeOfTraningsHelper
+end

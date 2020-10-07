@@ -86,6 +86,6 @@ class TaskCommentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_comment_params
-      params.require(:task_comment).permit(:comment, :user_id, :task_id)
+      params.require(:task_comment).permit(:comment, :user_id, :task_id, :image)
     end
 end

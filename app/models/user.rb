@@ -3,6 +3,7 @@ class User < ApplicationRecord
  has_many :players,through: :user_players
  has_many :planets,through: :planet_coaches
  has_many :tournaments
+ has_many :trainings
   	#attr_accessor :id
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

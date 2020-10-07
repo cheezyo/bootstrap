@@ -1,0 +1,55 @@
+<%= form_with(model: training, local: true) do |form| %>
+  <% if training.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(training.errors.count, "error") %> prohibited this training from being saved:</h2>
+
+      <ul>
+        <% training.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+<div class="card-body">
+    <div class="row">
+      <div class="col-sm-12 col-lg-12 mb-4">
+        <h3 class="h4 mb-0 text-gray-800">Date:</h3>
+      </div>
+       <div class="col-sm-12 col-lg-4 mb-4"> 
+        <%= form.date_field :t_date, :class => "form-control form-control-user"%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-lg-12 mb-4">
+        <h3 class="h4 mb-0 text-gray-800">Time in minutes</h3>
+      </div>
+      <div class="col-sm-12 col-lg-4 mb-4"> 
+       <%= form.number_field :time, :class => "form-control form-control-user"%>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-sm-12 col-lg-12 mb-4">
+        <h3 class="h4 mb-0 text-gray-800">Type of training</h3>
+      </div>
+      <div class="col-sm-12 col-lg-12 mb-4">
+          <%= form.collection_select :type_of_training_id, TypeOfTraining.all, :id, :title, :class => "form-control form-control-user" %>
+      </div>
+    </div>
+    <hr/>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-lg-4 mb-4">
+        <%= form.text_area :comment, :class => "form-control form-control-user", placeholder: 'Comments' %>
+      </div>
+    </div>
+
+  <div class="card-footer text-muted">
+    <%= form.submit "Save", :class => "btn btn-success" %>
+  </div>
+</div>
+
+
+<% end %>

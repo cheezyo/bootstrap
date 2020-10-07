@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Type of training:</strong>
+  <%= @training.type_of_training_id %>
+</p>
+
+<p>
+  <strong>Time:</strong>
+  <%= @training.time %>
+</p>
+
+<p>
+  <strong>T date:</strong>
+  <%= @training.t_date %>
+</p>
+
+<p>
+  <strong>Coment text:</strong>
+  <%= @training.coment_text %>
+</p>
+
+<%= link_to 'Edit', edit_training_path(@training) %> |
+<%= link_to 'Back', trainings_path %>

@@ -1,3 +1,4 @@
+
  <div class="d-sm-flex align-items-center justify-content-between mb-4">
 	<h1 class="h3 mb-0 text-gray-800"><%= @player.fullname + " " + @player.gender %> <%= @player.age.strftime("%d-%m-%Y")  %> (<%= @player.get_age %> years)
 		<% if @player.got_user? %>
@@ -8,6 +9,7 @@
  	</h1>
  </div>
  <hr/>
+
 <div class="row">	
 	
 </div>
@@ -58,7 +60,7 @@
 				<%= render 'layouts/ironman/ironman_table', player: @player %>
 				<h4 class= "text-gray-800">Sprint</h4>
 				<div class="col-xl-12 col-md-12 mb-4">
-					<%= line_chart @player.tests.pluck(:test_date, :sprint), min: 0, max: 4  %>
+					<%= line_chart @player.tests.pluck(:test_date, :sprint), min: 0, max: 4.6  %>
 				</div>
 				<h4 class= "text-gray-800">Spider</h4>
 				<div class="col-xl-12 col-md-12 mb-4">
@@ -297,7 +299,7 @@
 							</td>
 							<td><% @tournaments.each do |t| %>
 									<% if t.start_date.strftime("%U").to_i == w && t.start_date.year == date.year %>
-									<%= link_to t.title, t, target: "_blank" %>
+									<%= link_to t.title, t %>
 									<% if t.club_trip? %>
 										<i class="fas fa-plane-departure ml-2"></i>
 									<% elsif t.only_coach? %>

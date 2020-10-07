@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_01_211750) do
+ActiveRecord::Schema.define(version: 2020_10_07_105533) do
 
   create_table "coaches", force: :cascade do |t|
     t.string "name"
@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(version: 2020_10_01_211750) do
     t.integer "progress"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "image"
   end
 
   create_table "test_groups", force: :cascade do |t|
@@ -170,6 +171,22 @@ ActiveRecord::Schema.define(version: 2020_10_01_211750) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "trainings", force: :cascade do |t|
+    t.integer "type_of_training_id"
+    t.integer "time"
+    t.date "t_date"
+    t.string "coment_text"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+  end
+
+  create_table "type_of_trainings", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "user_players", force: :cascade do |t|
     t.integer "user_id"
     t.integer "player_id"
@@ -189,6 +206,7 @@ ActiveRecord::Schema.define(version: 2020_10_01_211750) do
     t.boolean "admin", default: false
     t.boolean "coach", default: false
     t.boolean "parent", default: false
+    t.boolean "player"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

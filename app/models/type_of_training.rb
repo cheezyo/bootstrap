@@ -1,0 +1,2 @@
+class TypeOfTraining < ApplicationRecord
+end

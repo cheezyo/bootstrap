@@ -1,0 +1,22 @@
+<%= form_with(model: type_of_traning, local: true) do |form| %>
+  <% if type_of_traning.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(type_of_traning.errors.count, "error") %> prohibited this type_of_traning from being saved:</h2>
+
+      <ul>
+        <% type_of_traning.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :type_t %>
+    <%= form.text_field :type_t %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

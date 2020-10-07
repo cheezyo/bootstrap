@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :type_of_trainings
+  resources :type_of_tranings
+  resources :trainings
   resources :task_comments
   resources :tournaments do 
     collection do
@@ -38,6 +41,7 @@ end
   resources :coaches
   resources :players do 
   collection do 
+    get :ironman_player
     get :add_sticker
     get :delete_sticker
   end

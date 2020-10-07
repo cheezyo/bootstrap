@@ -13,19 +13,20 @@ class Ability
           can :manage, :all
 
     end
-    if user.present?  # additional permissions for logged in users 
+    if user.player?  # additional permissions for logged in users 
       can [:show, :update], User,id: user.id
       cannot :create, User
-      can [:show, :update], Player, player_profile: user 
-      can [:show, :index], Level
+      can [:show, :update, :ironman_player], Player, player_profile: user 
+      #can [:show, :index], Level
       can :toplist, Test
       can :show, Tournament
 
        
       if user.parent? 
       can [:show, :update], Player, parent: user 
-      can [:show, :index], Level
+      #can [:show, :index], Level
       can :toplist, Test
+      can :show, Tournament
       end
     end
   

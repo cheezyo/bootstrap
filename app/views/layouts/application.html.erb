@@ -21,7 +21,16 @@
 
   <% if current_user.admin? || current_user.coach? %>
     <%= render 'layouts/partials/side_bar' %>
+  <% elsif  current_user.player? %>
+
+  <%= render 'layouts/partials/side_bar_player' %>
+
+  <% elsif current_user.parent? %>
+
+  
   <% end %>
+
+
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
 

@@ -1,17 +1,15 @@
 class PlayersController < ApplicationController
   load_and_authorize_resource
-  before_action :set_player, only: [:show, :edit, :update, :destroy ]
+  before_action :set_player, only: [:show, :edit, :update, :destroy, :ironman_player ]
 
   # GET /players
   # GET /players.json
   def index
     arkiv = Planet.where(title: "Arkiv").first.id
     @players = Player.where.not(planet_id: arkiv)
-
-   
-
-    
   end
+
+
 
   # GET /players/1
   # GET /players/1.json
@@ -104,6 +102,10 @@ class PlayersController < ApplicationController
       format.html { redirect_to players_url, notice: 'Player was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def ironman_player 
+
   end
 
   private
