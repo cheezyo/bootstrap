@@ -1,0 +1,98 @@
+
+				<div class="row">
+				<div class="col-xl-3 col-md-6 mb-4">
+	              <div class="card border-left-primary shadow h-100 py-2">
+	                <div class="card-body">
+	                  <div class="row no-gutters align-items-center">
+	                    <div class="col mr-2">
+	                      <div class="text-s font-weight-bold text-primary text-uppercase mb-2">My UTR last 12 month</div>
+	                      <p class="text-xs"><span class="font-weight-bold"><%= @json_stats.parsed_response["subtitle"] %></span></p>
+	                      <p class="text-xs">Start rating: <%= @json_stats.parsed_response["startRating"] %> - Current utr: <%= @json_stats.parsed_response["singlesUtr"] %> </p>
+	                      <p class="text-xs">Min rating: <%= @json_stats.parsed_response["minRating"] %> - Max rating: <%= @json_stats.parsed_response["maxRating"] %></p>
+	                      
+	                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-info fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+	              <div class="card border-left-warning shadow h-100 py-2">
+	                <div class="card-body">
+	                  <div class="row no-gutters align-items-center">
+	                    <div class="col mr-2">
+	                      <div class="text-s font-weight-bold text-primary text-uppercase mb-2">My matches last 12 months</div>
+	                      <p class="text-xs">Wins: <%= @json_matches.parsed_response["wins"] %></p>
+	                      <p class="text-xs">Losses: <%= @json_matches.parsed_response["losses"] %> </p>
+	                      <p class="text-xs">Events: <%= @json_matches.parsed_response["events"].count %> </p>
+	                      
+	                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-trophy fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+        </div>
+        
+
+
+    <div class="row">
+        <div class="col-xl-12">
+        		<h1 class="h4 mb-3 text-gray-800">Tournaments last 12 months</h1>
+        	<% @json_matches.parsed_response["events"].each do |ev|  %>
+ 			<div class="card shadow mb-4">
+            	<div class="card-header py-3">
+              		<div class="text-md font-weight-bold text-primary text-uppercase ">
+              			<%= ev["name"] %> 
+              		</div>
+              		<div class="text-md text-primary ">
+              			<%= DateTime.parse(ev["startDate"]).strftime(" %d-%m-%Y") %>
+              		</div>
+            	</div>
+            <div class="card-body">
+            	<% ev["draws"][0]["results"].each do |res| %>
+            		<p class="text-xs">
+            			<span class="font-weight-bold"> 
+            				<%= res["players"]["winner1"]["firstName"] %>
+							<%= res["players"]["winner1"]["lastName"]%> 
+						</span>
+							(<%= res["players"]["winner1"]["myUtrSingles"]%>)
+						-
+						<%= res["players"]["loser1"]["firstName"] %>
+						<%= res["players"]["loser1"]["lastName"]%>
+						(<%= res["players"]["loser1"]["myUtrSingles"]%>)
+
+						<% if res["completionType"] == "winnerdidnotstart" %>
+							W.O
+						<% else %>
+							<%= res["score"]["1"]["winner"]%>-<%= res["score"]["1"]["loser"]%> 
+							<%= "(" + (res["score"]["1"]["winnerTiebreak"]).to_s + ")" if res["score"]["1"]["tiebreak"] != nil %>
+							<% if ! res["score"]["2"].nil? %>
+								<%= res["score"]["2"]["winner"]%>-<%= res["score"]["2"]["loser"]%> 
+								<%= "(" + (res["score"]["2"]["winnerTiebreak"]).to_s + ")" if res["score"]["2"]["tiebreak"] != nil %>
+							<% end %>
+
+							<% if ! res["score"]["3"].nil? %>
+								<%= res["score"]["3"]["winner"]%>-<%= res["score"]["3"]["loser"]%>
+								<% if   res["score"]["3"]["tiebreak"] != nil %>
+									(<%=  res["score"]["3"]["winnerTiebreak"] %>-<%= res["score"]["3"]["tiebreak"] %>)
+								<% end %>
+							<% end %>
+							<% if res["outcome"] == "retired" %>
+								Ret.
+							<% end %>
+						<% end %>
+					</p>
+					<hr/>
+            	<% end %>
+
+            </div>
+          	</div>
+          	<% end %>
+      	</div>
+    </div>
