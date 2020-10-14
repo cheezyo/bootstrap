@@ -386,16 +386,46 @@
 					</tbody>
 				</table>
 			</div>
-			<% if @player.got_utr_profile? %>
+		<% if @player.got_utr_profile? %>
 			<div class="tab-pane" id="utr">
-				<h1 class="h3 mb-3 text-gray-800"> UTR last 12 month </h1>
+				<h1 class="h3 mb-3 text-gray-800">My UTR last 12 month </h1>
 				<p><%= @json_stats.parsed_response["subtitle"] %></p>
 				<p>Start rating: <%= @json_stats.parsed_response["startRating"] %> -
 				Current utr: <%= @json_stats.parsed_response["singlesUtr"] %></p>
 				<p>Min rating: <%= @json_stats.parsed_response["minRating"] %> - Max rating: <%= @json_stats.parsed_response["maxRating"] %>
 				</p>
 
-<hr/>
+				<hr/>
+				<h1 class="h3 mb-3 text-gray-800">My matches last 12 months </h1>
+				<p>Wins: <%= @json_matches.parsed_response["wins"] %></p>
+				<p>Losses: <%= @json_matches.parsed_response["losses"] %></p>
+
+				<hr/>
+				<h1 class="h3 mb-3 text-gray-800"> Tournaments last 12 months </h1>
+				<% @json_matches.parsed_response["events"].each do |ev|  %>
+					<h5 class="h5 mb-3 text-gray-800"><%= ev["name"] %> Dato:<%= DateTime.parse(ev["startDate"]).strftime(" %d-%m-%Y") %></h1>
+
+					<% ev["draws"][0]["results"].each do |res| %>
+						<p><b><%= res["players"]["winner1"]["firstName"] %>
+						<%= res["players"]["winner1"]["lastName"]%></b>
+						vs. <%= res["players"]["loser1"]["firstName"] %>
+						<%= res["players"]["loser1"]["lastName"]%>
+						
+						<%= res["score"]["1"]["winner"]%>-<%= res["score"]["1"]["loser"]%> 
+						<%= "(" + res["score"]["1"]["winnerTiebreak"] + ")" if res["score"]["1"]["tiebreak"] != nil %>
+						<%= res["score"]["2"]["winner"]%>-<%= res["score"]["2"]["loser"]%> 
+						<%= "(" + res["score"]["2"]["winnerTiebreak"] + ")" if res["score"]["2"]["tiebreak"] != nil %>
+						<% if ! res["score"]["3"].nil? %>
+							<%= res["score"]["3"]["winner"]%>-<%= res["score"]["3"]["loser"]%>
+						<% if   res["score"]["3"]["tiebreak"] != nil %>
+							(<%=  res["score"]["3"]["winnerTiebreak"] %>-<%= res["score"]["3"]["tiebreak"] %>)
+						<% end %>
+
+					<% end %>
+					
+				<% end %>
+				<hr/>	
+		<% end %>
 			</div>
 			<% end %>
 			<% if current_user.coach? || current_user.admin? %>
