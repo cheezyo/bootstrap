@@ -1,6 +1,19 @@
 <div class="row">	
 	
 <div class="col-xl-12 col-md-12 mb-4 ">
+<%= @json_stats.parsed_response["subtitle"] %>
+Start rating: <%= @json_stats.parsed_response["startRating"] %>
+Min rating: <%= @json_stats.parsed_response["minRating"] %>
+Max rating: <%= @json_stats.parsed_response["maxRating"] %>
+Current utr: <%= @json_stats.parsed_response["singlesUtr"] %>
+
+<hr/>
+<% @json_stats.parsed_response.each do |res| %>
+<p><%= res %></p>
+<% end %>
+
+<hr/>
+
 <p>Wins: <%= @json_response.parsed_response["wins"] %></p>
 <p>Losses: <%= @json_response.parsed_response["losses"] %></p>
 
@@ -29,7 +42,7 @@
 <% end %>
 
 
-<p>Wins: <%= @json_response.parsed_response["events"][0] %></p> 
+<p><%= @json_response.parsed_response["events"][0] %></p> 
 </div>
 
 </div>

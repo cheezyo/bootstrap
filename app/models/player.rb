@@ -22,6 +22,10 @@ class Player < ApplicationRecord
 		user = User.find(ids).reject{|u| u.coach == true || u.admin == true || u.parent == true}
 		user.first
 	end
+
+	def got_utr_profile?
+		! self.utr_profile.nil?
+	end
 	
 	def fullname
     	self.name + " " + self.lastname 

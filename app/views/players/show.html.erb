@@ -24,6 +24,9 @@
 		   <li class="nav-item "><a href="#fys-program" data-toggle="tab" class="nav-link text-secondary">Physical program</a></li>
 		   
 		   <li class="nav-item "><a href="#turneringsplan" data-toggle="tab" class="nav-link text-secondary">Tournament plan</a></li>
+		   <% if @player.got_utr_profile? %>
+		   <li class="nav-item "><a href="#utr" data-toggle="tab" class="nav-link text-secondary">UTR</a></li>
+		   <% end %>
 		   <% if current_user.admin? || current_user.coach? %>
 		   <li class="nav-item "><a href="#settings" data-toggle="tab" class="nav-link text-secondary">Settings</a></li>
 		   <% end %>
@@ -96,6 +99,11 @@
 				<%= line_chart @trainings_year_per_month, {xtitle: "Months", ytitle: "Minutes", colors: ["#F78962", "#fff"]}  %>
 				
 			</div>
+			<% else %>
+			<div class="tab-pane" id="diary">
+				Only player who have own user will have a diary. 
+			</div>
+
 			<% end %>
 
 			<div class="tab-pane" id="ironman">
@@ -378,8 +386,23 @@
 					</tbody>
 				</table>
 			</div>
+			<% if @player.got_utr_profile? %>
+			<div class="tab-pane" id="utr">
+				<h1 class="h3 mb-3 text-gray-800"> UTR last 12 month </h1>
+				<p><%= @json_stats.parsed_response["subtitle"] %></p>
+				<p>Start rating: <%= @json_stats.parsed_response["startRating"] %> -
+				Current utr: <%= @json_stats.parsed_response["singlesUtr"] %></p>
+				<p>Min rating: <%= @json_stats.parsed_response["minRating"] %> - Max rating: <%= @json_stats.parsed_response["maxRating"] %>
+				</p>
+
+<hr/>
+			</div>
+			<% end %>
 			<% if current_user.coach? || current_user.admin? %>
 				<div class="tab-pane" id="settings">
+					<div class="col-xl-12 col-md-12 mb-4">	
+						<%= link_to "Edit player", edit_player_path(@player), :class => "btn btn-primary" %> 
+					</div>
 					<div class="col-xl-12 col-md-12 mb-4">	
 					<% if current_user.admin? %>
 						<% if !@player.got_user? %>  
