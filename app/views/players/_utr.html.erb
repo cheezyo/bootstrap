@@ -1,4 +1,4 @@
-
+				<h1 class="h4 mb-3 text-gray-800">My activity last 12 months</h1>
 				<div class="row">
 				<div class="col-xl-3 col-md-6 mb-4">
 	              <div class="card border-left-primary shadow h-100 py-2">
@@ -43,12 +43,12 @@
 
     <div class="row">
         <div class="col-xl-12">
-        		<h1 class="h4 mb-3 text-gray-800">Tournaments last 12 months</h1>
+        		
         	<% @json_matches.parsed_response["events"].each do |ev|  %>
  			<div class="card shadow mb-4">
             	<div class="card-header py-3">
               		<div class="text-md font-weight-bold text-primary text-uppercase ">
-              			<%= ev["name"] %> 
+              			<%= ev["name"] %><span class="text-gray-800"> - <%= ev["draws"][0]["name"] %></span>
               		</div>
               		<div class="text-md text-primary ">
               			<%= DateTime.parse(ev["startDate"]).strftime(" %d-%m-%Y") %>
