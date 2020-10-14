@@ -10,9 +10,7 @@
  </div>
  <hr/>
 
-<div class="row">	
-	
-</div>
+
 
 <div class="card shadow mb-4">
  <div class="card-header py-1">
@@ -20,7 +18,7 @@
 	<div class="col-xl-12 col-md-12 mb-4 ">
 		<ul class="nav nav-tabs">
 		   <li class="nav-item "><a href="#profile" data-toggle="tab" class="nav-link text-secondary active">Profile</a></li>
-		   
+		   <li class="nav-item "><a href="#diary" data-toggle="tab" class="nav-link text-secondary">Diary</a></li>
 		   <li class="nav-item "><a href="#ironman" data-toggle="tab" class="nav-link text-secondary">Ironman</a></li>
 		   <li class="nav-item "><a href="#tasks" data-toggle="tab" class="nav-link text-secondary">Tasks</a></li>
 		   <li class="nav-item "><a href="#fys-program" data-toggle="tab" class="nav-link text-secondary">Physical program</a></li>
@@ -40,21 +38,65 @@
 
 			
 			  <div class="tab-pane active" id="profile">
-				<div class="col-xl-12 col-md-12 mb-4">
-				
-				  	<p>Parent: <%=  @player.got_parent? ? @player.parent.name : "NO PARENT" %></p>
-				  	<p>Coach: <%= @player.got_coach? ? @player.coach.name : "NO COACH" %></p>				 
-				  	<p>Planet: 
-				  		<% if @player.planet.present? %>
-				  		<%= link_to @player.planet.title, @player.planet %>
-				  		<% else %>
-				  		NO PLANET
-				  		<% end %>
-				  	</p>
-				</div>
+				<div class="row">
+				<div class="col-xl-3 col-md-6 mb-4">
+	              <div class="card border-left-primary shadow h-100 py-2">
+	                <div class="card-body">
+	                  <div class="row no-gutters align-items-center">
+	                    <div class="col mr-2">
+	                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Info</div>
+	                      <div class="h5 mb-2 font-weight-bold text-gray-800">Parent: <small><%=  @player.got_parent? ? @player.parent.name : "NO PARENT" %></small></div>
+	                      <div class="h5 mb-2 font-weight-bold text-gray-800">Coach: <small><%= @player.got_coach? ? @player.coach.name : "NO COACH" %></small></div>
+	                      
+	                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-info fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+	              <div class="card border-left-warning shadow h-100 py-2">
+	                <div class="card-body">
+	                  <div class="row no-gutters align-items-center">
+	                    <div class="col mr-2">
+	                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Next event</div>
+	                      <div class="h5 mb-2 font-weight-bold text-gray-800"><%= @tournament.nil? ? " " : @tournament.start_date.strftime("%d-%m-%Y:")   %> 
+	                      	<% if @tournament.nil? %>
+	                      		"No up coming tournament"
+	                      	<% else %>
+	                      	<%=  link_to @tournament.title, @tournament  %>
+	                      	<% end %>
+	                      	</div>
+	                    
+	                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-trophy fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        	</div>
 			</div>
-			
-			
+			<% if @player.got_user? %>
+			<div class="tab-pane" id="diary">
+				
+				<h4 class= "text-gray-800">Days this month <%= @date.strftime("%B") %></h4>
+				<%= line_chart @month_line, {xtitle: "Days", ytitle: "Minutes", colors: ["#50c878", "#fff"]}  %>
+				<h4 class= "text-gray-800">This month <%= @date.strftime("%B") %></h4>
+				<%= bar_chart @trainings_month, {xtitle: "Minutes", ytitle: "", colors: ["#50c878", "#fff"]} %>
+				<h4 class= "text-gray-800">Previous month  <%= (@date - 1.month).strftime("%B") %></h4>
+				<%= bar_chart @trainings_prev_month, {xtitle: "Minutes", ytitle: "", colors: ["#ed2939", "#fff"]} %>
+
+				<h4 class= "text-gray-800">Year <%= @date.year %> total</h4>
+				<%= bar_chart @trainings_year, {xtitle: "Minutes", ytitle: "", colors: ["#0080FF", "#fff"]}  %>
+				<h4 class= "text-gray-800">Year <%= @date.year %> by month</h4>
+				<%= line_chart @trainings_year_per_month, {xtitle: "Months", ytitle: "Minutes", colors: ["#F78962", "#fff"]}  %>
+				
+			</div>
+			<% end %>
 
 			<div class="tab-pane" id="ironman">
 				<%= render 'layouts/ironman/ironman_table', player: @player %>
@@ -135,7 +177,9 @@
 								<% @tasks.each do |t| %>
 								<tr>
 									<td><%= t.task_category.category %></td>
-									<td><%= t.created_at.strftime("%d-%m-%Y") + ": " + t.task %></td>
+									<td><%= t.created_at.strftime("%d-%m-%Y") + ": " + t.task %>
+										<%= image_tag t.image.url, style: 'height:300px;width:200px;float:left' if t.image? %>
+									</td>
 									
 									<td>
 
@@ -358,14 +402,21 @@
 						
 						<% end %>
 						<% if !@player.got_coach? && current_user.admin? %>  
-							<br/><small>Add coach:</small>               
-							<%= form_for UserPlayer.new do |f| %>
+								<br/><small>Add coach:</small>               
+								<%= form_for UserPlayer.new do |f| %>
 								<%= f.collection_select :user_id, User.where(coach: true), :id, :name, :class => "form-control form-control-user", :include_blank => 'choose user' %>
 								<%= f.hidden_field :player_id, :value => @player.id %>
-								<%= f.submit "Save" , :class => "btn btn-success"%>
+								<%= f.submit "Add" , :class => "btn btn-success"%>
 							<% end %>
-						
 						<% end %>
+						<% if @player.got_coach? && current_user.admin? %>
+								<br/><small>Change coach:</small>               
+								<%= form_for UserPlayer.where(user_id: @player.coach.id, player_id: @player.id).first do |f| %>
+								<%= f.collection_select :user_id, User.where(coach: true), :id, :name, :class => "form-control form-control-user", :include_blank => 'choose user' %>
+								<%= f.hidden_field :player_id, :value => @player.id %>
+								<%= f.submit "Edit" , :class => "btn btn-success"%>
+							<% end %>
+							<% end %>
 
 					<% end %>
 						<h3>Level</h3>

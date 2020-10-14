@@ -43,11 +43,13 @@
             </li><hr/>
           <% end %>
           <% else %>
-          <li class="list-group-item">This is a public tournament for the choosen age group</li><hr/>
+          <li class="list-group-item">This is a public event for the choosen age group</li><hr/>
         <% end %>
       <% end %>
     <li class="list-group-item"> <b>Responsible:</b> <%= @tournament.user.nil? ? "" : @tournament.user.name + " - " + @tournament.user.email %> </li><hr/>
+    <% if @tournament.club_trip? %>
     <li class="list-group-item"><b>Travel and hotel:</b> <%= @tournament.flight_hotel %> </li><hr/>
+    <% end %>
     <li class="list-group-item"><b>Other info:</b> <%= @tournament.commet %> </li><hr/>
   </ul>
          
@@ -61,6 +63,10 @@
     
     
     <%= link_to "Go to tournament software", @tournament.url, :class => "btn btn-info",  target: '_blank' %>
+    <% if current_user.admin? || current_user.coach? %>
+    <%= link_to "Edit tournament", edit_tournament_path(@tournament), :class => "btn btn-warning" %>
+    <% end %>
+
   </div> 
 </div> 
   

@@ -1,4 +1,6 @@
+
 class Player < ApplicationRecord
+	include HTTParty
 	belongs_to :level
 	belongs_to :planet
 	has_many :tasks

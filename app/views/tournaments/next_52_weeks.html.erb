@@ -1,11 +1,11 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-	<h1 class="h3 mb-0 text-gray-800">Tournamnets</h1>
+	<h1 class="h3 mb-0 text-gray-800">Event planner</h1>
 </div>
 
 <div class="row">
 	<div class="col-xl-12 col-md-12 mb-4 ">
-				<h1 class="h5 mb-0 text-gray-800 mb-4"><i class="fas fa-plane-departure"></i> = Klubbtur </h1>
-				<h1 class="h5 mb-0 text-gray-800 mb-4"><i class="fas fa-street-view"></i> = Trener til stede</h1>
+				<h1 class="h5 mb-0 text-gray-800 mb-4"><i class="fas fa-plane-departure"></i> = Club trip </h1>
+				<h1 class="h5 mb-0 text-gray-800 mb-4"><i class="fas fa-street-view"></i> = Only coach on site</h1>
 				<% today_week = DateTime.now.strftime("%U").to_i %>
 				<% date = 5.weeks.ago(DateTime.now) %>
 				<% start_week = today_week - 5 %>

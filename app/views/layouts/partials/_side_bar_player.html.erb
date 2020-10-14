@@ -1,4 +1,4 @@
-<ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion shadow-sm" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion shadow-sm" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
      
@@ -6,7 +6,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
          <i class="fas fa-toolbox"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">Admin <sup>menu</sup></div>
+        <div class="sidebar-brand-text mx-3">Player <sup>menu</sup></div>
       </span>
    
       <!-- Divider -->
@@ -14,12 +14,12 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <%= link_to root_url do %>
-        <span class="nav-link" href="index.html">
+        <%= link_to current_user.get_player_profile do  %>
+        <span class="nav-link">
           
           <i class="fas fa-home"></i>
 
-          Home</span>
+          My activity</span>
         <% end %>
       </li>
 
@@ -32,29 +32,31 @@
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
-      
+       
+                  
+                 
       <li class="nav-item">
-        <%= link_to tasks_path, :class => "nav-link" do %>
+        <%= link_to toplist_tests_path, :class => "nav-link" do %>
          <span>
-          <i class="fas fa-tasks mr-2"></i>
+          <i class="fas fa-trophy mr-2"></i>
           
-          Tasks</span>
+           Toplist Ironman</span>
         <% end %>
       </li>
       <li class="nav-item">
-        <%= link_to ironman_player_players_path + "?id=" + current_user.players.first.id.to_s, :class => "nav-link" do %>
+        <%= link_to  new_training_path, :class => "nav-link" do %>
          <span>
-          <i class="fas fa-tasks mr-2"></i>
+          <i class="fas fa-plus mr-2"></i>
           
-          Ironman</span>
+          New training</span>
         <% end %>
       </li>
       <li class="nav-item">
-        <%= link_to tasks_path, :class => "nav-link" do %>
+        <%= link_to  trainings_path, :class => "nav-link" do %>
          <span>
-          <i class="fas fa-tasks mr-2"></i>
+          <i class="fas fa-running mr-2"></i>
           
-          Tasks</span>
+          My trainings</span>
         <% end %>
       </li>
        

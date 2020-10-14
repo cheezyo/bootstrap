@@ -1,10 +1,16 @@
 class TrainingsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_training, only: [:show, :edit, :update, :destroy]
 
   # GET /trainings
   # GET /trainings.json
   def index
-    @trainings = Training.all
+    if current_user.admin? 
+      @trainings = Training.order(t_date: :desc)
+    else
+      @trainings = Training.where(user_id: current_user.id).order(t_date: :desc)
+    end
+
   end
 
   # GET /trainings/1
@@ -15,10 +21,12 @@ class TrainingsController < ApplicationController
   # GET /trainings/new
   def new
     @training = Training.new
+      session[:return_to] ||= request.referer
   end
 
   # GET /trainings/1/edit
   def edit
+      session[:return_to] ||= request.referer
   end
 
   # POST /trainings
@@ -28,7 +36,7 @@ class TrainingsController < ApplicationController
     @training.user_id = @current_user.id
     respond_to do |format|
       if @training.save
-        format.html { redirect_to @training, notice: 'Training was successfully created.' }
+        format.html { redirect_to session.delete(:return_to), notice: 'Training was successfully created.' }
         format.json { render :show, status: :created, location: @training }
       else
         format.html { render :new }
@@ -42,7 +50,7 @@ class TrainingsController < ApplicationController
   def update
     respond_to do |format|
       if @training.update(training_params)
-        format.html { redirect_to @training, notice: 'Training was successfully updated.' }
+        format.html { redirect_to session.delete(:return_to), notice: 'Training was successfully updated.' }
         format.json { render :show, status: :ok, location: @training }
       else
         format.html { render :edit }

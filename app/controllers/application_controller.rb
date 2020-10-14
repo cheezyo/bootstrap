@@ -17,20 +17,19 @@ class ApplicationController < ActionController::Base
       redirect_to '/my/users/sign_in' unless user_signed_in?
     end
 
-        def configure_permitted_parameters
-            devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:name, :email, :password) }
-            devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:name, :email, :password, :current_password, :admin, :coach, :parent) }
-        end
+    def configure_permitted_parameters
+        devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:name, :email, :password) }
+        devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:name, :email, :password, :current_password, :admin, :coach, :parent, :player) }
+    end
 
-         def after_sign_in_path_for(resource)
-		   '/'
-		      # return the path based on resource
-		  end
+    def after_sign_in_path_for(resource)
+      current_user		      # return the path based on resource
+    end
 
-		  def after_sign_out_path_for(resource)
-		  '/' 
-		    # return the path based on resource
-		  end
+    def after_sign_out_path_for(resource)
+      '/my/users/sign_in' 
+    # return the path based on resource
+    end
 
   def respond_modal_with(*args, &blk)
   	

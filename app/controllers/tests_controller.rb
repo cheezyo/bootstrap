@@ -77,7 +77,7 @@ class TestsController < ApplicationController
         if params[:group] != nil
           format.html { redirect_to tests_url + "?group=" + params[:group], notice: 'Test was successfully updated.' }
         else
-          format.html { redirect_to @test, notice: 'Test was successfully updated.' }
+          format.html { redirect_to @test.player, notice: 'Test was successfully updated.' }
           format.json { render :show, status: :ok, location: @test }
         end
       else

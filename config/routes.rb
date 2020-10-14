@@ -44,6 +44,7 @@ end
     get :ironman_player
     get :add_sticker
     get :delete_sticker
+    get :utr
   end
 end
   resources :user_players, only: [:create, :update,:destroy] 

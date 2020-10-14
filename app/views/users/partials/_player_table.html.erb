@@ -10,7 +10,7 @@
                       <th>Name</th>
                       <th>Age</th>
                       <th>Edit</th>
-                      <th>Delete</th>
+                      
                     </tr>
                   </thead>
                   <tfoot>
@@ -18,7 +18,7 @@
                       <th>Name</th>
                       <th>Age</th>
                       <th>Edit</th>
-                      <th>Delete</th>
+                    
                     </tr>
                   </tfoot>
                   <tbody>
@@ -28,7 +28,7 @@
                       <td><%= link_to p.name, p %></td>
                       <td><%= p.age %></td>
                       <td><%= link_to 'Edit', edit_player_path(p) %></td>
-                      <td><%= link_to 'Delete', p, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                      
                     </tr>
                   <% end %>
                  

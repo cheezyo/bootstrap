@@ -24,12 +24,59 @@ class PlayersController < ApplicationController
 
     @tournaments = Tournament.where(age_str, true)
     
+    t1 = @player.tournaments.where(end_date: DateTime.now..DateTime::Infinity.new)
+    t2 = @tournaments.where(end_date: DateTime.now..DateTime::Infinity.new)
+    @tournament = nil  
+   if ! t1.empty? && ! t2.empty?
+    arr = Array.new
+    arr << t1.order('start_date asc').first.start_date.strftime("%U").to_i
+    arr << t2.order('start_date asc').first.start_date.strftime("%U").to_i
+    if arr[0] > arr[1]
+      @tournament = t2.first
+    else
+      @tournament = t1.first
+    end  
+   elsif t1.empty? && ! t2.empty?
+    @tournament = t2.order('start_date asc').first
+
+   elsif ! t1.empty? && t2.empty?
+    @tournament = t1.order('start_date asc').first
+   end
+    if @player.got_user?
+     @trainings_month = Array.new
+     @trainings_year = Array.new
+     @trainings_prev_month = Array.new
+     @date = check_date
+     #t = @player.user.trainings.where('t_date BETWEEN ? AND ? AND type_of_training ?', Date.today.at_beginning_of_month, Date.today.at_end_of_month)
+      TypeOfTraining.all.each do |t|
+        
+        @trainings_prev_month << [t.title, @player.user.trainings.where(type_of_training: t.id).where('t_date BETWEEN ? AND ?', (@date - 1.month).at_beginning_of_month, (@date - 1.month).at_end_of_month).sum(:time)] 
+        @trainings_month << [t.title, @player.user.trainings.where(type_of_training: t.id).where('t_date BETWEEN ? AND ?', @date.at_beginning_of_month, @date.at_end_of_month).sum(:time)] 
+        @trainings_year << [t.title, @player.user.trainings.where(type_of_training: t.id).where('t_date BETWEEN ? AND ?', Time.parse('01-01-' + @date.year.to_s), Time.parse('31-12-' + @date.year.to_s)).sum(:time)] 
+      end
+      @month_line = Array.new
+      (@date.at_beginning_of_month..@date.at_end_of_month).each do |d|
+        @month_line << [d, @player.user.trainings.where(t_date: d).sum(:time)]
+      end 
+
+      @trainings_year_per_month = Array.new
+      (1..12).each do |m|
+        date1 = Time.parse('01-' + m.to_s + "-" + @date.year.to_s)
+        @trainings_year_per_month << [date1.strftime("%B"), @player.user.trainings.where('t_date BETWEEN ? AND ?', date1, date1.at_end_of_month).sum(:time)] 
+      end
+   
+    end
 
     @tasks = @player.tasks.where(done: false)
     @completed_tasks = @player.tasks.where(done: true)
+      #results?year=last&Type=singles
+      #stats?Months=12&Type=singles&resultType=myutr&fetchAllResults=true
+   
     
   end
-
+  def utr 
+     @json_response = HTTParty.get("https://agw-prod.myutr.com/v1/player/797855/results?year=last&Type=singles", headers: {"Authorization" => "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNZW1iZXJJZCI6IjEyOTQxMCIsImVtYWlsIjoiY2V6YXJzaW5jYW5AaG90bWFpbC5jb20iLCJWZXJzaW9uIjoiMSIsIkRldmljZUxvZ2luSWQiOiI0NzMyNTQ2IiwibmJmIjoxNjAxNDUyNzIzLCJleHAiOjE2MDQwNDQ3MjMsImlhdCI6MTYwMTQ1MjcyM30.phM9zNHzbAfqMQtcivh90nB6nfCeHWPGFbsCoQil6AA"})
+  end
   # GET /players/new
   def new
     @player = Player.new
@@ -109,6 +156,14 @@ class PlayersController < ApplicationController
   end
 
   private
+
+  def check_date
+    if params[:date].nil? 
+      DateTime.now
+    else
+      DateTime.parse(params[:date])
+    end
+  end
     # Use callbacks to share common setup or constraints between actions.
     def set_player
       @player = Player.find(params[:id])

@@ -35,7 +35,7 @@
         <h3 class="h4 mb-0 text-gray-800">Type of training</h3>
       </div>
       <div class="col-sm-12 col-lg-12 mb-4">
-          <%= form.collection_select :type_of_training_id, TypeOfTraining.all, :id, :title, :class => "form-control form-control-user" %>
+          <%= form.collection_select :type_of_training_id, TypeOfTraining.all, :id, :title, :class => "form-control form-control-user", :include_blank => 'Choose type of training' %>
       </div>
     </div>
     <hr/>

@@ -42,12 +42,11 @@ class UsersController < ApplicationController
 
       respond_to do |format|
         if @user.save
-
         	sign_in(@user) unless current_user.present?
           format.html { redirect_to @user, notice: 'User was successfully created.' }
           format.json { render :show, status: :created, location: @user }
         else
-          format.html { render :new }
+          format.html { redirect_to new_user_path, notice: 'Password needs to match, please try again' }
           format.json { render json: @user.errors, status: :unprocessable_entity }
         end
       end
@@ -68,7 +67,13 @@ class UsersController < ApplicationController
        render 'edit'
      end
    end
-
+  def destroy
+      @user.destroy
+      respond_to do |format|
+        format.html { redirect_to root_url, notice: 'User was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    end
     private
     # Use callbacks to share common setup or constraints between actions.
     def set_user

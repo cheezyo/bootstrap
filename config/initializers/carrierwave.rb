@@ -11,5 +11,5 @@ CarrierWave.configure do |config|
   config.fog_attributes = {'Cache-Control'=>'max-age=315576000'}  # optional, defaults to {}
 end
 
-#'AKIAIHMLQEQDE2LFTJ5A'
-#'K4A0nyLMF9Y2n0y1d71cvVCCGwfCCl0VUt2ru+P8'
+#'AKIAIHMLQEQDE2LFTJ5A'ENV['S3_KEY']
+#'K4A0nyLMF9Y2n0y1d71cvVCCGwfCCl0VUt2ru+P8'ENV['S3_SECRET']

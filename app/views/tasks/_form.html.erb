@@ -28,6 +28,7 @@
   <div class="col-sm-12 col-lg-6 mb-4">
     <% if @task.image? %>
       <%= image_tag @task.image.url %>
+      <%= form.check_box :remove_image %> Remove picture
     <% end %> 
     <%= form.file_field :image, :class => "form-control form-control-user" %>
 

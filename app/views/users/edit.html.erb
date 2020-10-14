@@ -21,11 +21,11 @@
           <%= f.text_field :name,  autocomplete: "name", :class => "form-control form-control-user" %>
         
       </div>
-      
+      <% if can? :assign_roles, @user %>
         <div class="form-group row">
         <h5 class="m-0 mb-0 text-gray-800">Roles</h5>
       </div>
-       <% if can? :assign_roles, @user %>
+       
          <div class="form-check row">
           <%= f.label :admin, :class => "form-check-label"%>
           <%= f.check_box :admin, :class=> "form-check-input " %>

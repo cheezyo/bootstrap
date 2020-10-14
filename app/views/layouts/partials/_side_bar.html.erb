@@ -1,6 +1,6 @@
 
 
-<ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion shadow-sm" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion shadow-sm" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
      
@@ -126,20 +126,20 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTournaments" aria-expanded="true" aria-controls="collapseTournaments">
          <i class="fas fa-table-tennis mr-2"></i>
-          <span>Tournaments</span>
+          <span>Events</span>
         </a>
         <div id="collapseTournaments" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
            <%= link_to tournaments_path, :class => "collapse-item" do %>
             <span>
               <i class="fas fa-table-tennis mr-2"></i>
-              All tournaments
+              All events
             </span>
            <% end %>
            <%= link_to next_52_weeks_tournaments_path, :class => "collapse-item" do %>
             <span>
               <i class="far fa-calendar-plus mr-2 "></i>
-              Tournament planner
+              Event planner
             </span>
            <% end %>
           </div>

@@ -1,30 +1,36 @@
 
 
 
-<div class="card o-hidden border-0 shadow-lg my-5">
-      <div class="card-body p-0">
-        <!-- Nested Row within Card Body -->
-        <div class="row">
-          <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-          <div class="col-lg-7">
-            <div class="p-5">
-              <div class="text-center">
-                    
-                    <img class="mb-2" src="https://www.stavangertk.no/wp-content/uploads/2019/03/stavangertennisklubb_logo_liggende.svg" >
-                    </div>
-              <div class="text-center">
-                <h1 class="h3 text-gray-700 mb-4">Create an Account!</h1>
-              </div>
+<div class="row justify-content-center my-5">
 
-              <%= form_for(@user) do |f| %>
-               
-                  <div class="col-sm-12 mb-4">
-                    <%= f.text_field :name, autofocus: true, autocomplete: "name", :class => "form-control form-control-user", placeholder: 'Full name' %>
+      <div class="col-xl-4 col-lg-4 col-md-12">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+          <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+             
+              <div class="col-lg-12">
+                <div class="p-5">
+                  <div class="text-center">
+                    
+                    <img class="mb-4" src="https://www.stavangertk.no/wp-content/uploads/2019/03/stavangertennisklubb_logo_liggende.svg" >
+                    </div>
+             
+
+                <%= form_for(@user) do |f| %>
+                <% if !notice.nil? %>
+                <div class="alert alert-danger notice" role="alert">
+                  <%= notice %>
+                </div>
+                <% end %>
+                  <div class="col-sm-12 mb-4 mt-4">
+                    <%= f.text_field :name, autofocus: true, autocomplete: "name", :class => "form-control form-control-user", placeholder: 'Full name', :required => true %>
                   </div>
             
 
                  <div class="col-sm-12 mb-4">
-                    <%= f.email_field :email, autocomplete: "email", :class => "form-control form-control-user", placeholder: 'Email' %>
+                    <%= f.email_field :email, autocomplete: "email", :class => "form-control form-control-user", placeholder: 'Email', :required => true %>
                     <div class="text-center"><p><small>(Will be your username)</small></p></div>
                   </div>
               
@@ -40,14 +46,14 @@
                 <% end %>
                 
                   <div class="col-sm-12 mb-3 mb-4">
-                     <%= f.password_field :password, autocomplete: "new-password", :class => "form-control form-control-user", placeholder: 'Password' %>
-                     <div class="text-center"><p><small>(At least 6 charaters)</small></p></div>
+                     <%= f.password_field :password, autocomplete: "new-password", :class => "form-control form-control-user", placeholder: 'Password', :required => true %>
+                     <div class="text-center"><p><small>(At least 6 characters)</small></p></div>
                 </div>
      
 
               
                   <div class="col-sm-12 mb-3 mb-4">
-                    <%= f.password_field :password_confirmation, autocomplete: "new-password", :class => "form-control form-control-user", placeholder: 'Password confirmation' %>
+                    <%= f.password_field :password_confirmation, autocomplete: "new-password", :class => "form-control form-control-user", placeholder: 'Password confirmation', :required => true %>
                 </div>
               
                <%= f.submit "Register Account", class: "btn btn-primary btn-user btn-block mb-4" %>
@@ -62,4 +68,7 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
 

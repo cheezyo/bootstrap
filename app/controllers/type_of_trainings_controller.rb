@@ -1,4 +1,5 @@
 class TypeOfTrainingsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_type_of_training, only: [:show, :edit, :update, :destroy]
 
   # GET /type_of_trainings
