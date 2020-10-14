@@ -42,7 +42,7 @@ class PlayersController < ApplicationController
    elsif ! t1.empty? && t2.empty?
     @tournament = t1.order('start_date asc').first
    end
-    if @player.got_user?
+  if @player.got_user?
      @trainings_month = Array.new
      @trainings_year = Array.new
      @trainings_prev_month = Array.new
@@ -176,10 +176,11 @@ class PlayersController < ApplicationController
   end
   def check_date
     if params[:date].nil? 
-      DateTime.now
+      date = DateTime.now
     else
-      DateTime.parse(params[:date])
+      date = DateTime.parse(params[:date])
     end
+
   end
     # Use callbacks to share common setup or constraints between actions.
     def set_player

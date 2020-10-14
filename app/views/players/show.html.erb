@@ -23,7 +23,7 @@
 		   <li class="nav-item "><a href="#tasks" data-toggle="tab" class="nav-link text-secondary">Tasks</a></li>
 		   <li class="nav-item "><a href="#fys-program" data-toggle="tab" class="nav-link text-secondary">Physical program</a></li>
 		   
-		   <li class="nav-item "><a href="#turneringsplan" data-toggle="tab" class="nav-link text-secondary">Tournament plan</a></li>
+		   <li class="nav-item "><a href="#turneringsplan" data-toggle="tab" class="nav-link text-secondary">Event plan</a></li>
 		   <% if @player.got_utr_profile? %>
 		   <li class="nav-item "><a href="#utr" data-toggle="tab" class="nav-link text-secondary">UTR</a></li>
 		   <% end %>
@@ -85,12 +85,17 @@
 			</div>
 			<% if @player.got_user? %>
 			<div class="tab-pane" id="diary">
-				
-				<h4 class= "text-gray-800">Days this month <%= @date.strftime("%B") %></h4>
+				<%= link_to (@date - 1.year).strftime("%Y"), player_path(@player) + "?date=" + (@date - 1.year).strftime("%d-%m-%Y")  %>
+				<%= link_to "<<", player_path(@player) + "?date=" + (@date - 1.month).strftime("%d-%m-%Y")  %>
+				Month<%= link_to ">>", player_path(@player) + "?date=" + (@date + 1.month).strftime("%d-%m-%Y")  %>
+				<% if @date.year < DateTime.now.year %>
+					<%= link_to (@date + 1.year).strftime("%Y"), player_path(@player) + "?date=" + (@date + 1.year).strftime("%d-%m-%Y")  %>
+				<% end %> 
+				<h4 class= "text-gray-800">Days this month <%= @date.strftime("%B %Y") %></h4>
 				<%= line_chart @month_line, {xtitle: "Days", ytitle: "Minutes", colors: ["#50c878", "#fff"]}  %>
-				<h4 class= "text-gray-800">This month <%= @date.strftime("%B") %></h4>
+				<h4 class= "text-gray-800">This month <%= @date.strftime("%B %Y") %></h4>
 				<%= bar_chart @trainings_month, {xtitle: "Minutes", ytitle: "", colors: ["#50c878", "#fff"]} %>
-				<h4 class= "text-gray-800">Previous month  <%= (@date - 1.month).strftime("%B") %></h4>
+				<h4 class= "text-gray-800">Previous month  <%= (@date - 1.month).strftime("%B %Y") %></h4>
 				<%= bar_chart @trainings_prev_month, {xtitle: "Minutes", ytitle: "", colors: ["#ed2939", "#fff"]} %>
 
 				<h4 class= "text-gray-800">Year <%= @date.year %> total</h4>
@@ -335,7 +340,7 @@
 					<thead>
 						<tr>
 							<th>Week (date)</th>
-							<th>Tournament</th>
+							<th>Event</th>
 							<th></th>
 
 						
