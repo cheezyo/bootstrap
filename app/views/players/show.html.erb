@@ -411,22 +411,26 @@
 						vs. <%= res["players"]["loser1"]["firstName"] %>
 						<%= res["players"]["loser1"]["lastName"]%>
 						
-						<%= res["score"]["1"]["winner"]%>-<%= res["score"]["1"]["loser"]%> 
-						<%= "(" + res["score"]["1"]["winnerTiebreak"] + ")" if res["score"]["1"]["tiebreak"] != nil %>
-						<%= res["score"]["2"]["winner"]%>-<%= res["score"]["2"]["loser"]%> 
-						<%= "(" + res["score"]["2"]["winnerTiebreak"] + ")" if res["score"]["2"]["tiebreak"] != nil %>
-						<% if ! res["score"]["3"].nil? %>
-							<%= res["score"]["3"]["winner"]%>-<%= res["score"]["3"]["loser"]%>
-						<% if   res["score"]["3"]["tiebreak"] != nil %>
-							(<%=  res["score"]["3"]["winnerTiebreak"] %>-<%= res["score"]["3"]["tiebreak"] %>)
+						<% if res["completionType"] == "winnerdidnotstart" %>
+							W.O
+						<% else %>
+							<%= res["score"]["1"]["winner"]%>-<%= res["score"]["1"]["loser"]%> 
+							<%= "(" + res["score"]["1"]["winnerTiebreak"] + ")" if res["score"]["1"]["tiebreak"] != nil %>
+							<%= res["score"]["2"]["winner"]%>-<%= res["score"]["2"]["loser"]%> 
+							<%= "(" + res["score"]["2"]["winnerTiebreak"] + ")" if res["score"]["2"]["tiebreak"] != nil %>
+							<% if ! res["score"]["3"].nil? %>
+								<%= res["score"]["3"]["winner"]%>-<%= res["score"]["3"]["loser"]%>
+							<% if   res["score"]["3"]["tiebreak"] != nil %>
+								(<%=  res["score"]["3"]["winnerTiebreak"] %>-<%= res["score"]["3"]["tiebreak"] %>)
+							<% end %>
 						<% end %>
 
 					<% end %>
 					
 				<% end %>
 				<hr/>	
-		<% end %>
-			</div>
+<% end %>
+					</div>
 			<% end %>
 			<% if current_user.coach? || current_user.admin? %>
 				<div class="tab-pane" id="settings">
