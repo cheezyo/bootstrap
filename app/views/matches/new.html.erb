@@ -1,0 +1,7 @@
+<% if ! @player.nil? %>
+<h1>New match for <%= @player.fullname %> </h1>
+<% end %>
+
+<%= render 'form', match: @match %>
+
+<%= link_to 'Back', matches_path %>

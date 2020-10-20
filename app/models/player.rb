@@ -11,6 +11,7 @@ class Player < ApplicationRecord
 	has_many :stickers, through: :player_stickers, :dependent => :delete_all
 	has_many :player_tournaments, :dependent => :delete_all
 	has_many :tournaments, through: :player_tournaments
+	has_many :matches, :dependent => :delete_all
 	def parent
 		user_ids = UserPlayer.where(player_id: self.id).pluck(:user_id)
 		parent = User.find(user_ids).select{|u| u.parent == true }
@@ -64,7 +65,7 @@ class Player < ApplicationRecord
 		!self.level_id.blank? 
 	end
 	def get_last_ironman
-		self.tests.last rescue nil
+		self.tests.order(:test_date, :desc).first rescue nil
 	end
 
 

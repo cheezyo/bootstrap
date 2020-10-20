@@ -12,7 +12,7 @@
     <% elsif @tournament.only_coach? %>
       <i class="fas fa-street-view ml-2"></i>
     <% end %>
-    <b>Torunament for: </b>
+    <b>Event for: </b>
         <%= @tournament.u11? ? " u11, " : "" %>
         <%= @tournament.u12? ? " u12, " : "" %>
         <%= @tournament.u13? ? " u13, " : "" %>
@@ -62,9 +62,9 @@
   <div class="card-footer text-muted">
     
     
-    <%= link_to "Go to tournament software", @tournament.url, :class => "btn btn-info",  target: '_blank' %>
+    <%= link_to "Go to event registration", @tournament.url, :class => "btn btn-info",  target: '_blank' %>
     <% if current_user.admin? || current_user.coach? %>
-    <%= link_to "Edit tournament", edit_tournament_path(@tournament), :class => "btn btn-warning" %>
+    <%= link_to "Edit event", edit_tournament_path(@tournament), :class => "btn btn-warning" %>
     <% end %>
 
   </div> 

@@ -1,10 +1,8 @@
  
 <!-- Topbar -->
-        <% if current_user.admin? %>
-          <nav class="navbar navbar-expand-lg bg-white navbar-light mb-4 p-3 shadow-sm">
-        <% else %>
-          <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4 p-3 shadow-sm">
-        <% end %>
+       
+          <nav class="navbar navbar-expand-lg bg-primary navbar-dark mb-4 p-3 shadow-sm">
+    
           <%= link_to root_url, :class => "navbar-brand" do %>
           STK
           <% end %>
@@ -33,7 +31,23 @@
                   Toplist Ironman
                 <% end %>
               </li>
+
+              <% elsif current_user.player? %>
+              <li class="nav-item">
+                <%= link_to toplist_tests_path, :class => "nav-link" do %>
+                  <span><i class="fas fa-trophy mr-2"></i>Toplist Ironman</span>
+                <% end %>
+              </li>
+              <li class="nav-item">
+                 <%= link_to  new_training_path, :class => "nav-link" do %>
+                    <span><i class="fas fa-plus mr-2"></i>New training</span>
+                 <% end %>
+              </li>
+              <%= link_to  trainings_path, :class => "nav-link" do %>
+                <span><i class="fas fa-running mr-2"></i>My trainings</span>
               <% end %>
+                
+            <% end %>
             
             </ul>
             
@@ -60,7 +74,7 @@
                     <li class="nav-item dropdown no-arrow ">
                       <a class="nav-link dropdown-toggle " href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="far fa-user fa mr-2"></i>
-                        <span class="mr-2 d-lg-inline text-gray-600"><%= current_user.name %></span>
+                        <span class="mr-2 d-lg-inline "><%= current_user.name %></span>
                       </a>
                       <!-- Dropdown - User Information -->
                       <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

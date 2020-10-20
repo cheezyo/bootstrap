@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :matches
   resources :type_of_trainings
   resources :type_of_tranings
   resources :trainings

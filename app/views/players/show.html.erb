@@ -18,15 +18,15 @@
 	<div class="col-xl-12 col-md-12 mb-4 ">
 		<ul class="nav nav-tabs">
 		   <li class="nav-item "><a href="#profile" data-toggle="tab" class="nav-link text-secondary active">Profile</a></li>
+		   <li class="nav-item "><a href="#tasks" data-toggle="tab" class="nav-link text-secondary">Tasks</a></li>
 		   <li class="nav-item "><a href="#diary" data-toggle="tab" class="nav-link text-secondary">Diary</a></li>
 		   <li class="nav-item "><a href="#ironman" data-toggle="tab" class="nav-link text-secondary">Ironman</a></li>
-		   <li class="nav-item "><a href="#tasks" data-toggle="tab" class="nav-link text-secondary">Tasks</a></li>
 		   <li class="nav-item "><a href="#fys-program" data-toggle="tab" class="nav-link text-secondary">Physical program</a></li>
-		   
 		   <li class="nav-item "><a href="#turneringsplan" data-toggle="tab" class="nav-link text-secondary">Event plan</a></li>
 		   <% if @player.got_utr_profile? %>
 		   <li class="nav-item "><a href="#utr" data-toggle="tab" class="nav-link text-secondary">UTR</a></li>
 		   <% end %>
+		    <li class="nav-item "><a href="#match_stats" data-toggle="tab" class="nav-link text-secondary">Stats</a></li>
 		   <% if current_user.admin? || current_user.coach? %>
 		   <li class="nav-item "><a href="#settings" data-toggle="tab" class="nav-link text-secondary">Settings</a></li>
 		   <% end %>
@@ -82,6 +82,132 @@
               </div>
             </div>
         	</div>
+			</div>
+			<div class="tab-pane" id="tasks">
+				
+				<div id="accordion">
+				  <div class="card">
+				    <div class="card-header" id="headingOne">
+				      <h5 class="mb-0">
+				        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+				          Tasks in progress
+				        </button>
+				      </h5>
+				    </div>
+
+				    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+			    		<% if can? :update, Task %>
+			    		
+							<%= link_to "Add task", new_task_path + "?player_id=" + @player.id.to_s, :class => "btn btn-primary mb-3 mt-3 ml-4" %>
+						
+						<% end %>
+					  	
+				      <div class="card-body">
+					        <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
+							<thead>
+								<th>Category</th>
+								<th>Task</th>
+								<th>Last comment</th>
+								<% if can? :edit, Task %>
+								<th></th>
+								<% end %>
+							</thead>
+							<tbody>
+								<% @tasks.each do |t| %>
+								<tr>
+									<td><%= t.task_category.category %></td>
+									<td><%= t.created_at.strftime("%d-%m-%Y") + ": " + t.task %>
+										<%= image_tag t.image.url, style: 'height:300px;width:200px;float:left' if t.image? %>
+									</td>
+									
+									<td>
+
+										<% if ! t.task_comments.empty? %>
+											<% t.task_comments.each do |tc| %>
+												<p>
+													<%= tc.created_at.strftime("%d-%m-%Y:") %>
+													<i><%= tc.comment %></i>
+													 <% if can? :edit, TaskComment %>
+													<small>| <%= link_to "Edit", edit_task_comment_path(tc) + "?task_id=" + t.id.to_s %>
+													</small>
+													<% end %>
+												</p>
+											<% end %>
+										<% else %>
+										<% end %>
+										<% if can? :edit, TaskComment %>
+										 <p><%= link_to "Add comment", new_task_comment_path + "?task_id=" + t.id.to_s %></p>
+										 <% end %>
+
+
+																						
+										
+								 	</td>
+							 		<% if can? :edit, Task %>
+								 		<td>
+								 			<%= link_to "Edit", edit_task_path(t) %>
+								 			| <%= link_to 'Destroy', t, method: :delete, data: { confirm: 'Are you sure?' } %>  
+								 			
+									 			| <%= link_to "Done", add_progress_tasks_path + "?id=" + t.id.to_s, :class => "btn btn-success" %> 
+									 			
+							 				
+							 			</td>
+							 		<% end %>
+								 	</tr>	
+								<% end %>
+							</tbody>
+						</table>
+				
+				      </div>
+				    </div>
+				  </div>
+				  <div class="card">
+				    <div class="card-header" id="headingTwo">
+				      <h5 class="mb-0">
+				        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+				          Completed tasks
+				        </button>
+				      </h5>
+				    </div>
+				    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+				      <div class="card-body">
+				        <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
+							<thead>
+								<th>Category</th>
+								<th>Task</th>
+								<th>Last comment</th>
+								<% if can? :edit, Task %>
+								<th></th>
+								<% end %>
+							</thead>
+							<tbody>
+								<% @completed_tasks.each do |t| %>
+								<tr>
+									<td><%= t.task_category.category %></td>
+									<td><%= t.created_at.strftime("%d-%m-%Y") + ": " + t.task %></td>
+									
+									<td>
+										
+										
+								 		<%= t.done? ? "Done: " + t.done_date.strftime("%d-%m-%Y") : "" %>
+								 		
+								 	</td>
+							 		<% if can? :edit, Task %>
+								 		<td>
+								 			<%= link_to "Edit", edit_task_path(t) %>  
+								 			| <%= link_to "Undo", add_progress_tasks_path + "?id=" + t.id.to_s, :class => "btn btn-danger" %> 
+							 			</td>
+							 		<% end %>
+								 	</tr>	
+								<% end %>
+							</tbody>
+						</table>
+				      </div>
+				    </div>
+				  </div>
+				  
+				</div>
+				
 			</div>
 			<% if @player.got_user? %>
 			<div class="tab-pane" id="diary">
@@ -163,128 +289,7 @@
 				</div>
 			</div>
 
-			<div class="tab-pane" id="tasks">
-				
-				<div id="accordion">
-				  <div class="card">
-				    <div class="card-header" id="headingOne">
-				      <h5 class="mb-0">
-				        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-				          Tasks in progress
-				        </button>
-				      </h5>
-				    </div>
-
-				    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-				      <div class="card-body">
-					        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-							<thead>
-								<th>Category</th>
-								<th>Task</th>
-								<th>Last comment</th>
-								<% if can? :edit, Task %>
-								<th></th>
-								<% end %>
-							</thead>
-							<tbody>
-								<% @tasks.each do |t| %>
-								<tr>
-									<td><%= t.task_category.category %></td>
-									<td><%= t.created_at.strftime("%d-%m-%Y") + ": " + t.task %>
-										<%= image_tag t.image.url, style: 'height:300px;width:200px;float:left' if t.image? %>
-									</td>
-									
-									<td>
-
-										<% if ! t.task_comments.empty? %>
-											<% t.task_comments.each do |tc| %>
-												<p>
-													<%= tc.created_at.strftime("%d-%m-%Y:") %>
-													<i><%= tc.comment %></i>
-													 <% if can? :edit, TaskComment %>
-													<small>| <%= link_to "Edit", edit_task_comment_path(tc) + "?task_id=" + t.id.to_s %>
-													</small>
-													<% end %>
-												</p>
-											<% end %>
-										<% else %>
-										<% end %>
-										<% if can? :edit, TaskComment %>
-										 <p><%= link_to "Add comment", new_task_comment_path + "?task_id=" + t.id.to_s %></p>
-										 <% end %>
-
-
-																						
-										
-								 	</td>
-							 		<% if can? :edit, Task %>
-								 		<td>
-								 			<%= link_to "Edit", edit_task_path(t) %>
-								 			| <%= link_to 'Destroy', t, method: :delete, data: { confirm: 'Are you sure?' } %>  
-								 			
-									 			| <%= link_to "Done", add_progress_tasks_path + "?id=" + t.id.to_s, :class => "btn btn-success" %> 
-									 			
-							 				
-							 			</td>
-							 		<% end %>
-								 	</tr>	
-								<% end %>
-							</tbody>
-						</table>
-				<% if can? :update, Task %>
-				<%= link_to "Add task", new_task_path + "?player_id=" + @player.id.to_s, :class => "btn btn-primary" %>
-				<% end %>
-				      </div>
-				    </div>
-				  </div>
-				  <div class="card">
-				    <div class="card-header" id="headingTwo">
-				      <h5 class="mb-0">
-				        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-				          Completed tasks
-				        </button>
-				      </h5>
-				    </div>
-				    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-				      <div class="card-body">
-				        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-							<thead>
-								<th>Category</th>
-								<th>Task</th>
-								<th>Last comment</th>
-								<% if can? :edit, Task %>
-								<th></th>
-								<% end %>
-							</thead>
-							<tbody>
-								<% @completed_tasks.each do |t| %>
-								<tr>
-									<td><%= t.task_category.category %></td>
-									<td><%= t.created_at.strftime("%d-%m-%Y") + ": " + t.task %></td>
-									
-									<td>
-										
-										
-								 		<%= t.done? ? "Done: " + t.done_date.strftime("%d-%m-%Y") : "" %>
-								 		
-								 	</td>
-							 		<% if can? :edit, Task %>
-								 		<td>
-								 			<%= link_to "Edit", edit_task_path(t) %>  
-								 			| <%= link_to "Undo", add_progress_tasks_path + "?id=" + t.id.to_s, :class => "btn btn-danger" %> 
-							 			</td>
-							 		<% end %>
-								 	</tr>	
-								<% end %>
-							</tbody>
-						</table>
-				      </div>
-				    </div>
-				  </div>
-				  
-				</div>
-				
-			</div>
+			
 			<div class="tab-pane" id="fys-program">
 				
 				<div class="row">
@@ -390,6 +395,12 @@
 				<% end %>
 					</tbody>
 				</table>
+			</div>
+			<div class="tab-pane" id="match_stats">
+				<div class="row mb-4">
+					<%= link_to "New match stat", new_match_path + "?player_id=" + @player.id.to_s, :class => "btn btn-primary ml-4" %>
+				</div>
+				<%= render 'matches', player: @player %>
 			</div>
 		<% if @player.got_utr_profile? %>
 			<div class="tab-pane" id="utr">

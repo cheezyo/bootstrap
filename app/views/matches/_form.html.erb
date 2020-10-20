@@ -1,0 +1,46 @@
+<%= form_with(model: match, local: true) do |form| %>
+  <% if match.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(match.errors.count, "error") %> prohibited this match from being saved:</h2>
+
+      <ul>
+        <% match.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if @player.nil? %>
+  <div class="field">
+      <%= form.label :player_id %>
+      <%= form.collection_select :player_id, Player.all, :id, :fullname %>
+    </div>
+  <% else %>
+  <%= form.hidden_field :player_id, :value => @player.id %>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :opponent %>
+    <%= form.text_field :opponent %>
+  </div>
+
+  <div class="field">
+    <%= form.label :comment %>
+    <%= form.text_area :comment %>
+  </div>
+
+   <div class="col-sm-12 col-lg-6 mb-4">
+    <% if @match.image? %>
+      <%= image_tag @match.image.url %>
+      <%= form.check_box :remove_image %> Remove picture
+    <% end %> 
+    <%= form.file_field :image, :class => "form-control form-control-user" %>
+
+  </div>
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
