@@ -1,0 +1,60 @@
+<h1 class="h5 mb-0 text-gray-800 mb-4"><i class="fas fa-plane-departure"></i> = Klubbtur </h1>
+				<h1 class="h5 mb-0 text-gray-800 mb-4"><i class="fas fa-street-view"></i> = Trener til stede</h1>
+				<% today_week = DateTime.now.strftime("%U").to_i %>
+				<% date = 5.weeks.ago(DateTime.now) %>
+				<% start_week = today_week - 5 %>
+				<% end_week = start_week + 52 %>
+				<table class="table table-bordered table-striped" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>Week (date)</th>
+							<th>Event</th>
+							
+
+						
+						</tr>
+					</thead>
+					<tbody>
+				<% (start_week..end_week).each do |w| %>
+				
+					
+						<tr>
+							<td style="width: 200px"><b><%= date.strftime("%U").to_i %></b>
+							(<%= date.monday.strftime("%d")  + "." + date.strftime("%b")+ " - " + date.sunday.strftime("%d") + "." + date.sunday.strftime("%b") %>)
+							</td>
+							<td><% @tournaments.each do |t| %>
+									<% if t.start_date.strftime("%U").to_i == w && t.start_date.year == date.year %>
+									<%= link_to t.title, t %>
+									<% if t.club_trip? %>
+										<i class="fas fa-plane-departure ml-2"></i>
+									<% elsif t.only_coach? %>
+										<i class="fas fa-street-view ml-2"></i>
+									<% end %>
+									<hr/>
+									<% end %>
+									
+								<% end %>	 
+
+								<% @player.tournaments.each do |t| %>
+									<% if t.start_date.strftime("%U").to_i == w && t.start_date.year == date.year %>
+									<%= link_to t.title, t %>
+									<% if t.club_trip? %>
+										<i class="fas fa-plane-departure ml-2"></i>
+									<% elsif t.only_coach? %>
+										<i class="fas fa-street-view ml-2"></i>
+									<% end %>
+									<hr/>
+									<% end %>
+
+								<% end %>
+							</td>
+							
+							
+							
+						</tr>
+						
+						<% date = 1.week.since(date) %>
+				
+				<% end %>
+					</tbody>
+				</table>

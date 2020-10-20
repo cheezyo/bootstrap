@@ -16,7 +16,7 @@
   </head>
 
   <body>
-    <div class="container-sm">
+  <div class="container-fluid">
   
 
   <% if current_user.admin?  %>
@@ -30,22 +30,11 @@
   
   <% end %>
 
-
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
-
-      <!-- Main Content -->
-      <div id="content">
-
-        <%= render 'layouts/partials/nav' %>
-          <!-- Page Heading -->
-
-   <div class="container ">
-    <div class="row">
-      
-    </div>
-      <%= yield %>
-    </div>
+      <%= render 'layouts/partials/nav' %>    
+      <div class="col-md-12 ">
+        <%= yield %>
+      </div>
+    
       <!-- Footer -->
       <footer class="sticky-footer bg-white shadow-sm">
         <div class="container my-auto">
@@ -56,10 +45,9 @@
       </footer>
       <!-- End of Footer -->
 
-    </div>
+   
     <!-- End of Content Wrapper -->
 
-  </div>
   <!-- Bootstrap core JavaScript-->
   <script src="https://StartBootstrap.github.io/startbootstrap-sb-admin-2/vendor/jquery/jquery.min.js"></script>
  <!-- <script src="https://blackrockdigital.github.io/startbootstrap-sb-admin-2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->

@@ -1,0 +1,42 @@
+			<div class="row">
+				<div class="col-xl-6 col-md-12 mb-4">
+	              <div class="card border-left-primary shadow h-100 py-2">
+	                <div class="card-body">
+	                  <div class="row no-gutters align-items-center">
+	                    <div class="col mr-2">
+	                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Info</div>
+	                      <div class="h5 mb-2 font-weight-bold text-gray-800">Parent: <small><%=  @player.got_parent? ? @player.parent.name : "NO PARENT" %></small></div>
+	                      <div class="h5 mb-2 font-weight-bold text-gray-800">Coach: <small><%= @player.got_coach? ? @player.coach.name : "NO COACH" %></small></div>
+	                      
+	                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-info fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-6 col-md-12 mb-4">
+	              <div class="card border-left-warning shadow h-100 py-2">
+	                <div class="card-body">
+	                  <div class="row no-gutters align-items-center">
+	                    <div class="col mr-2">
+	                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Next event</div>
+	                      <div class="h5 mb-2 font-weight-bold text-gray-800"><%= @tournament.nil? ? " " : @tournament.start_date.strftime("%d-%m-%Y:")   %> 
+	                      	<% if @tournament.nil? %>
+	                      		"No up coming tournament"
+	                      	<% else %>
+	                      	<%=  link_to @tournament.title, @tournament  %>
+	                      	<% end %>
+	                      	</div>
+	                    
+	                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-trophy fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>

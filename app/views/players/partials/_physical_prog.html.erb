@@ -1,0 +1,40 @@
+<div class="row">
+					<div class="col-xl-12 col-md-12 mb-4">
+						<ul class="nav nav-tabs">
+						   <li class="nav-item "><a href="#program1" data-toggle="tab" class="nav-link active">Program 1</a></li>
+						   <li class="nav-item "><a href="#program2" data-toggle="tab" class="nav-link">Program 2</a></li>
+						</ul>
+					</div>
+				</div>	
+
+				<div class="row">
+					<div class="col-xl-12 col-md-12 mb-4">
+						<div class="tab-content">
+							<% if !@player.get_last_ironman.nil?  %>
+					  		<div class="tab-pane active" id="program1">
+					  			<h1 class="h4 mb-0 text-gray-800"><%= @player.get_training_programs[0] %></h1>
+					  			<% if  @player.get_training_programs[0] == "Empty" %>
+					  				<h1 class="h4 mb-0 text-gray-800 mb-5"><%= @player.get_training_programs[1] %>  </h1><br/>
+					  			<% else %>
+								<iframe src= "<%= @player.get_training_programs[1] %>" width="750"style="border: none;  width:100%; height:750px;"> </iframe>
+								<% end %>
+							</div>
+							<div class="tab-pane" id="program2">
+								<h1 class="h4 mb-0 text-gray-800"><%= @player.get_training_programs[2] %></h1>
+								
+					  			<% if  @player.get_training_programs[2] == "Empty" %>
+					  				<h1 class="h4 mb-0 text-gray-800 mb-5"><%= @player.get_training_programs[1] %>  </h1><br/>
+					  			<% else %>
+								<iframe src= "<%= @player.get_training_programs[3] %>" width="750"style="border: none;  width:100%; height:750px;"> </iframe>
+								<% end %>
+							</div>
+							<% else %>
+								<div class="tab-pane active" id="program1">
+								<h1 class="h4 mb-0 text-gray-800">Du har ikke gjennomført noen tester enda. Anbefaller at du gjør basis fys-program for hele kroppen. </h1><br/>
+					  			
+								<iframe src= "https://app.gomobilus.com/se/open/Mjg3NnxNVEE0TURVPXwxNTJ8LWtaM0MqV0RCaXQ%3D?fbclid=IwAR26rcI1Cj_vPZwq0Xjq9vFXjCYphoQRr56AmQl_V1B_E9gmRVdkfT2AcfU" width="750"style="border: none;  width:100%; height:750px;"> </iframe>
+							</div>
+							<% end %>
+						</div>
+					</div>
+				</div>		

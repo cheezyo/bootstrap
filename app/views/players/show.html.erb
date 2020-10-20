@@ -1,4 +1,4 @@
-
+<div class="row-fluid">
  <div class="d-sm-flex align-items-center justify-content-between mb-4">
 	<h1 class="h3 mb-0 text-gray-800"><%= @player.fullname + " " + @player.gender %> <%= @player.age.strftime("%d-%m-%Y")  %> (<%= @player.get_age %> years)
 		<% if @player.got_user? %>
@@ -9,469 +9,74 @@
  	</h1>
  </div>
  <hr/>
-
-
-
-<div class="card shadow mb-4">
- <div class="card-header py-1">
-<div class="row">
-	<div class="col-xl-12 mb-4 ">
-		<ul class="nav nav-tabs">
-		   <li class="nav-item "><a href="#profile" data-toggle="tab" class="nav-link text-secondary active">Profile</a></li>
-		   <li class="nav-item "><a href="#tasks" data-toggle="tab" class="nav-link text-secondary">Tasks</a></li>
-		   <li class="nav-item "><a href="#diary" data-toggle="tab" class="nav-link text-secondary">Diary</a></li>
-		   <li class="nav-item "><a href="#ironman" data-toggle="tab" class="nav-link text-secondary">Ironman</a></li>
-		   <li class="nav-item "><a href="#fys-program" data-toggle="tab" class="nav-link text-secondary">Physical program</a></li>
-		   <li class="nav-item "><a href="#turneringsplan" data-toggle="tab" class="nav-link text-secondary">Event plan</a></li>
-		   <% if @player.got_utr_profile? %>
-		   <li class="nav-item "><a href="#utr" data-toggle="tab" class="nav-link text-secondary">UTR</a></li>
-		   <% end %>
-		    <li class="nav-item "><a href="#match_stats" data-toggle="tab" class="nav-link text-secondary">Stats</a></li>
-		   <% if current_user.admin? || current_user.coach? %>
-		   <li class="nav-item "><a href="#settings" data-toggle="tab" class="nav-link text-secondary">Settings</a></li>
-		   <% end %>
-		</ul>
-	</div>	
 </div>
-</div>
-<div class="card-body">
-<div class="row">
-	<div class="col-xl-12 col-md-12 mb-4">
+
+<div class="row-fluid">
+	<div class="card shadow mb-4">
+ 		<div class="card-header py-1">
+			<div class="row">
+				<div class="col-xl-12 mb-4 ">
+					<%= render 'players/partials/tabpan', player: @player %>
+				</div>	
+			</div>
+		</div>
+	<div class="card-body">
+
+	<div class="row-fluid">
 		<div class="tab-content">
-
 			
-			  <div class="tab-pane active" id="profile">
-				<div class="row">
-				<div class="col-xl-6 mb-4">
-	              <div class="card border-left-primary shadow h-100 py-2">
-	                <div class="card-body">
-	                  <div class="row no-gutters align-items-center">
-	                    <div class="col mr-2">
-	                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Info</div>
-	                      <div class="h5 mb-2 font-weight-bold text-gray-800">Parent: <small><%=  @player.got_parent? ? @player.parent.name : "NO PARENT" %></small></div>
-	                      <div class="h5 mb-2 font-weight-bold text-gray-800">Coach: <small><%= @player.got_coach? ? @player.coach.name : "NO COACH" %></small></div>
-	                      
-	                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-info fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-6 mb-4">
-	              <div class="card border-left-warning shadow h-100 py-2">
-	                <div class="card-body">
-	                  <div class="row no-gutters align-items-center">
-	                    <div class="col mr-2">
-	                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Next event</div>
-	                      <div class="h5 mb-2 font-weight-bold text-gray-800"><%= @tournament.nil? ? " " : @tournament.start_date.strftime("%d-%m-%Y:")   %> 
-	                      	<% if @tournament.nil? %>
-	                      		"No up coming tournament"
-	                      	<% else %>
-	                      	<%=  link_to @tournament.title, @tournament  %>
-	                      	<% end %>
-	                      	</div>
-	                    
-	                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-trophy fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-        	</div>
+			<div class="tab-pane active" id="profile">
+				<%= render 'players/partials/profile', player: @player %>
 			</div>
+
 			<div class="tab-pane" id="tasks">
+				<%= render 'players/partials/tasks', player: @player %>
 				
-				<div id="accordion">
-				  <div class="card">
-				    <div class="card-header" id="headingOne">
-				      <h5 class="mb-0">
-				        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-				          Tasks in progress
-				        </button>
-				      </h5>
-				    </div>
-
-				    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-			    		<% if can? :update, Task %>
-			    		
-							<%= link_to "Add task", new_task_path + "?player_id=" + @player.id.to_s, :class => "btn btn-primary mb-3 mt-3 ml-4" %>
-						
-						<% end %>
-					  	
-				      <div class="card-body">
-					       <table class="table table-responsive-xl " id="dataTable1" width="100%" cellspacing="0">
-							 <thead class="thead-light">
-								<th>Category</th>
-								<th>Task</th>
-								<th>Last comment</th>
-								<% if can? :edit, Task %>
-								<th></th>
-								<% end %>
-							</thead>
-							<tbody>
-								<% @tasks.each do |t| %>
-								<tr>
-									<td><%= t.task_category.category %></td>
-									<td><%= t.created_at.strftime("%d-%m-%Y") + ": " + t.task %>
-										<%= image_tag t.image.url, style: 'height:300px;width:200px;float:left' if t.image? %>
-									</td>
-									
-									<td>
-
-										<% if ! t.task_comments.empty? %>
-											<% t.task_comments.each do |tc| %>
-												<p>
-													<%= tc.created_at.strftime("%d-%m-%Y:") %>
-													<i><%= tc.comment %></i>
-													 <% if can? :edit, TaskComment %>
-													<small>| <%= link_to "Edit", edit_task_comment_path(tc) + "?task_id=" + t.id.to_s %>
-													</small>
-													<% end %>
-												</p>
-											<% end %>
-										<% else %>
-										<% end %>
-										<% if can? :edit, TaskComment %>
-										 <p><%= link_to "Add comment", new_task_comment_path + "?task_id=" + t.id.to_s %></p>
-										 <% end %>
-
-
-																						
-										
-								 	</td>
-							 		<% if can? :edit, Task %>
-								 		<td>
-								 			<%= link_to "Edit", edit_task_path(t) %>
-								 			| <%= link_to 'Destroy', t, method: :delete, data: { confirm: 'Are you sure?' } %>  
-								 			
-									 			| <%= link_to "Done", add_progress_tasks_path + "?id=" + t.id.to_s, :class => "btn btn-success" %> 
-									 			
-							 				
-							 			</td>
-							 		<% end %>
-								 	</tr>	
-								<% end %>
-							</tbody>
-						</table>
-				
-				      </div>
-				    </div>
-				  </div>
-				  <div class="card">
-				    <div class="card-header" id="headingTwo">
-				      <h5 class="mb-0">
-				        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-				          Completed tasks
-				        </button>
-				      </h5>
-				    </div>
-				    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-				      <div class="card-body">
-				          <table class="table table-responsive-xl " id="dataTable1" width="100%" cellspacing="0">
-							 <thead class="thead-light">
-								<th>Category</th>
-								<th>Task</th>
-								<th>Last comment</th>
-								<% if can? :edit, Task %>
-								<th></th>
-								<% end %>
-							</thead>
-							<tbody>
-								<% @completed_tasks.each do |t| %>
-								<tr class="table-success">
-									<td><%= t.task_category.category %></td>
-									<td><%= t.created_at.strftime("%d-%m-%Y") + ": " + t.task %></td>
-									
-									<td>
-										
-										
-								 		<%= t.done? ? "Done: " + t.done_date.strftime("%d-%m-%Y") : "" %>
-								 		
-								 	</td>
-							 		<% if can? :edit, Task %>
-								 		<td>
-								 			<%= link_to "Edit", edit_task_path(t) %>  
-								 			| <%= link_to "Undo", add_progress_tasks_path + "?id=" + t.id.to_s, :class => "btn btn-danger" %> 
-							 			</td>
-							 		<% end %>
-								 	</tr>	
-								<% end %>
-							</tbody>
-						</table>
-				      </div>
-				    </div>
-				  </div>
-				  
-				</div>
 				
 			</div>
-			<% if @player.got_user? %>
+			
 			<div class="tab-pane" id="diary">
-				<%= link_to (@date - 1.year).strftime("%Y"), player_path(@player) + "?date=" + (@date - 1.year).strftime("%d-%m-%Y")  %>
-				<%= link_to "<<", player_path(@player) + "?date=" + (@date - 1.month).strftime("%d-%m-%Y")  %>
-				Month<%= link_to ">>", player_path(@player) + "?date=" + (@date + 1.month).strftime("%d-%m-%Y")  %>
-				<% if @date.year < DateTime.now.year %>
-					<%= link_to (@date + 1.year).strftime("%Y"), player_path(@player) + "?date=" + (@date + 1.year).strftime("%d-%m-%Y")  %>
-				<% end %> 
-				<h4 class= "text-gray-800">Days this month <%= @date.strftime("%B %Y") %></h4>
-				<%= line_chart @month_line, {xtitle: "Days", ytitle: "Minutes", colors: ["#50c878", "#fff"]}  %>
-				<h4 class= "text-gray-800">This month <%= @date.strftime("%B %Y") %></h4>
-				<%= bar_chart @trainings_month, {xtitle: "Minutes", ytitle: "", colors: ["#50c878", "#fff"]} %>
-				<h4 class= "text-gray-800">Previous month  <%= (@date - 1.month).strftime("%B %Y") %></h4>
-				<%= bar_chart @trainings_prev_month, {xtitle: "Minutes", ytitle: "", colors: ["#ed2939", "#fff"]} %>
-
-				<h4 class= "text-gray-800">Year <%= @date.year %> total</h4>
-				<%= bar_chart @trainings_year, {xtitle: "Minutes", ytitle: "", colors: ["#0080FF", "#fff"]}  %>
-				<h4 class= "text-gray-800">Year <%= @date.year %> by month</h4>
-				<%= line_chart @trainings_year_per_month, {xtitle: "Months", ytitle: "Minutes", colors: ["#F78962", "#fff"]}  %>
-				
+				<%= render 'players/partials/diary', player: @player %>
 			</div>
-			<% else %>
-			<div class="tab-pane" id="diary">
-				Only player who have own user will have a diary. 
-			</div>
-
-			<% end %>
-
 			<div class="tab-pane" id="ironman">
 				<%= render 'layouts/ironman/ironman_table', player: @player %>
-				<h4 class= "text-gray-800">Sprint</h4>
-				<div class="col-xl-12 col-md-12 mb-4">
-					<%= line_chart @player.tests.pluck(:test_date, :sprint), min: 0, max: 4.6  %>
-				</div>
-				<h4 class= "text-gray-800">Spider</h4>
-				<div class="col-xl-12 col-md-12 mb-4">
-					<%= line_chart @player.tests.pluck(:test_date, :spider), min: 0, max: 24  %>
-				</div>
-				<h4 class= "text-gray-800">Fh throw</h4>
-				<div class="col-xl-12 col-md-12 mb-4">
-					<%= line_chart @player.tests.pluck(:test_date, :fh_throw), min: 0, max: 20  %>
-				</div>
-				<h4 class= "text-gray-800">Bh throw</h4>
-				<div class="col-xl-12 col-md-12 mb-4">
-					<%= line_chart @player.tests.pluck(:test_date, :bh_throw), min: 0, max: 20  %>
-				</div>
-				<h4 class= "text-gray-800">Jump</h4>
-				<div class="col-xl-12 col-md-12 mb-4">
-					<%= line_chart @player.tests.pluck(:test_date, :jump), min: 0, max: 4  %>
-				</div>
-				<h4 class= "text-gray-800">Box jump</h4>
-				<div class="col-xl-12 col-md-12 mb-4">
-					<%= line_chart @player.tests.pluck(:test_date, :box), min: 0, max: 130  %>
-				</div>
-				<h4 class= "text-gray-800">Chins</h4>
-				<div class="col-xl-12 col-md-12 mb-4">
-					<%= line_chart @player.tests.pluck(:test_date, :chins), min: 0, max: 35  %>
-				</div>
-				<h4 class= "text-gray-800">Push ups</h4>
-				<div class="col-xl-12 col-md-12 mb-4">
-					<%= line_chart @player.tests.pluck(:test_date, :pushups), min: 0, max: 100  %>
-				</div>
-				<h4 class= "text-gray-800">Brutal bench</h4>
-				<div class="col-xl-12 col-md-12 mb-4">
-					<%= line_chart @player.tests.pluck(:test_date, :situps), min: 0, max: 30  %>
-				</div>
-				<h4 class= "text-gray-800">Back stretch</h4>
-				<div class="col-xl-12 col-md-12 mb-4">
-					<%= line_chart @player.tests.pluck(:test_date, :back_stretch), min: 0, max: 70  %>
-				</div>
-				<h4 class= "text-gray-800">Front stretch</h4>
-				<div class="col-xl-12 col-md-12 mb-4">
-					<%= line_chart @player.tests.pluck(:test_date, :front_stretch), min: 0, max: 50  %>
-				</div>
-				<h4 class= "text-gray-800">Beep</h4>
-				<div class="col-xl-12 col-md-12 mb-4">
-					<%= line_chart @player.tests.pluck(:test_date, :beep), min: 0, max: 150  %>
-				</div>
+				<%= render 'players/partials/ironman_graph', player: @player %>
 			</div>
 
 			
 			<div class="tab-pane" id="fys-program">
+				<%= render 'players/partials/physical_prog', player: @player %>
 				
-				<div class="row">
-					<div class="col-xl-12 col-md-12 mb-4">
-						<ul class="nav nav-tabs">
-						   <li class="nav-item "><a href="#program1" data-toggle="tab" class="nav-link active">Program 1</a></li>
-						   <li class="nav-item "><a href="#program2" data-toggle="tab" class="nav-link">Program 2</a></li>
-						</ul>
-					</div>
-				</div>	
-
-				<div class="row">
-					<div class="col-xl-12 col-md-12 mb-4">
-						<div class="tab-content">
-							<% if !@player.get_last_ironman.nil?  %>
-					  		<div class="tab-pane active" id="program1">
-					  			<h1 class="h4 mb-0 text-gray-800"><%= @player.get_training_programs[0] %></h1>
-					  			<% if  @player.get_training_programs[0] == "Empty" %>
-					  				<h1 class="h4 mb-0 text-gray-800 mb-5"><%= @player.get_training_programs[1] %>  </h1><br/>
-					  			<% else %>
-								<iframe src= "<%= @player.get_training_programs[1] %>" width="750"style="border: none;  width:100%; height:750px;"> </iframe>
-								<% end %>
-							</div>
-							<div class="tab-pane" id="program2">
-								<h1 class="h4 mb-0 text-gray-800"><%= @player.get_training_programs[2] %></h1>
-								
-					  			<% if  @player.get_training_programs[2] == "Empty" %>
-					  				<h1 class="h4 mb-0 text-gray-800 mb-5"><%= @player.get_training_programs[1] %>  </h1><br/>
-					  			<% else %>
-								<iframe src= "<%= @player.get_training_programs[3] %>" width="750"style="border: none;  width:100%; height:750px;"> </iframe>
-								<% end %>
-							</div>
-							<% else %>
-								<div class="tab-pane active" id="program1">
-								<h1 class="h4 mb-0 text-gray-800">Du har ikke gjennomført noen tester enda. Anbefaller at du gjør basis fys-program for hele kroppen. </h1><br/>
-					  			
-								<iframe src= "https://app.gomobilus.com/se/open/Mjg3NnxNVEE0TURVPXwxNTJ8LWtaM0MqV0RCaXQ%3D?fbclid=IwAR26rcI1Cj_vPZwq0Xjq9vFXjCYphoQRr56AmQl_V1B_E9gmRVdkfT2AcfU" width="750"style="border: none;  width:100%; height:750px;"> </iframe>
-							</div>
-							<% end %>
-						</div>
-					</div>
-				</div>		
 			</div>
 			
 			<div class="tab-pane" id="turneringsplan">
-				<h1 class="h5 mb-0 text-gray-800 mb-4"><i class="fas fa-plane-departure"></i> = Klubbtur </h1>
-				<h1 class="h5 mb-0 text-gray-800 mb-4"><i class="fas fa-street-view"></i> = Trener til stede</h1>
-				<% today_week = DateTime.now.strftime("%U").to_i %>
-				<% date = 5.weeks.ago(DateTime.now) %>
-				<% start_week = today_week - 5 %>
-				<% end_week = start_week + 52 %>
-				<table class="table table-bordered table-striped" width="100%" cellspacing="0">
-					<thead>
-						<tr>
-							<th>Week (date)</th>
-							<th>Event</th>
-							
-
-						
-						</tr>
-					</thead>
-					<tbody>
-				<% (start_week..end_week).each do |w| %>
-				
-					
-						<tr>
-							<td style="width: 200px"><b><%= date.strftime("%U").to_i %></b>
-							(<%= date.monday.strftime("%d")  + "." + date.strftime("%b")+ " - " + date.sunday.strftime("%d") + "." + date.sunday.strftime("%b") %>)
-							</td>
-							<td><% @tournaments.each do |t| %>
-									<% if t.start_date.strftime("%U").to_i == w && t.start_date.year == date.year %>
-									<%= link_to t.title, t %>
-									<% if t.club_trip? %>
-										<i class="fas fa-plane-departure ml-2"></i>
-									<% elsif t.only_coach? %>
-										<i class="fas fa-street-view ml-2"></i>
-									<% end %>
-									<hr/>
-									<% end %>
-									
-								<% end %>	 
-
-								<% @player.tournaments.each do |t| %>
-									<% if t.start_date.strftime("%U").to_i == w && t.start_date.year == date.year %>
-									<%= link_to t.title, t %>
-									<% if t.club_trip? %>
-										<i class="fas fa-plane-departure ml-2"></i>
-									<% elsif t.only_coach? %>
-										<i class="fas fa-street-view ml-2"></i>
-									<% end %>
-									<hr/>
-									<% end %>
-
-								<% end %>
-							</td>
-							
-							
-							
-						</tr>
-						
-						<% date = 1.week.since(date) %>
-				
-				<% end %>
-					</tbody>
-				</table>
+				<%= render 'players/partials/events', player: @player %>
 			</div>
 			
 		<% if @player.got_utr_profile? %>
 			<div class="tab-pane" id="utr">
 				<%= render 'utr', player: @player %>
 			</div>
-			<% end %>
-			<div class="tab-pane" id="match_stats">
-				<% if can? :edit, Match %> 
+		<% end %>
+
+		<div class="tab-pane" id="match_stats">
+			<% if can? :edit, Match %> 
 				<div class="row mb-4">
 					<%= link_to "New match stat", new_match_path + "?player_id=" + @player.id.to_s, :class => "btn btn-primary ml-4" %>
 				</div>
-				<% end %>
-				<%= render 'matches', player: @player %>
-			</div>
-			<% if current_user.coach? || current_user.admin? %>
-				<div class="tab-pane" id="settings">
-					<div class="col-xl-12 mb-4">	
-						<%= link_to "Edit player", edit_player_path(@player), :class => "btn btn-primary" %> 
-					</div>
-					<div class="col-xl-12 col-md-12 mb-4">	
-					<% if current_user.admin? %>
-						<% if !@player.got_user? %>  
-							<br/><small>Add profile:</small>               
-							<%= form_for UserPlayer.new do |f| %>
-								<%= f.collection_select :user_id, User.where(parent: false, coach: false, admin: false), :id, :name, :class => "form-control form-control-user", :include_blank => 'choose user' %>
-								<%= f.hidden_field :player_id, :value => @player.id %>
-								<%= f.submit "Save" , :class => "btn btn-success"%>
-							<% end %>
-						
-						<% end %>
-
-						<% if !@player.got_parent? %>  
-							<br/><small>Add parent:</small>               
-							<%= form_for UserPlayer.new do |f| %>
-								<%= f.collection_select :user_id, User.where(parent: true), :id, :name, :class => "form-control form-control-user", :include_blank => 'choose user' %>
-								<%= f.hidden_field :player_id, :value => @player.id %>
-								<%= f.submit "Save" , :class => "btn btn-success"%>
-							<% end %>
-						
-						<% end %>
-						<% if !@player.got_coach? && current_user.admin? %>  
-								<br/><small>Add coach:</small>               
-								<%= form_for UserPlayer.new do |f| %>
-								<%= f.collection_select :user_id, User.where(coach: true), :id, :name, :class => "form-control form-control-user", :include_blank => 'choose user' %>
-								<%= f.hidden_field :player_id, :value => @player.id %>
-								<%= f.submit "Add" , :class => "btn btn-success"%>
-							<% end %>
-						<% end %>
-						<% if @player.got_coach? && current_user.admin? %>
-								<br/><small>Change coach:</small>               
-								<%= form_for UserPlayer.where(user_id: @player.coach.id, player_id: @player.id).first do |f| %>
-								<%= f.collection_select :user_id, User.where(coach: true), :id, :name, :class => "form-control form-control-user", :include_blank => 'choose user' %>
-								<%= f.hidden_field :player_id, :value => @player.id %>
-								<%= f.submit "Edit" , :class => "btn btn-success"%>
-							<% end %>
-							<% end %>
-
-					<% end %>
-						<h3>Level</h3>
-						<%= form_for @player do |f| %>
-								<%= f.collection_select :level_id, Level.all, :id, :name, :class => "form-control form-control-user" %>
-								
-								<%= f.submit "Add level" , :class => "btn btn-success"%>
-							<% end %>
-						<h3>Planet</h3>
-						<%= form_for @player do |f| %>
-								<%= f.collection_select :planet_id, Planet.all, :id, :title, :class => "form-control form-control-user" %>
-								
-								<%= f.submit "Add planet" , :class => "btn btn-success"%>
-							<% end %>
-					</div>
-				</div>
 			<% end %>
+			<%= render 'matches', player: @player %>
+		</div>
+		
+		<% if current_user.coach? || current_user.admin? %>
+			<div class="tab-pane" id="settings">
 
+				<%= render 'players/partials/user_edit', player: @player %>
+
+			</div>
+		<% end %>
 		</div>
 	</div>
 </div>
-</div>
-</div>
+</div><!-- END CARD -->
+</div><!-- END ROW -->
