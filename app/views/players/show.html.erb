@@ -15,7 +15,7 @@
 <div class="card shadow mb-4">
  <div class="card-header py-1">
 <div class="row">
-	<div class="col-xl-12 col-md-12 mb-4 ">
+	<div class="col-xl-12 mb-4 ">
 		<ul class="nav nav-tabs">
 		   <li class="nav-item "><a href="#profile" data-toggle="tab" class="nav-link text-secondary active">Profile</a></li>
 		   <li class="nav-item "><a href="#tasks" data-toggle="tab" class="nav-link text-secondary">Tasks</a></li>
@@ -42,7 +42,7 @@
 			
 			  <div class="tab-pane active" id="profile">
 				<div class="row">
-				<div class="col-xl-3 col-md-6 mb-4">
+				<div class="col-xl-6 mb-4">
 	              <div class="card border-left-primary shadow h-100 py-2">
 	                <div class="card-body">
 	                  <div class="row no-gutters align-items-center">
@@ -59,7 +59,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-xl-3 col-md-6 mb-4">
+            <div class="col-xl-6 mb-4">
 	              <div class="card border-left-warning shadow h-100 py-2">
 	                <div class="card-body">
 	                  <div class="row no-gutters align-items-center">
@@ -103,8 +103,8 @@
 						<% end %>
 					  	
 				      <div class="card-body">
-					        <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
-							<thead>
+					       <table class="table table-responsive-xl " id="dataTable1" width="100%" cellspacing="0">
+							 <thead class="thead-light">
 								<th>Category</th>
 								<th>Task</th>
 								<th>Last comment</th>
@@ -171,8 +171,8 @@
 				    </div>
 				    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
 				      <div class="card-body">
-				        <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
-							<thead>
+				          <table class="table table-responsive-xl " id="dataTable1" width="100%" cellspacing="0">
+							 <thead class="thead-light">
 								<th>Category</th>
 								<th>Task</th>
 								<th>Last comment</th>
@@ -182,7 +182,7 @@
 							</thead>
 							<tbody>
 								<% @completed_tasks.each do |t| %>
-								<tr>
+								<tr class="table-success">
 									<td><%= t.task_category.category %></td>
 									<td><%= t.created_at.strftime("%d-%m-%Y") + ": " + t.task %></td>
 									
@@ -346,7 +346,7 @@
 						<tr>
 							<th>Week (date)</th>
 							<th>Event</th>
-							<th></th>
+							
 
 						
 						</tr>
@@ -385,7 +385,7 @@
 
 								<% end %>
 							</td>
-							<td></td>
+							
 							
 							
 						</tr>
@@ -396,20 +396,23 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="tab-pane" id="match_stats">
-				<div class="row mb-4">
-					<%= link_to "New match stat", new_match_path + "?player_id=" + @player.id.to_s, :class => "btn btn-primary ml-4" %>
-				</div>
-				<%= render 'matches', player: @player %>
-			</div>
+			
 		<% if @player.got_utr_profile? %>
 			<div class="tab-pane" id="utr">
 				<%= render 'utr', player: @player %>
 			</div>
 			<% end %>
+			<div class="tab-pane" id="match_stats">
+				<% if can? :edit, Match %> 
+				<div class="row mb-4">
+					<%= link_to "New match stat", new_match_path + "?player_id=" + @player.id.to_s, :class => "btn btn-primary ml-4" %>
+				</div>
+				<% end %>
+				<%= render 'matches', player: @player %>
+			</div>
 			<% if current_user.coach? || current_user.admin? %>
 				<div class="tab-pane" id="settings">
-					<div class="col-xl-12 col-md-12 mb-4">	
+					<div class="col-xl-12 mb-4">	
 						<%= link_to "Edit player", edit_player_path(@player), :class => "btn btn-primary" %> 
 					</div>
 					<div class="col-xl-12 col-md-12 mb-4">	
