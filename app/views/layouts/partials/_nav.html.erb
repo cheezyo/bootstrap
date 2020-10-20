@@ -46,11 +46,20 @@
               <%= link_to  trainings_path, :class => "nav-link" do %>
                 <span><i class="fas fa-running mr-2"></i>My trainings</span>
               <% end %>
-                
+            
+            <% elsif current_user.coach? %>
+
+              
             <% end %>
             
             </ul>
             
+
+
+
+
+
+
             <ul class="navbar-nav ml-auto">
             <% if can? :read, User %>
             <li class="nav-item dropdown no-arrow">
