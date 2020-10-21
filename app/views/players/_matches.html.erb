@@ -14,9 +14,8 @@
    		
     </div>
     <div class="card-body">
-        
-          <%= image_tag m.image.url, style: 'height:auto;width:400px;float:left' if m.image? %>
-      
+
+          <%= image_tag m.image.url, style: 'height:auto;max-width:350px;float:left' if m.image? %>
     </div>
      <div class="card-footer">
       <%= m.comment %>

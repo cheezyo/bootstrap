@@ -16,21 +16,15 @@
   </head>
 
   <body>
-  <div class="container-fluid">
+ 
   
 
   <% if current_user.admin?  %>
     <%= render 'layouts/partials/side_bar' %>
-  <% elsif  current_user.player? %>
-
- 
-
-  <% elsif current_user.parent? %>
-
-  
   <% end %>
 
       <%= render 'layouts/partials/nav' %>    
+      <div class="container-fluid">
       <div class="col-md-12 p-0 ">
         <%= yield %>
       </div>

@@ -2,7 +2,7 @@
 <!-- Topbar -->
        
           <nav class="navbar navbar-expand-lg bg-primary navbar-dark mb-2 p-3 shadow-sm">
-    
+         
           <%= link_to root_url, :class => "navbar-brand" do %>
           STK
           <% end %>
@@ -48,7 +48,61 @@
               <% end %>
             
             <% elsif current_user.coach? %>
-
+              <%= link_to  players_path, :class => "nav-link" do %>
+                <span><i class="fas fa-users mr-2"></i>Players</span>
+              <% end %>
+               <%= link_to  tasks_path, :class => "nav-link" do %>
+                <span><i class="fas fa-tasks mr-2"></i>Tasks</span>
+              <% end %>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-dumbbell mr-2"></i>
+                  Events
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                 
+                 <%= link_to next_52_weeks_tournaments_path, :class => "dropdown-item" do %>
+                  <span>
+                    <i class="fas fa-calendar-plus mr-2"></i>
+                    Event planner
+                  </span>
+                 <% end %>
+                 <%= link_to tournaments_path, :class => "dropdown-item" do %>
+                  <span>
+                    <i class="far fa-calendar mr-2"></i>
+                    
+                    All events
+                  </span>
+                 <% end %>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-dumbbell mr-2"></i>
+                  Ironman
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <%= link_to all_tests_tests_path, :class => "dropdown-item" do %>
+                  <span>
+                    <i class="fas fa-dumbbell mr-2"></i>
+                    All tests
+                  </span>
+                 <% end %>
+                 <%= link_to toplist_tests_path, :class => "dropdown-item" do %>
+                  <span>
+                    <i class="fas fa-trophy mr-2"></i>
+                    Toplists
+                  </span>
+                 <% end %>
+                 <%= link_to new_test_group_path, :class => "dropdown-item" do %>
+                  <span>
+                    <i class="far fa-calendar-plus mr-2"></i>
+                    
+                    New test
+                  </span>
+                 <% end %>
+                </div>
+              </li>
               
             <% end %>
             
@@ -64,7 +118,7 @@
             
              <div class="topbar-divider d-none d-sm-block"></div>
             <!-- Nav Item - User Information -->
-                <li class="nav-item dropdown no-arrow ">
+                <li class="nav-item dropdown ">
                   <a class="nav-link dropdown-toggle " href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="far fa-user fa mr-2"></i>
                     <span class="mr-2 d-lg-inline "><%= current_user.name %></span>
@@ -99,5 +153,6 @@
           </ul>
 
           </div>
+       
         </nav>
     
