@@ -1,8 +1,8 @@
  
 <!-- Topbar -->
        
-          <nav class="navbar navbar-expand-lg bg-primary navbar-dark mb-2 p-3 shadow-sm">
-         
+          <nav class="navbar navbar-expand-lg bg-primary navbar-dark mb-2 p-3 shadow-sm" style="position: fixed;z-index: 2;width:100%">
+         <div class="container-fluid">
           <%= link_to root_url, :class => "navbar-brand" do %>
           STK
           <% end %>
@@ -34,8 +34,9 @@
 
               <% elsif current_user.player? %>
               <li class="nav-item">
-                <%= link_to toplist_tests_path, :class => "nav-link" do %>
-                  <span><i class="fas fa-trophy mr-2"></i>Toplist Ironman</span>
+              <%= link_to current_user.get_player_profile, :class => "nav-link" do  %>
+                <i class="fas fa-user mr-2"></i>
+                  Profile
                 <% end %>
               </li>
               <li class="nav-item">
@@ -46,7 +47,14 @@
               <%= link_to  trainings_path, :class => "nav-link" do %>
                 <span><i class="fas fa-running mr-2"></i>My trainings</span>
               <% end %>
-            
+               <li class="nav-item">
+                <%= link_to toplist_tests_path, :class => "nav-link" do %>
+                  <span><i class="fas fa-trophy mr-2"></i>Toplist Ironman</span>
+                <% end %>
+              </li>
+
+
+
             <% elsif current_user.coach? %>
               <%= link_to  players_path, :class => "nav-link" do %>
                 <span><i class="fas fa-users mr-2"></i>Players</span>
@@ -134,13 +142,7 @@
                 <i class="fas fa-user-edit mr-2"></i>
                   Edit user
                 <% end %> 
-              <% if current_user.player? %> 
-              <div class="dropdown-divider"></div>
-                <%= link_to current_user.get_player_profile, :class => "dropdown-item" do  %>
-                <i class="fas fa-running mr-2"></i>
-                  My activity
-                <% end %>
-                <% end %>
+             
               <div class="dropdown-divider"></div>
                 <%= link_to destroy_user_session_path, method: :delete, :class => "dropdown-item" do  %>
                 <i class="fas fa-sign-out-alt mr-2"></i>
@@ -153,6 +155,6 @@
           </ul>
 
           </div>
-       
+       </div>
         </nav>
     

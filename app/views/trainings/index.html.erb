@@ -20,8 +20,9 @@
             <thead>
               <tr>
                 <th>Type of training</th>
-                <th>Date</th>
                 <th>Time</th>
+                <th>Date</th>
+                <th>Rating</th>
                 <th>Comment</th>
               </tr>
             </thead>
@@ -32,7 +33,24 @@
                         <%= link_to 'X', training, method: :delete, data: { confirm: 'Are you sure?' }, :style => "color:red;"%>
                     </td>
                     <td><%= training.time %> min</td>
-                    <td><%= training.t_date.strftime("%a - %d-%m-%Y") %></td>
+                    <td><%= training.t_date.strftime("%Y-%m-%d (%a)") %></td>
+                    <td>
+                      <% if ! training.rating.nil? %>
+                        <% if training.rating == "1" %>
+                      <i class="far fa-frown fa-1x"></i>
+                      <p style="display: none">1</p>
+                      <% elsif training.rating == "2" %>                        
+                       <i class="far fa-meh fa-1x"></i>
+                       <p style="display: none">2</p>
+                      <% elsif training.rating == "3" %>                      
+                      <i class="far fa-grin-alt fa-1x"></i>
+                      <p style="display: none">3</p>
+                      <% elsif training.rating == "4" %>                     
+                      <i class="far fa-grin-hearts fa-1x"></i>
+                      <p style="display: none">4</p>
+                        <% end %>
+                      <% end %>
+                    </td>
                     <td><%= training.coment_text %></td>
                   </tr>
                 <% end %>

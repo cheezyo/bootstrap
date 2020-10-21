@@ -53,7 +53,7 @@
 				<%= render 'players/partials/events', player: @player %>
 			</div>
 			
-		<% if @player.got_utr_profile? %>
+		<% if @player.got_utr_profile? && @player.get_age > 12 %>
 			<div class="tab-pane" id="utr">
 				<%= render 'utr', player: @player %>
 			</div>

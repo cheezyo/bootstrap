@@ -11,7 +11,7 @@
 	<link href="https://StartBootstrap.github.io/startbootstrap-sb-admin-2/css/sb-admin-2.min.css" rel="stylesheet">
   
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-	
+  
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
@@ -19,12 +19,9 @@
  
   
 
-  <% if current_user.admin?  %>
-    <%= render 'layouts/partials/side_bar' %>
-  <% end %>
 
       <%= render 'layouts/partials/nav' %>    
-      <div class="container-fluid">
+      <div class="container-fluid" style="padding-top: 90px">
       <div class="col-md-12 p-0 ">
         <%= yield %>
       </div>

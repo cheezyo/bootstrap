@@ -83,6 +83,18 @@
 									(<%=  res["score"]["3"]["winnerTiebreak"] %>-<%= res["score"]["3"]["tiebreak"] %>)
 								<% end %>
 							<% end %>
+							<% if ! res["score"]["4"].nil? %>
+								<%= res["score"]["4"]["winner"]%>-<%= res["score"]["4"]["loser"]%>
+								<% if   res["score"]["4"]["tiebreak"] != nil %>
+									(<%=  res["score"]["4"]["winnerTiebreak"] %>-<%= res["score"]["4"]["tiebreak"] %>)
+								<% end %>
+							<% end %>
+							<% if ! res["score"]["5"].nil? %>
+								<%= res["score"]["5"]["winner"]%>-<%= res["score"]["5"]["loser"]%>
+								<% if   res["score"]["5"]["tiebreak"] != nil %>
+									(<%=  res["score"]["5"]["winnerTiebreak"] %>-<%= res["score"]["5"]["tiebreak"] %>)
+								<% end %>
+							<% end %>
 							<% if res["outcome"] == "retired" %>
 								Ret.
 							<% end %>
