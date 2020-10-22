@@ -26,7 +26,14 @@
 	                      <div class="text-s font-weight-bold text-primary text-uppercase mb-2">My matches last 12 months</div>
 	                      <p class="text-xs">Wins: <%= @json_matches.parsed_response["wins"] %></p>
 	                      <p class="text-xs">Losses: <%= @json_matches.parsed_response["losses"] %> </p>
-	                      <p class="text-xs">Events: <%= @json_matches.parsed_response["events"].count %> </p>
+	                      <p class="text-xs">Events: 
+	                      <% if @json_matches.parsed_response["events"] != nil %>
+	                      	<%= @json_matches.parsed_response["events"].count %>
+	                      <% else %>
+	                      <i>UTR results loading error </i>
+	                      <% end %>
+
+	                      </p>
 	                      
 	                    </div>
                     <div class="col-auto">
@@ -43,7 +50,7 @@
 
     <div class="row">
         <div class="col-xl-12">
-        		
+        	<% if @json_matches.parsed_response["events"] != nil %>	
         	<% @json_matches.parsed_response["events"].each do |ev|  %>
         	<% ev["draws"].each do |d| %>
  			<div class="card shadow mb-4">
@@ -108,6 +115,7 @@
 
             </div>
           	</div>
+          	<% end %>
           	<% end %>
           	<% end %>
       	</div>
