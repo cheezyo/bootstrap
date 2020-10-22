@@ -24,6 +24,7 @@
 						      <th>W</th>
 						      <th>L</th>
 						      <th>T</th>
+						      <th>%</th>
 						      <th>Match reports last year</th>
 						      <th>Tasks </th>
 						      <th>Training last month</th>
@@ -48,7 +49,9 @@
 						        <td><%= m[0] %></td>
 						        <td><%= m[1] %></td>
 						        <td><%= m[2] %></td>
+						        <td><%= ((m[0].to_f/m[2].to_f) * 100).to_i %>%</td>
 						        <% else %>
+						        <td>0</td>
 						        <td>0</td>
 						        <td>0</td>
 						        <td>0</td>
