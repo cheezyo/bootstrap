@@ -75,6 +75,7 @@ class PlayersController < ApplicationController
      matches = "https://agw-prod.myutr.com/v1/player/" + @player.utr_profile + "/results?year=last&Type=singles"
      @json_stats = HTTParty.get(stats, headers: {"Authorization" => get_token})
      @json_matches = HTTParty.get(matches, headers: {"Authorization" => get_token})
+     @myutr = @json_stats.parsed_response["singlesUtr"].to_f
     end
       
     
