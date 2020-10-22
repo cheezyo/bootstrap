@@ -110,6 +110,7 @@ class Player < ApplicationRecord
 		arr << json_matches.parsed_response["wins"].to_i
 		arr << json_matches.parsed_response["losses"].to_i
 		arr << arr[0] + arr[1]
+		arr << ((arr[0].to_f / arr[2].to_f) * 100.00).to_i
 		return arr
 	end
 
