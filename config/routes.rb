@@ -54,6 +54,7 @@ end
   resources :pages do 
 	collection do 
 		get :index
+    get :task_report
   end
 end
   root :to => 'pages#index'
