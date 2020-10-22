@@ -42,6 +42,7 @@
   </div>
 <% else %>
 <%= form.hidden_field :player_id, :value => @player.id %>
+<%= form.hidden_field :coach_id, :value => @current_user.id %>
 <% end %>
 
  
