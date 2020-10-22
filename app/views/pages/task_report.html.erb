@@ -1,1 +1,15 @@
 <%= line_chart @tasks %>
+<%= @json_matches.parsed_response["events"][0]["draws"][0]["name"] %><br/><br/><br/><br/><br/><br/>
+<%= @json_matches.parsed_response["events"][0]["draws"][1]["name"] %><br/><br/><br/><br/><br/><br/>
+
+
+
+
+
+<% @json_matches.parsed_response["events"].each do |a| %>
+	<% a["draws"].each do |d|  %>
+		<%= a["name"] %> - <%= d["name"] %><br/><br/><br/>
+	<% end %>	
+	
+
+<% end %>
