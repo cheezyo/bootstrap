@@ -12,6 +12,7 @@ class Player < ApplicationRecord
 	has_many :player_tournaments, :dependent => :delete_all
 	has_many :tournaments, through: :player_tournaments
 	has_many :matches, :dependent => :delete_all
+
 	def parent
 		user_ids = UserPlayer.where(player_id: self.id).pluck(:user_id)
 		parent = User.find(user_ids).select{|u| u.parent == true }
@@ -83,6 +84,38 @@ class Player < ApplicationRecord
 		
 
 	end
+	def get_training_this_year
+		self.user.trainings.where('t_date BETWEEN ? AND ?', DateTime.now - 12.months, DateTime.now).sum(:time)
+	end
+	def get_training_this_month 
+		self.user.trainings.where('t_date BETWEEN ? AND ?', DateTime.now.at_beginning_of_month, DateTime.now.at_end_of_month).sum(:time)
+	end
+	def get_tasks_last_year
+		self.tasks.where('created_at BETWEEN ? AND ?', DateTime.now - 12.months, DateTime.now)
+	end
+
+	def get_match_reports 
+		self.matches.where('created_at BETWEEN ? AND ?', DateTime.now - 12.months, DateTime.now).count
+	end
+	def get_utr
+		stats = "https://agw-prod.myutr.com/v1/player/" + self.utr_profile + "/stats?Months=12&Type=singles&resultType=myutr&fetchAllResults=true"
+		json_stats = HTTParty.get(stats, headers: {"Authorization" => get_token})
+		return json_stats.parsed_response["singlesUtr"]
+	end
+	def get_matches
+		
+		matches = "https://agw-prod.myutr.com/v1/player/" + self.utr_profile + "/results?year=last&Type=singles"
+		json_matches = HTTParty.get(matches, headers: {"Authorization" => get_token})
+		arr = Array.new
+		arr << json_matches.parsed_response["wins"].to_i
+		arr << json_matches.parsed_response["losses"].to_i
+		arr << arr[0] + arr[1]
+		return arr
+	end
+
+	 def get_token 
+    	string = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNZW1iZXJJZCI6IjEyOTQxMCIsImVtYWlsIjoiY2V6YXJzaW5jYW5AaG90bWFpbC5jb20iLCJWZXJzaW9uIjoiMSIsIkRldmljZUxvZ2luSWQiOiI0NzMyNTQ2IiwibmJmIjoxNjAxNDUyNzIzLCJleHAiOjE2MDQwNDQ3MjMsImlhdCI6MTYwMTQ1MjcyM30.phM9zNHzbAfqMQtcivh90nB6nfCeHWPGFbsCoQil6AA"
+  	end
 
 
 

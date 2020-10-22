@@ -11,6 +11,7 @@ class PlanetsController < ApplicationController
   # GET /planets/1
   # GET /planets/1.json
   def show
+    
   end
 
   # GET /planets/new

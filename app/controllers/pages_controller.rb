@@ -10,8 +10,10 @@ class PagesController < ApplicationController
 
 	def task_report
 		@tasks = Array.new
-		Task.all.group_by{|x| x.created_at.strftime("%Y-%m-%d")}.each do |t|
+		Task.group_by{|x| x.created_at.strftime("%Y-%m-%d")}.each do |t|
 			@tasks << [t[0], t[1].count]
 		end
 	end
+
+
 end

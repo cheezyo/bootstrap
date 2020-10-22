@@ -1,7 +1,6 @@
 <p id="notice"><%= notice %></p>
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-	<h1 class="h3 mb-0 text-gray-800"><i class="fas fa-baseball-ball" style="color:<%= @planet.color %>"></i> <%= @planet.title %> - <%= @planet.age %> <small>| <%= link_to 'Edit', edit_planet_path(@planet) %></small>
- 	</h1>
+	<h1 class="h3 mb-0 text-gray-800"><i class="fas fa-baseball-ball"></i> <%= @planet.title %></h1>
  </div>
  <hr/>
 
@@ -9,19 +8,10 @@
 
 
 
-<div class="row">
-	<div class="col-xl-12 col-md-12 mb-4">
-		<ul class="nav nav-tabs">
-		   <li class="nav-item "><a href="#players" data-toggle="tab" class="nav-link active">Players</a></li>
-		   <li class="nav-item "><a href="#settings" data-toggle="tab" class="nav-link">Settings</a></li>
-		
-		</ul>
-	</div>	
-</div>
 
 <div class="row">
 	<div class="col-xl-12 col-md-12 mb-4">
-		<div class="tab-content">
+		
 
 			
 		  	<div class="tab-pane active" id="players">
@@ -30,7 +20,14 @@
 						  <thead>
 						    <tr>
 						      <th>Name</th>
-						      <th>Level</th>
+						      <th>UTR</th>
+						      <th>W</th>
+						      <th>L</th>
+						      <th>T</th>
+						      <th>Match reports last year</th>
+						      <th>Tasks </th>
+						      <th>Training last month</th>
+						      <th>Training last year
 						    </tr>
 						  </thead>
 
@@ -38,9 +35,42 @@
 						    <% @planet.players.each do |p| %>
 						      <tr>
 						        <td><%= link_to p.fullname, p  %> (<%= p.get_age %>)</td>
-						        <td><%= link_to p.level.stickers.last.name, p.level %></td>
-						        
-						      
+						        <td>
+						        	<% if p.got_utr_profile? %>
+						        	<%= p.get_utr %>
+						        	<% else %>
+						        	0
+						        	<% end %>
+						        	
+						        </td>
+						        <% if p.got_utr_profile? %>
+						        <% m = p.get_matches %>
+						        <td><%= m[0] %></td>
+						        <td><%= m[1] %></td>
+						        <td><%= m[2] %></td>
+						        <% else %>
+						        <td>0</td>
+						        <td>0</td>
+						        <td>0</td>
+						        <% end %>
+						      	<td><%= p.get_match_reports %></td>
+						      	<td><%= p.get_tasks_last_year.count %>
+						      		(<%= p.get_tasks_last_year.where(:done => true).count %>)
+						      	</td>
+						      	<td>
+						      		<% if p.got_user? %>
+						      		<%= p.get_training_this_month %>
+						      		<% else %>
+						      		0
+						      		<% end %>
+						      	</td>
+						      	<td>
+						      		<% if p.got_user? %>
+						      		<%= p.get_training_this_year %>
+						      		<% else %>
+						      		0
+						      		<% end %>
+						      	</td>
 						      </tr>
 						    <% end %>
 						  </tbody>
@@ -48,13 +78,5 @@
 				</div>
 			</div>
 
-			<div class="tab-pane" id="settings">
-				<div class="col-xl-12 col-md-12 mb-4">
-
-				</div>
-			</div>
-
-
-		</div>
 	</div>
 </div>
