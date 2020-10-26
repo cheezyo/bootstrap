@@ -69,6 +69,7 @@ class PlayersController < ApplicationController
 
     @tasks = @player.tasks.where(done: false)
     @completed_tasks = @player.tasks.where(done: true)
+    
       #results?year=last&Type=singles
     if @player.got_utr_profile? 
      stats = "https://agw-prod.myutr.com/v1/player/" + @player.utr_profile + "/stats?Months=12&Type=singles&resultType=myutr&fetchAllResults=true"

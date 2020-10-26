@@ -25,7 +25,22 @@
     <%= form.label :color %>
     <%= form.text_field :color %>
   </div>
-  
+  <% if can? :assign_roles, @user %>
+    <div class="col-sm-12 mb-4">
+      <%= form.label :diary %>
+      <%= form.check_box :diary %><br />
+      <%= form.label :utr %>
+      <%= form.check_box :utr %><br />
+      <%= form.label :events %>
+      <%= form.check_box :events %><br />
+      <%= form.label :stats %>
+      <%= form.check_box :stats %><br />
+      <%= form.label :ironman %>
+      <%= form.check_box :ironman %><br />
+      <%= form.label :player_access %>
+      <%= form.check_box :player_access %><br />
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= form.submit %>

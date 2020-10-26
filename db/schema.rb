@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_22_165623) do
+ActiveRecord::Schema.define(version: 2020_10_26_202731) do
 
   create_table "coaches", force: :cascade do |t|
     t.string "name"
@@ -52,6 +52,12 @@ ActiveRecord::Schema.define(version: 2020_10_22_165623) do
     t.integer "planet_coach_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "diary"
+    t.boolean "ironman"
+    t.boolean "utr"
+    t.boolean "events"
+    t.boolean "stats"
+    t.boolean "player_access"
   end
 
   create_table "player_stickers", force: :cascade do |t|

@@ -34,7 +34,7 @@
 				
 				
 			</div>
-			<% if @player.planet.title == "Lactea" %>
+			
 			<div class="tab-pane" id="diary">
 				<%= render 'players/partials/diary', player: @player %>
 			</div>
@@ -68,7 +68,7 @@
 			<% end %>
 			<%= render 'matches', player: @player %>
 		</div>
-		<% end %>
+		
 		<% if current_user.coach? || current_user.admin? %>
 			<div class="tab-pane" id="settings">
 

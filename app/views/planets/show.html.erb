@@ -20,15 +20,22 @@
 						  <thead>
 						    <tr>
 						      <th>Name</th>
+						      <% if @planet.utr? %>
 						      <th>UTR</th>
 						      <th>W</th>
 						      <th>L</th>
 						      <th>T</th>
 						      <th>%</th>
+						      <% end %>
+						      <% if @planet.stats? %>
 						      <th>Match reports last year</th>
+						      <% end %>
+
 						      <th>Tasks </th>
+						      <% if @planet.diary? %>
 						      <th>Training last month</th>
-						      <th>Training last year
+						      <th>Training last year</th>
+						      <% end %>
 						    </tr>
 						  </thead>
 
@@ -36,6 +43,7 @@
 						    <% @planet.players.each do |p| %>
 						      <tr>
 						        <td><%= link_to p.fullname, p  %> (<%= p.get_age %>)</td>
+						        <% if @planet.utr? %>
 						        <td>
 						        	<% if p.got_utr_profile? %>
 						        	<%= p.get_utr %>
@@ -56,10 +64,16 @@
 						        <td>0</td>
 						        <td>0</td>
 						        <% end %>
+
+						        <% end %>
+
+						        <% if @planet.stats? %>
 						      	<td><%= p.get_match_reports %></td>
+						      	<% end %>
 						      	<td><%= p.get_tasks_last_year.count %>
 						      		(<%= p.get_tasks_last_year.where(:done => true).count %>)
 						      	</td>
+						      	<% if @planet.diary? %>
 						      	<td>
 						      		<% if p.got_user? %>
 						      		<%= p.get_training_this_month %>
@@ -74,6 +88,7 @@
 						      		0
 						      		<% end %>
 						      	</td>
+						      	<% end %>
 						      </tr>
 						    <% end %>
 						  </tbody>

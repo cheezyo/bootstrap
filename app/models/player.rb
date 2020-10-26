@@ -26,7 +26,7 @@ class Player < ApplicationRecord
 	end
 
 	def got_utr_profile?
-		! self.utr_profile.nil?
+		! self.utr_profile.nil? && ! self.utr_profile.blank?
 	end
 	
 	def fullname
