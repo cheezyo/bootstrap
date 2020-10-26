@@ -1,6 +1,7 @@
 
 class Player < ApplicationRecord
 	include HTTParty
+
 	belongs_to :level
 	belongs_to :planet
 	has_many :tasks
@@ -18,6 +19,7 @@ class Player < ApplicationRecord
 	validates :gender, presence: true
 	validates :planet_id, presence: true
 	validates :level_id, presence: true
+	serialize :utr_stats
 
 	def parent
 		user_ids = UserPlayer.where(player_id: self.id).pluck(:user_id)
@@ -103,6 +105,13 @@ class Player < ApplicationRecord
 	def get_match_reports 
 		self.matches.where('created_at BETWEEN ? AND ?', DateTime.now - 12.months, DateTime.now).count
 	end
+	def do_it 
+		p = Player.fist
+		p.utr_stats = ""
+		p.save!
+
+	end
+
 	def get_utr
 		stats = "https://agw-prod.myutr.com/v1/player/" + self.utr_profile + "/stats?Months=12&Type=singles&resultType=myutr&fetchAllResults=true"
 		json_stats = HTTParty.get(stats, headers: {"Authorization" => get_token})

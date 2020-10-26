@@ -4,44 +4,6 @@
             <h1 class="h3 mb-0 text-gray-800">Welcome</h1>
           </div>
           <hr/>
-<h3 class="h3 mb-0 text-gray-800">Treningsmengde siste måned</h3>
-<div class="col-xl-12 col-md-12 mb-4">
-<%= pie_chart @arr %>
-<%= bar_chart @arr %>
-
-<% current_user.trainings.each do |t| %>
-<%= t.type_of_training.title %>
-<%= t.t_date %>
-<%= t.time %>
-
-<% end %>
-
-
- <!-- Content Row -->
-          <div class="row">
-
-            <!-- Content Column -->
-            <div class="col-lg-12 mb-4">
-
-              <!-- Project Card Example -->
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
-                </div>
-                <div class="card-body">
-                  <% @arr.each do |a| %>
-                  <% color = ["bg-danger", "bg-warning", "bg-info", "bg-success" ] %>
-                  <h4 class="small font-weight-bold"><%= a[0] %> <span class="float-right"><%= a[1]/60 %> timer <%= a[1]%60 %> minutter</span></h4>
-                  <div class="progress mb-4 ">
-
-                    <div class="progress-bar <%= color[rand(3)]%>" role="progressbar" style="width:<%= (a[1]/2000.0).to_f * 100 %>%" aria-valuenow="<%= (a[1]/2000.0).to_f * 100 %>" aria-valuemin="0" aria-valuemax="4200"></div>
-                  </div>
-                  <% end %>
-                  
-                </div>
-
-</div>
-</div>
 
 
 
