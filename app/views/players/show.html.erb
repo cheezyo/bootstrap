@@ -30,44 +30,49 @@
 			</div>
 
 			<div class="tab-pane" id="tasks">
-				<%= render 'players/partials/tasks', player: @player %>
-				
-				
+				<%= render 'players/partials/tasks', player: @player %>	
 			</div>
 			
-			<div class="tab-pane" id="diary">
-				<%= render 'players/partials/diary', player: @player %>
-			</div>
-			<div class="tab-pane" id="ironman">
-				<%= render 'layouts/ironman/ironman_table', player: @player %>
-				<%= render 'players/partials/ironman_graph', player: @player %>
-			</div>
+			<% if @player.planet.diary? %>
+				<div class="tab-pane" id="diary">
+					<%= render 'players/partials/diary', player: @player %>
+				</div>
+			<% end %>
+			
+			<% if @player.planet.ironman? %>
+				<div class="tab-pane" id="ironman">
+					<%= render 'layouts/ironman/ironman_table', player: @player %>
+					<%= render 'players/partials/ironman_graph', player: @player %>
+				</div>
+				<div class="tab-pane" id="fys-program">
+					<%= render 'players/partials/physical_prog', player: @player %>
+					
+				</div>
+			<% end %>
 
-			
-			<div class="tab-pane" id="fys-program">
-				<%= render 'players/partials/physical_prog', player: @player %>
-				
-			</div>
-			
+			<% if @player.planet.events? %>
 			<div class="tab-pane" id="turneringsplan">
 				<%= render 'players/partials/events', player: @player %>
 			</div>
+			<% end %>
 			
 			
-		<% if @player.got_utr_profile? && @player.get_age > 12 && @myutr > 5.00 %>
+		<% if @player.planet.utr? && @player.got_utr_profile? && @player.get_age > 12 && @myutr > 5.00 %>
 			<div class="tab-pane" id="utr">
 				<%= render 'utr', player: @player %>
 			</div>
 		<% end %>
 
-		<div class="tab-pane" id="match_stats">
-			<% if can? :edit, Match %> 
-				<div class="row mb-4 mt-4 ml-4">
-					<%= link_to "New match stat", new_match_path + "?player_id=" + @player.id.to_s, :class => "btn btn-primary" %>
-				</div>
-			<% end %>
-			<%= render 'matches', player: @player %>
-		</div>
+		<% if @player.planet.stats? %>
+			<div class="tab-pane" id="match_stats">
+				<% if can? :edit, Match %> 
+					<div class="row mb-4 mt-4 ml-4">
+						<%= link_to "New match stat", new_match_path + "?player_id=" + @player.id.to_s, :class => "btn btn-primary" %>
+					</div>
+				<% end %>
+				<%= render 'matches', player: @player %>
+			</div>
+		<% end %>
 		
 		<% if current_user.coach? || current_user.admin? %>
 			<div class="tab-pane" id="settings">

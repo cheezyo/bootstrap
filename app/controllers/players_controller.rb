@@ -15,33 +15,39 @@ class PlayersController < ApplicationController
   # GET /players/1.json
   def show
     age = (DateTime.now.year - @player.age.year)
-    age_str = "u" + age.to_s
-    if age < 19 
-      @sym = age_str.to_sym
-    else
-      @sym = :senior
-    end
+    if age >= 10 
+      
+      if age <= 19 
+        age_str = "u" + age.to_s
+        @sym = age_str.to_sym
+      else
+        age_str = "senior"
+        @sym = :senior
+      end
 
-    @tournaments = Tournament.where(age_str, true)
-    
-    t1 = @player.tournaments.where(end_date: DateTime.now..DateTime::Infinity.new)
-    t2 = @tournaments.where(end_date: DateTime.now..DateTime::Infinity.new)
-    @tournament = nil  
-   if ! t1.empty? && ! t2.empty?
-    arr = Array.new
-    arr << t1.order('start_date asc').first.start_date.strftime("%U").to_i
-    arr << t2.order('start_date asc').first.start_date.strftime("%U").to_i
-    if arr[0] > arr[1]
-      @tournament = t2.first
-    else
-      @tournament = t1.first
-    end  
-   elsif t1.empty? && ! t2.empty?
-    @tournament = t2.order('start_date asc').first
+      @tournaments = Tournament.where(age_str, true)
+      
+      t1 = @player.tournaments.where(end_date: DateTime.now..DateTime::Infinity.new)
+      t2 = @tournaments.where(end_date: DateTime.now..DateTime::Infinity.new)
+      @tournament = nil  
+     if ! t1.empty? && ! t2.empty?
+      arr = Array.new
+      arr << t1.order('start_date asc').first.start_date.strftime("%U").to_i
+      arr << t2.order('start_date asc').first.start_date.strftime("%U").to_i
+      if arr[0] > arr[1]
+        @tournament = t2.first
+      else
+        @tournament = t1.first
+      end  
+     elsif t1.empty? && ! t2.empty?
+      @tournament = t2.order('start_date asc').first
 
-   elsif ! t1.empty? && t2.empty?
-    @tournament = t1.order('start_date asc').first
-   end
+     elsif ! t1.empty? && t2.empty?
+      @tournament = t1.order('start_date asc').first
+     end
+   else
+    @tournaments = Array.new
+  end
   if @player.got_user?
      @trainings_month = Array.new
      @trainings_year = Array.new

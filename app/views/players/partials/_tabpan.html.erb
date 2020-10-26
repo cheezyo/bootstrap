@@ -3,20 +3,28 @@
 		   
 		   <li class="nav-item "><a href="#tasks" data-toggle="tab" class="nav-link text-secondary">Tasks</a></li>
 		   
+		   <% if @player.planet.diary? %>
 		   <li class="nav-item "><a href="#diary" data-toggle="tab" class="nav-link text-secondary">Diary</a></li>
-		   
+		   <% end %>
+
+		   <% if @player.planet.ironman? %>
 		   <li class="nav-item "><a href="#ironman" data-toggle="tab" class="nav-link text-secondary">Ironman</a></li>
 		   
 		   <li class="nav-item "><a href="#fys-program" data-toggle="tab" class="nav-link text-secondary">Physical program</a></li>
-		   
+		   <% end %>
+
+
+		   <% if @player.planet.events? %>
 		   <li class="nav-item "><a href="#turneringsplan" data-toggle="tab" class="nav-link text-secondary">Event plan</a></li>
-		   
-		   <% if @player.got_utr_profile? && @player.get_age > 12 && @myutr > 5.00 %>
+		   <% end %>
+
+		   <% if @player.planet.utr? && @player.got_utr_profile? && @player.get_age > 12 && @myutr > 5.00 %>
 		   <li class="nav-item "><a href="#utr" data-toggle="tab" class="nav-link text-secondary">UTR</a></li>
 		   <% end %>
-		    
+		    <% if @player.planet.stats? %>
 		    <li class="nav-item "><a href="#match_stats" data-toggle="tab" class="nav-link text-secondary">Stats</a></li>
-		   
+		   <% end %>
+
 		   <% if current_user.admin? || current_user.coach? %>
 		   <li class="nav-item "><a href="#settings" data-toggle="tab" class="nav-link text-secondary">Settings</a></li>
 		   <% end %>

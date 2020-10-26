@@ -13,6 +13,12 @@ class Player < ApplicationRecord
 	has_many :tournaments, through: :player_tournaments
 	has_many :matches, :dependent => :delete_all
 
+	validates :name, presence: true
+	validates :lastname, presence: true
+	validates :gender, presence: true
+	validates :planet_id, presence: true
+	validates :level_id, presence: true
+
 	def parent
 		user_ids = UserPlayer.where(player_id: self.id).pluck(:user_id)
 		parent = User.find(user_ids).select{|u| u.parent == true }
