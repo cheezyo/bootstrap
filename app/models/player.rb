@@ -106,7 +106,7 @@ class Player < ApplicationRecord
 		self.matches.where('created_at BETWEEN ? AND ?', DateTime.now - 12.months, DateTime.now).count
 	end
 	def do_it 
-		p = Player.fist
+		p = Player.first
 		p.utr_stats = ""
 		p.save!
 

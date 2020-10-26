@@ -17,6 +17,6 @@
 #   runner "AnotherModel.prune_old_records"
 # end
 every 1.minute do
-  runner "Player.do_it"
+  runner "Player.new.do_it"
 end
 # Learn more: http://github.com/javan/whenever
