@@ -48,10 +48,11 @@
 				<%= render 'players/partials/physical_prog', player: @player %>
 				
 			</div>
-			
+			<% if @current_user.admin? %>
 			<div class="tab-pane" id="turneringsplan">
 				<%= render 'players/partials/events', player: @player %>
 			</div>
+			<% end %>
 			
 		<% if @player.got_utr_profile? && @player.get_age > 12 && @myutr > 5.00 %>
 			<div class="tab-pane" id="utr">

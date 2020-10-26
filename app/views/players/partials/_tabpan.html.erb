@@ -5,7 +5,9 @@
 		   <li class="nav-item "><a href="#diary" data-toggle="tab" class="nav-link text-secondary">Diary</a></li>
 		   <li class="nav-item "><a href="#ironman" data-toggle="tab" class="nav-link text-secondary">Ironman</a></li>
 		   <li class="nav-item "><a href="#fys-program" data-toggle="tab" class="nav-link text-secondary">Physical program</a></li>
+		   <% if @current_user.admin? %>
 		   <li class="nav-item "><a href="#turneringsplan" data-toggle="tab" class="nav-link text-secondary">Event plan</a></li>
+		   <% end %>
 		   <% if @player.got_utr_profile? && @player.get_age > 12 && @myutr > 5.00 %>
 		   <li class="nav-item "><a href="#utr" data-toggle="tab" class="nav-link text-secondary">UTR</a></li>
 		   <% end %>
