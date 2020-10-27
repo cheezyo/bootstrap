@@ -10,7 +10,7 @@
 				<div class="row">
 					<div class="col-xl-12 col-md-12 mb-4">
 						<div class="tab-content">
-							<% if @player.tests.count > 0  %>
+							<% if @player.tests.count > 0 || @player.get_training_programs == nil %>
 					  		<div class="tab-pane active" id="program1">
 					  			<h1 class="h5 mb-0 text-gray-800"><%= @player.get_training_programs[0] %></h1>
 					  			<% if  @player.get_training_programs[0] == "Empty" %>

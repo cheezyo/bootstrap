@@ -80,7 +80,7 @@ class Player < ApplicationRecord
 
 	def get_training_programs
 		last_ironman = get_last_ironman
-		if !last_ironman.program1.nil? && !last_ironman.program2.nil? 
+		if last_ironman.program1 != nil && last_ironman.program2 != nil 
 			arr = Array.new
 			program1 = TrainingProgram.where(prog_number: last_ironman.program1).first
 			program2 = TrainingProgram.where(prog_number: last_ironman.program2).first
