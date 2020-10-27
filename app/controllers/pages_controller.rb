@@ -1,19 +1,18 @@
 class PagesController < ApplicationController
 
 	def index
-		@arr = Array.new
-		TypeOfTraining.all.each do |t|
-			@arr << [t.title, Training.where(type_of_training: t.id, user_id: current_user.id).sum(:time)]
-		end
-		#@by_month = @current_user.trainings.group_by { |m| m.t_date.beginning_of_month }.sum(:time)
+		
 	end
 
 	def task_report
+	if @current_user.admin? 
 		@tasks = Array.new
 		Task.all.group_by{|x| x.created_at.strftime("%Y-%m-%d")}.each do |t|
 			@tasks << [t[0], t[1].count]
 		end
-
+	else
+		redirect_to root_url, notice: "You are not authorized to access this page"
+	end
 		
 	end
 

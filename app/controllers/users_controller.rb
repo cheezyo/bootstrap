@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 	 before_action :set_user, only: [:show, :edit, :update, :destroy]
 	 #before_action :check_if_admin, except: [:new, :create]
   def index
-    @names = ["Players","Parents", "Coaches", "Admins"]
+    @names = ["No profile", "Players","Parents", "Coaches", "Admins"]
     if params[:user_type] == "Parents"
       @users = User.where(parent: :true)
       @name = "Parents"
@@ -15,9 +15,12 @@ class UsersController < ApplicationController
     elsif  params[:user_type] == "Admins"
       @users = User.where(admin: :true)
       @name = "Admins"
-    else
-      @users = User.where(coach: :false, admin: :false, parent: :false)
+    elsif params[:user_type] == "Players"
+      @users = User.where(coach: :false, admin: :false, parent: :false).reject{|u| ! u.got_profile?}
       @name = "Players"
+    else  
+       @users = User.where(coach: :false, admin: :false, parent: :false, player: :false)
+        @name = "No profile"
     end
   end
 
