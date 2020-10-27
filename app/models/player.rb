@@ -106,12 +106,21 @@ class Player < ApplicationRecord
 		self.matches.where('created_at BETWEEN ? AND ?', DateTime.now - 12.months, DateTime.now).count
 	end
 	def do_it 
+
+		Player.all.reject{|p| ! p.got_utr_profile?}.each do |player|
+			p.utr_stats = get_utr1(player)
+			p.save!
+		end
 		p = Player.first
 		p.utr_stats = "I was here " + DateTime.now.strftime("%H:%M")
 		p.save!
 
 	end
-
+	def get_utr1(player)
+		stats = "https://agw-prod.myutr.com/v1/player/" + player.utr_profile + "/stats?Months=12&Type=singles&resultType=myutr&fetchAllResults=true"
+		json_stats = HTTParty.get(stats, headers: {"Authorization" => get_token})
+		return json_stats.parsed_response["singlesUtr"]
+	end
 	def get_utr
 		stats = "https://agw-prod.myutr.com/v1/player/" + self.utr_profile + "/stats?Months=12&Type=singles&resultType=myutr&fetchAllResults=true"
 		json_stats = HTTParty.get(stats, headers: {"Authorization" => get_token})
