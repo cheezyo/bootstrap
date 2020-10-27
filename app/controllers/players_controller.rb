@@ -77,13 +77,13 @@ class PlayersController < ApplicationController
     @completed_tasks = @player.tasks.where(done: true)
     
       #results?year=last&Type=singles
-    if @player.got_utr_profile? 
-     stats = "https://agw-prod.myutr.com/v1/player/" + @player.utr_profile + "/stats?Months=12&Type=singles&resultType=myutr&fetchAllResults=true"
-     matches = "https://agw-prod.myutr.com/v1/player/" + @player.utr_profile + "/results?year=last&Type=singles"
-     @json_stats = HTTParty.get(stats, headers: {"Authorization" => get_token})
-     @json_matches = HTTParty.get(matches, headers: {"Authorization" => get_token})
-     @myutr = @json_stats.parsed_response["singlesUtr"].to_f rescue nil
-    end
+    #if @player.got_utr_profile? 
+    # stats = "https://agw-prod.myutr.com/v1/player/" + @player.utr_profile + "/stats?Months=12&Type=singles&resultType=myutr&fetchAllResults=true"
+     #matches = "https://agw-prod.myutr.com/v1/player/" + @player.utr_profile + "/results?year=last&Type=singles"
+     #@json_stats = HTTParty.get(stats, headers: {"Authorization" => get_token})
+     #@json_matches = HTTParty.get(matches, headers: {"Authorization" => get_token})
+     #@myutr = @json_stats.parsed_response["singlesUtr"].to_f rescue nil
+    #end
       
     
   end

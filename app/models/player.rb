@@ -20,6 +20,8 @@ class Player < ApplicationRecord
 	validates :planet_id, presence: true
 	validates :level_id, presence: true
 	serialize :utr_stats
+	serialize :utr_matches
+	serialize :utr_matches_array
 
 	def parent
 		user_ids = UserPlayer.where(player_id: self.id).pluck(:user_id)
@@ -109,28 +111,28 @@ class Player < ApplicationRecord
 
 		Player.all.reject{|p| ! p.got_utr_profile?}.each do |player|
 			player.utr_stats = get_utr1(player)
+			json_matches = get_json_matches(player)
+			player.utr_matches = json_matches
+			player.utr_matches_array = get_matches1(json_matches)
 			player.save!
 		end
 		
 
 	end
+	def get_json_matches(player)
+		matches = "https://agw-prod.myutr.com/v1/player/" + player.utr_profile + "/results?year=last&Type=singles"
+		json_matches = HTTParty.get(matches, headers: {"Authorization" => get_token})
+		return json_matches.parsed_response
+	end
 	def get_utr1(player)
 		stats = "https://agw-prod.myutr.com/v1/player/" + player.utr_profile + "/stats?Months=12&Type=singles&resultType=myutr&fetchAllResults=true"
 		json_stats = HTTParty.get(stats, headers: {"Authorization" => get_token})
-		return json_stats.parsed_response["singlesUtr"]
+		return json_stats.parsed_response
 	end
-	def get_utr
-		stats = "https://agw-prod.myutr.com/v1/player/" + self.utr_profile + "/stats?Months=12&Type=singles&resultType=myutr&fetchAllResults=true"
-		json_stats = HTTParty.get(stats, headers: {"Authorization" => get_token})
-		return json_stats.parsed_response["singlesUtr"]
-	end
-	def get_matches
-		
-		matches = "https://agw-prod.myutr.com/v1/player/" + self.utr_profile + "/results?year=last&Type=singles"
-		json_matches = HTTParty.get(matches, headers: {"Authorization" => get_token})
+	def get_matches1(json_matches)		
 		arr = Array.new
-		arr << json_matches.parsed_response["wins"].to_i
-		arr << json_matches.parsed_response["losses"].to_i
+		arr << json_matches["wins"].to_i
+		arr << json_matches["losses"].to_i
 		arr << arr[0] + arr[1]
 		if arr[2] > 0 
 		arr << ((arr[0].to_f / arr[2].to_f) * 100.00).round(2)
@@ -140,6 +142,10 @@ class Player < ApplicationRecord
 
 		return arr
 	end
+
+
+
+	
 
 	 def get_token 
     	string = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNZW1iZXJJZCI6IjEyOTQxMCIsImVtYWlsIjoiY2V6YXJzaW5jYW5AaG90bWFpbC5jb20iLCJWZXJzaW9uIjoiMSIsIkRldmljZUxvZ2luSWQiOiI0NzMyNTQ2IiwibmJmIjoxNjAxNDUyNzIzLCJleHAiOjE2MDQwNDQ3MjMsImlhdCI6MTYwMTQ1MjcyM30.phM9zNHzbAfqMQtcivh90nB6nfCeHWPGFbsCoQil6AA"

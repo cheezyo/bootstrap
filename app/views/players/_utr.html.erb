@@ -6,9 +6,9 @@
 	                  <div class="row no-gutters align-items-center">
 	                    <div class="col mr-2">
 	                      <div class="text-s font-weight-bold text-primary text-uppercase mb-2">My UTR last 12 month</div>
-	                      <p class="text-xs"><span class="font-weight-bold"><%= @json_stats.parsed_response["subtitle"] %></span></p>
-	                      <p class="text-xs">Start rating: <%= @json_stats.parsed_response["startRating"] %> - Current utr: <%= @json_stats.parsed_response["singlesUtr"] %> </p>
-	                      <p class="text-xs">Min rating: <%= @json_stats.parsed_response["minRating"] %> - Max rating: <%= @json_stats.parsed_response["maxRating"] %></p>
+	                      <p class="text-xs"><span class="font-weight-bold"><%= @player.utr_stats["subtitle"] %></span></p>
+	                      <p class="text-xs">Start rating: <%= @player.utr_stats["startRating"] %> - Current utr: <%= @player.utr_stats["singlesUtr"] %> </p>
+	                      <p class="text-xs">Min rating: <%= @player.utr_stats["minRating"] %> - Max rating: <%= @player.utr_stats["maxRating"] %></p>
 	                      
 	                    </div>
                     <div class="col-auto">
@@ -24,11 +24,11 @@
 	                  <div class="row no-gutters align-items-center">
 	                    <div class="col mr-2">
 	                      <div class="text-s font-weight-bold text-primary text-uppercase mb-2">My matches last 12 months</div>
-	                      <p class="text-xs">Wins: <%= @json_matches.parsed_response["wins"] %></p>
-	                      <p class="text-xs">Losses: <%= @json_matches.parsed_response["losses"] %> </p>
+	                      <p class="text-xs">Wins: <%= @player.utr_matches["wins"] %></p>
+	                      <p class="text-xs">Losses: <%= @player.utr_matches["losses"] %> </p>
 	                      <p class="text-xs">Events: 
-	                      <% if @json_matches.parsed_response["events"] != nil %>
-	                      	<%= @json_matches.parsed_response["events"].count %>
+	                      <% if @player.utr_matches["events"] != nil %>
+	                      	<%= @player.utr_matches["events"].count %>
 	                      <% else %>
 	                      <i>UTR results loading error </i>
 	                      <% end %>
@@ -50,8 +50,8 @@
 
     <div class="row">
         <div class="col-xl-12">
-        	<% if @json_matches.parsed_response["events"] != nil %>	
-        	<% @json_matches.parsed_response["events"].each do |ev|  %>
+        	<% if @player.utr_matches["events"] != nil %>	
+        	<% @player.utr_matches["events"].each do |ev|  %>
         	<% ev["draws"].each do |d| %>
  			<div class="card shadow mb-4">
             	<div class="card-header py-3">

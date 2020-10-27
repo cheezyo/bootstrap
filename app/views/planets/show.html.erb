@@ -46,14 +46,14 @@
 						        <% if @planet.utr? %>
 						        <td>
 						        	<% if p.got_utr_profile? %>
-						        	<%= p.get_utr %>
+						        	<%= p.utr_stats["singlesUtr"] %>
 						        	<% else %>
 						        	0
 						        	<% end %>
 						        	
 						        </td>
 						        <% if p.got_utr_profile? %>
-						        <% m = p.get_matches %>
+						        <% m = p.utr_matches_array %>
 						        <td><%= m[0] %></td>
 						        <td><%= m[1] %></td>
 						        <td><%= m[2] %></td>

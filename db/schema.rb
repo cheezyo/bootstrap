@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_26_222200) do
+ActiveRecord::Schema.define(version: 2020_10_27_210548) do
 
   create_table "coaches", force: :cascade do |t|
     t.string "name"
@@ -85,6 +85,8 @@ ActiveRecord::Schema.define(version: 2020_10_26_222200) do
     t.integer "planet_id"
     t.string "utr_profile"
     t.text "utr_stats"
+    t.text "utr_matches"
+    t.text "utr_matches_array"
   end
 
   create_table "stickers", force: :cascade do |t|
