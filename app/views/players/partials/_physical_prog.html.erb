@@ -10,17 +10,6 @@
 				<div class="row">
 					<div class="col-xl-12 col-md-12 mb-4">
 						<div class="tab-content">
-							
-
-
-
-
-
-
-
-
-
-
 							<% if @player.tests.count > 0  %>
 					  		<div class="tab-pane active" id="program1">
 					  			<h1 class="h5 mb-0 text-gray-800"><%= @player.get_training_programs[0] %></h1>
@@ -41,9 +30,12 @@
 							</div>
 							<% else %>
 								<div class="tab-pane active" id="program1">
-								<p class="text-xs">Du har ikke gjennomført noen tester enda. Anbefaller at du gjør basis fys-program for hele kroppen. </p><br/>
-					  			
+								<p>Du har ikke gjennomført noen tester enda. Anbefaller at du gjør basis fys-program for hele kroppen. </p><br/>
+					  			<% if @player.get_age <= 14 %>
 								<iframe src= "https://app.gomobilus.com/se/open/Mjg3NnxNVEE0TURVPXwxNTJ8LWtaM0MqV0RCaXQ%3D?fbclid=IwAR26rcI1Cj_vPZwq0Xjq9vFXjCYphoQRr56AmQl_V1B_E9gmRVdkfT2AcfU" style="border: none;  width:100%; height:3000px;"> </iframe>
+								<% else %>
+								<iframe src= "https://app.gomobilus.com/se/open/NTM3MzE2fE5UUTBPVFUwfDE1Mnwta1ozQypXREJpdA%3D%3D?fbclid=IwAR01Sywi2Ww9qJ5ZCV7RuS-VSDT3RxG-_Hx4Ipby1Aci6NxzleNqEp6u4eY" style="border: none;  width:100%; height:3000px;"> </iframe>
+								<% end %>
 							</div>
 							<% end %>
 						</div>
