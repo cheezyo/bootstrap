@@ -107,7 +107,7 @@ class Player < ApplicationRecord
 	end
 	def do_it 
 		p = Player.first
-		p.utr_stats = ""
+		p.utr_stats = "I was here " + DateTime.now.strftime("%H:%M")
 		p.save!
 
 	end
