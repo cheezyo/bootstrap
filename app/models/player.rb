@@ -108,12 +108,10 @@ class Player < ApplicationRecord
 	def do_it 
 
 		Player.all.reject{|p| ! p.got_utr_profile?}.each do |player|
-			p.utr_stats = get_utr1(player)
-			p.save!
+			player.utr_stats = get_utr1(player)
+			player.save!
 		end
-		p = Player.first
-		p.utr_stats = "I was here " + DateTime.now.strftime("%H:%M")
-		p.save!
+		
 
 	end
 	def get_utr1(player)
