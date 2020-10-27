@@ -74,7 +74,7 @@ class Player < ApplicationRecord
 		!self.level_id.blank? 
 	end
 	def get_last_ironman
-		self.tests.order(:test_date, :desc).first rescue nil
+		self.tests.order(test_date: :desc).first rescue nil
 	end
 
 
