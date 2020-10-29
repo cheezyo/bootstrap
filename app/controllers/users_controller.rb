@@ -19,7 +19,7 @@ class UsersController < ApplicationController
       @users = User.where(coach: :false, admin: :false, parent: :false).reject{|u| ! u.got_profile?}
       @name = "Players"
     else  
-       @users = User.where(coach: :false, admin: :false, parent: :false, player: :false)
+       @users = User.where(coach: :false, admin: :false, parent: :false)
         @name = "No profile"
     end
   end
