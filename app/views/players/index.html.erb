@@ -38,16 +38,18 @@
                       <td><%= player.age %></td>
                       <td><%= player.planet.blank? ? "empty" : player.planet.title %></td>
                       
-                      <% if @current_user.admin? %> 
-                        <% if ! user.got_profile? %> 
+                      <% if @current_user.admin? %>
+                      <td>
+                        <% if ! player.got_user? %> 
                             <%= form_for UserPlayer.new do |f| %>
-                              <%= f.collection_select :user_id, User.where(parent: false, coach: false, admin: false), :id, :name, :class => "form-control form-control-user", :include_blank => 'choose user' %>
+                              <%= f.collection_select :user_id, User.where(parent: false, coach: false, admin: false).reject{|u| u.got_profile? }, :id, :name, :class => "form-control form-control-user", :include_blank => 'choose user' %>
                               <%= f.hidden_field :player_id, :value => player.id %>
                               <%= f.submit "Save" , :class => "btn btn-success"%>
                             <% end %>
                             <% else %>
-
+                            <%= player.user.name %>
                           <% end %>
+                          </td>
                         <% end %>
                     </tr>
                   <% end %>
