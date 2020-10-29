@@ -16,10 +16,10 @@ class UsersController < ApplicationController
       @users = User.where(admin: :true)
       @name = "Admins"
     elsif params[:user_type] == "Players"
-      @users = User.where(coach: :false, admin: :false, parent: :false).reject{|u| ! u.got_profile?}
+      @users = User.where(player: :true).reject{|u| ! u.got_profile?}
       @name = "Players"
     else  
-       @users = User.where(coach: :false, admin: :false, parent: :false)
+       @users = User.where(coach: :false, admin: :false, parent: :false).reject{|u| u.got_profile? }
         @name = "No profile"
     end
   end
