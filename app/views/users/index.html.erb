@@ -62,19 +62,26 @@
                       <td><%= link_to user.name, user %></td>
                       <td><%= user.email %></td>
                       <td><%= user.got_profile? ? "Yes" : "No" %> </td>
-                      
-                        <% if user.player? && user.got_profile? %>
-                          <td>
+                      <td>
+                        <% if user.player? && user.got_profile? && ! user.got_coach? %>
+                          
                             <%= form_for UserPlayer.new do |f| %>
                               <%= f.collection_select :user_id, User.where(coach: true), :id, :name, :class => "form-control form-control-user", :include_blank => 'choose coach' %>
                               <%= f.hidden_field :player_id, :value => user.get_player_profile.id %>
                               <%= f.submit "Add" , :class => "btn btn-success"%>
                             <% end %>
-                          </td>
+                          
+                        <% elsif user.player? && user.got_profile? && user.got_coach?  %>
+                          <%= form_for UserPlayer.where(user_id: user.get_player_profile.coach.id, player_id: user.get_player_profile.id).first do |f| %>
+                            <%= f.collection_select :user_id, User.where(coach: true), :id, :name, :class => "form-control form-control-user", :include_blank => 'choose user' %>
+                            <%= f.hidden_field :player_id, :value => user.get_player_profile.id %>
+                            <%= f.submit "Change" , :class => "btn btn-success"%>
+                          <% end %>
+
                         <% else %>
-                        <td>Empty</td>
+                        Empty
                         <% end %>
-                        
+                        </td>
                       
                       <td><%= link_to 'Edit', edit_user_path(user) %></td>
                       <td><%= link_to 'Delete', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
