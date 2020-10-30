@@ -20,14 +20,15 @@
         </thead>
         <tbody>
 
-   <% @tasks.where(done: false).or(@tasks.where(done: nil)).order(created_at: :desc).each do |t| %>
+   <% @tasks.where(done: false).or(@tasks.where(done: nil)).order(created_at: :asc).each do |t| %>
    <tr>
     <td>
       <div class="card mb-2">
         <div class="card-header py-3" id="headingOne">
             <div class="text-md font-weight-bold text-primary mb-2 ">
+            <span class="text-gray-800"><%= t.created_at.strftime("%Y-%m-%d") %></span>
             <%= link_to t.player.fullname, t.player %> - <%= t.task_category.category %>
-            <span class="text-gray-800"><%= t.created_at.strftime("%d-%m-%Y") %></span>
+            
             </div>
        
         </div>
