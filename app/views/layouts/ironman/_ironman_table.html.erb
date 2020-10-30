@@ -16,8 +16,8 @@
 		      <th>Beep</th>
 		      <th>Test score</th>  
 		      <% if can? :edit, Test %>
-		      <th>Edit test</th> 
-		      <th> Delete test </th>
+		      <th></th> 
+
 		     <% end %>
 		    </tr>
 		  </thead>
@@ -128,9 +128,17 @@
 		  		<%= t.beep %></td>
 		  		<td><%= t.test_score %></td>
 		  		 <% if can? :edit, Test %>
-		  		<td><%= link_to "Edit", edit_test_path(t) %></td>
-		  		<td><%= link_to 'Destroy', t, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+		  		<td>
+		  			<%= link_to  edit_test_path(t) do %>
+		            <span><i class="fas fa-pen mr-2 ml-2" style="color:green;"></i></span>
+		          <% end %>
+		          <%= link_to  t, method: :delete, data: { confirm: 'Are you sure?' } do %>
+		            <span><i class="fas fa-minus-square mr-2 ml-2" style="color:red;"></i></span>
+		          <% end %>
+		  		</td>
+
 		  		<% end %>
+
 		  	</tr>
 		  	<% end %>
 

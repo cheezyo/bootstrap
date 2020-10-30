@@ -9,6 +9,8 @@
       <th>Category</th>
       <th>Active</th>
       <th>Completed</th>
+      <th></th>
+
     </tr>
   </thead>
 
@@ -17,16 +19,18 @@
       <tr>
         <td>
           <%= task_category.category %>
-          <%= link_to  edit_task_category_path(task_category) do %>
+          
+          
+        </td>
+        <td><%= link_to task_category.tasks.where(:done => false).count.to_s, task_category %></td>
+        <td><%= link_to task_category.tasks.where(:done => true).or(task_category.tasks.where(:done => nil)).count.to_s, show_completed_task_categories_path + "?id=" + task_category.id.to_s %></td>
+          <td><%= link_to  edit_task_category_path(task_category) do %>
             <span><i class="fas fa-pen mr-2 ml-2" style="color:green;"></i></span>
           <% end %>
           <%= link_to  task_category, method: :delete, data: { confirm: 'Are you sure?' } do %>
             <span><i class="fas fa-minus-square mr-2 ml-2" style="color:red;"></i></span>
           <% end %>
-          
         </td>
-        <td><%= link_to task_category.tasks.where(:done => false).count.to_s, task_category %></td>
-        <td><%= link_to task_category.tasks.where(:done => true).or(task_category.tasks.where(:done => nil)).count.to_s, show_completed_task_categories_path + "?id=" + task_category.id.to_s %></td>
       </tr>
     <% end %>
   </tbody>

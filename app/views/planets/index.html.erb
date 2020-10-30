@@ -20,6 +20,7 @@
                       <th>UTR</th>
                       <th>Stats</th>
                       <th>Events</th>
+                      <th></th>
                 
                     </tr>
                   </thead>
@@ -29,9 +30,6 @@
                    <% @planets.each do |planet| %>
                     <tr>
                       <td><%= link_to planet.title, planet %> (<%= planet.players.count %>)
-                            <%= link_to edit_planet_path(planet) do %>
-                              <span><i class="fas fa-pen mr-2 ml-2" style="color:green;"></i></span>
-                            <% end %>
                       </td>
                       <td><% if planet.player_access? %>
                         <i class="fas fa-check" style="color: green;"></i>
@@ -69,7 +67,11 @@
                         <i class="fas fa-times" style="color: red;"></i>
                         <% end %>
                       </td>
-                      
+                      <td>
+                        <%= link_to edit_planet_path(planet) do %>
+                              <span><i class="fas fa-pen mr-2 ml-2" style="color:green;"></i></span>
+                            <% end %>
+                      </td>
                      
 
                     </tr>
