@@ -1,10 +1,11 @@
 
-<div class="mb-3 mt-3 ml-4">
+
 <% if can? :update, Task %>
-	<div class="row">		    		
+	<div class="row mb-3 mt-3 ml-4">		    		
 	<%= link_to "+ Add task", new_task_path + "?player_id=" + @player.id.to_s, :class => "btn btn-primary " %>
 	</div>
 <% end %>
+<div class="mb-3 mt-3 ml-4">
 <button class="btn btn-danger" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
       In progress (<%= @tasks.count %>)
     </button>
