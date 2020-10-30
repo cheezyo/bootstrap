@@ -4,6 +4,7 @@
 		<h1 class="h3 mb-0 text-gray-800">
 			<%= @task_category.category %> tasks completed
 	 	</h1>
+    <%= link_to "Show in progress", @task_category, :class => "btn btn-warning text-white" %>
 	 </div>
  <hr/>
 </div>
@@ -47,12 +48,17 @@
           
         
       </div>
-      <% if can? :update, Task %>
+      
       <div class="card-footer py-3">
-         
+        <% if can? :update, Task %>
          <%= link_to "Undo", add_progress_tasks_path + "?id=" + t.id.to_s, :class => "btn btn-danger" %>
-      </div>
       <% end %>
+      <% if ! t.coach_id.nil? %>
+      <span class="float-right text-gray-500"><%= t.get_coach.name %></span>
+      <% end %>
+      </div>
+     
+
     </div>
     </td>
     </tr>

@@ -3,7 +3,9 @@
 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
 		<h1 class="h3 mb-0 text-gray-800">
 			<%= @task_category.category %> tasks in progress
+
 	 	</h1>
+    <%= link_to "Show completed", show_completed_task_categories_path + "?id=" + @task_category.id.to_s, :class => "btn btn-success" %>
 	 </div>
  <hr/>
 </div>
@@ -25,9 +27,11 @@
             <div class="text-md font-weight-bold text-primary mb-2 ">
             <span class="text-gray-800"><%= t.created_at.strftime("%Y-%m-%d") %></span>
             <%= link_to t.player.fullname, t.player %> - <%= t.task_category.category %>
-            
+            <% if ! t.coach_id.nil? %>
+            <span class="float-right text-gray-500"><%= t.get_coach.name %></span>
+            <% end %>
             </div>
-       
+            
         </div>
 
         <div class="card-body py-3">
