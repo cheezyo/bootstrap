@@ -73,8 +73,8 @@ class PlayersController < ApplicationController
    
     end
 
-    @tasks = @player.tasks.where(done: false)
-    @completed_tasks = @player.tasks.where(done: true)
+    @tasks = @player.tasks.where(done: false).order(task_category_id: :asc)
+    @completed_tasks = @player.tasks.where(done: true).order(task_category_id: :asc)
     
       #results?year=last&Type=singles
     #if @player.got_utr_profile? 

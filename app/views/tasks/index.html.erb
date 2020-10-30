@@ -1,122 +1,91 @@
 <p id="notice"><%= notice %></p>
-
 <h1 class="h3 mb-2 text-gray-800">All tasks</h1>
-
+<div class="mb-3 mt-3 ml-4">
+<button class="btn btn-danger" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+      Tasks in progress (<%= @tasks.where(done: false).or(@tasks.where(done: nil)).count %>)
+    </button>
+    <button class="btn btn-success collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+  Completed tasks (<%= @tasks.where(done: true).count %>)
+</button>
+</div>
 
 <div id="accordion">
-          <div class="card">
-            <div class="card-header" id="headingOne">
-              <h5 class="mb-0">
-                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  Tasks in progress
-                </button>
-              </h5>
+  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+   <% @tasks.where(done: false).or(@tasks.where(done: nil)).order(created_at: :desc).each do |t| %>
+      <div class="card mb-2">
+        <div class="card-header py-3" id="headingOne">
+            <div class="text-md font-weight-bold text-primary mb-2 ">
+            <%= link_to t.player.name, t.player %> - <%= t.task_category.category %>
+            <span class="text-gray-800"><%= t.created_at.strftime("%d-%m-%Y") %></span>
             </div>
+       
+        </div>
 
-            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-              <div class="card-body">
-                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-              <thead>
-                <th>Category</th>
-                <th>Player </th>
-                <th>Task</th>
-                <th>Last comment</th>
-                <% if can? :edit, Task %>
-                <th></th>
-                <% end %>
-              </thead>
-              <tbody>
-                <% @tasks.where(done: false).or(@tasks.where(done: nil)).each do |t| %>
-                <tr>
-                  <td><%= t.task_category.category %></td>
-                  <td><%= link_to t.player.fullname, t.player %></td>
-                  <td><%= t.created_at.strftime("%d-%m-%Y") + ": " + t.task %></td>
-                  
-                  <td>
+        <div class="card-body py-3">
+              
+        <%= image_tag t.image.url, style: 'height:300px;width:200px;float:left;padding-right:15px;' if t.image? %>
+        <p><%= t.task %></p>
 
-                    <% if ! t.task_comments.empty? %>
-                      <% t.task_comments.each do |tc| %>
-                        <p>
-                          <%= tc.created_at.strftime("%d-%m-%Y:") %>
-                          <i><%= tc.comment %></i>
-                           <% if can? :edit, TaskComment %>
-                          <small>| <%= link_to "Edit", edit_task_comment_path(tc) + "?task_id=" + t.id.to_s %>
-                          </small>
-                          <% end %>
-                        </p>
-                      <% end %>
-                    <% else %>
-                    <% end %>
-                    <% if can? :edit, TaskComment %>
-                     <p><%= link_to "Add comment", new_task_comment_path + "?task_id=" + t.id.to_s %></p>
-                     <% end %>
+          
+        <% t.task_comments.each do |tc| %>
+        <hr/> 
+           <p class="text-gray-800" style="font-style: italic"> - 
+            <%= tc.comment %>
+            <small><%= tc.created_at.strftime("%d-%m-%Y") %></small>
+            
+           </p>
+        <% end %>
+          
+        
+      </div>
+      <% if can? :update, Task %>
+      <div class="card-footer py-3">
+         
+         <%= link_to "Done", add_progress_tasks_path + "?id=" + t.id.to_s, :class => "btn-sm btn-success mr-1 py-2" %> 
+          <%= link_to "Comment", new_task_comment_path + "?task_id=" + t.id.to_s, :class => "btn-sm btn-primary py-2" %>
+          <%= link_to 'Destroy', t, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn-sm btn-danger py-2 mr-1 float-right" %>
+          <%= link_to "Edit", edit_task_path(t), :class => "btn-sm btn-info mr-1 py-2 float-right" %>
+      </div>
+      <% end %>
+    </div>
+  <% end %>
+  </div>
 
-
-                                            
-                    
-                  </td>
-                  <% if can? :edit, Task %>
-                    <td>
-                      <%= link_to "Edit", edit_task_path(t) %>
-                      | <%= link_to 'Destroy', t, method: :delete, data: { confirm: 'Are you sure?' } %>  
-                      
-                        | <%= link_to "Done", add_progress_tasks_path + "?id=" + t.id.to_s, :class => "btn btn-success" %> 
-                        
-                      
-                    </td>
-                  <% end %>
-                  </tr> 
-                <% end %>
-              </tbody>
-            </table>
-
-
-              </div>
+<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+   <% @tasks.where(done: true).order(done_date: :desc).each do |t| %>
+  <div class="card mb-2">
+        <div class="card-header py-3" id="headingOne">
+            <div class="text-md font-weight-bold text-primary text-uppercase mb-2 ">
+            <%= link_to t.player.name, t.player %> - <%= t.task_category.category %>
+            <span class="text-gray-800">
+              <%= t.created_at.strftime("%d-%m-%Y") %> -
+              <%= t.done? ? "Done: " + t.done_date.strftime("%d-%m-%Y") : "" %>
+            </span>
             </div>
-          </div>
-          <div class="card">
-            <div class="card-header" id="headingTwo">
-              <h5 class="mb-0">
-                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                  Completed tasks
-                </button>
-              </h5>
-            </div>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-              <div class="card-body">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-              <thead>
-                <th>Category</th>
-                <th>Player </th>
-                <th>Task</th>
-                <th>Last comment</th>
-                <% if can? :edit, Task %>
-                <th></th>
-                <% end %>
-              </thead>
-              <tbody>
-                <% @tasks.where(done: true).each do |t| %>
-                <tr>
-                  <td><%= t.task_category.category %></td>
-                  <td><%= link_to t.player.fullname, t.player %></td>
-                  <td><%= t.created_at.strftime("%d-%m-%Y") + ": " + t.task %></td>
-                  
-                  <td>
-                    
-                    
-                    <%= t.done? ? "Done: " + t.done_date.strftime("%d-%m-%Y") : "" %>
-                    
-                  </td>
-                  <% if can? :edit, Task %>
-                    <td>
-                      <%= link_to "Edit", edit_task_path(t) %>  
-                      | <%= link_to "Undo", add_progress_tasks_path + "?id=" + t.id.to_s, :class => "btn btn-danger" %> 
-                    </td>
-                  <% end %>
-                  </tr> 
-                <% end %>
-              </tbody>
-            </table>
-              </div>
-            </div>
-          </div>
+      </div>
+      <div class="card-body py-3  text-success">
+        <%= image_tag t.image.url, style: 'height:300px;width:200px;float:left;padding-right:15px;' if t.image? %>
+        <p class="card-text"><%= t.task %></p>
+
+          
+        <% t.task_comments.each do |tc| %>
+        <hr/> 
+           <p class="text-gray-800" style="font-style: italic"> - 
+            <%= tc.comment %>
+            <small><%= tc.created_at.strftime("%d-%m-%Y") %></small>
+            
+           </p>
+        <% end %>               
+      </div>
+      <% if can? :update, Task %>
+      <div class="card-footer">
+        <%= link_to "Undo", add_progress_tasks_path + "?id=" + t.id.to_s, :class => "btn btn-danger" %> 
+      </div>
+      <% end %>
+        
+  </div>
+  <% end %>       
+</div>
+</div>
+
+
