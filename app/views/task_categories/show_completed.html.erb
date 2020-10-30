@@ -2,7 +2,7 @@
 <div class="row-fluid">
 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
 		<h1 class="h3 mb-0 text-gray-800">
-			<%= @task_category.category %> tasks in progress
+			<%= @task_category.category %> tasks completed
 	 	</h1>
 	 </div>
  <hr/>
@@ -12,16 +12,16 @@
 <table class="table table-hover table-sm" id="dataTable" width="100%" cellspacing="0">
       <thead>
           <tr>
-              <th>Tasks in progress</th>
+              <th>Tasks completed</th>
             </tr>
         </thead>
         <tbody>
 
-   <% @task_category.tasks.where(done: false).or(@task_category.tasks.where(done: nil)).order(created_at: :asc).each do |t| %>
+   <% @task_category.tasks.where(done: true).order(created_at: :asc).each do |t| %>
    <tr>
     <td>
       <div class="card mb-2">
-        <div class="card-header py-3" id="headingOne">
+        <div class="card-header py-3 " id="headingOne">
             <div class="text-md font-weight-bold text-primary mb-2 ">
             <span class="text-gray-800"><%= t.created_at.strftime("%Y-%m-%d") %></span>
             <%= link_to t.player.fullname, t.player %> - <%= t.task_category.category %>
@@ -30,7 +30,7 @@
        
         </div>
 
-        <div class="card-body py-3">
+        <div class="card-body py-3 text-success">
               
         <%= image_tag t.image.url, style: 'height:300px;width:200px;float:left;padding-right:15px;' if t.image? %>
         <p><%= t.task %></p>
@@ -50,10 +50,7 @@
       <% if can? :update, Task %>
       <div class="card-footer py-3">
          
-         <%= link_to "Done", add_progress_tasks_path + "?id=" + t.id.to_s, :class => "btn-sm btn-success mr-1 py-2 float-left" %> 
-          <%= link_to "Comment", new_task_comment_path + "?task_id=" + t.id.to_s, :class => "btn-sm btn-primary py-2 float-left" %>
-          <%= link_to 'Destroy', t, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn-sm btn-danger py-2 mr-1 float-right" %>
-          <%= link_to "Edit", edit_task_path(t), :class => "btn-sm btn-info mr-1 py-2 float-right" %>
+         <%= link_to "Undo", add_progress_tasks_path + "?id=" + t.id.to_s, :class => "btn btn-danger" %>
       </div>
       <% end %>
     </div>

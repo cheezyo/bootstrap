@@ -16,7 +16,7 @@
     <% @task_categories.each do |task_category| %>
       <tr>
         <td>
-          <%= link_to task_category.category, task_category %>
+          <%= task_category.category %>
           <%= link_to  edit_task_category_path(task_category) do %>
             <span><i class="fas fa-pen mr-2 ml-2" style="color:green;"></i></span>
           <% end %>
@@ -25,8 +25,8 @@
           <% end %>
           
         </td>
-        <td><%= task_category.tasks.where(:done => false).count %></td>
-        <td><%= task_category.tasks.where(:done => true).or(task_category.tasks.where(:done => nil)).count %></td>
+        <td><%= link_to task_category.tasks.where(:done => false).count.to_s, task_category %></td>
+        <td><%= link_to task_category.tasks.where(:done => true).or(task_category.tasks.where(:done => nil)).count.to_s, show_completed_task_categories_path + "?id=" + task_category.id.to_s %></td>
       </tr>
     <% end %>
   </tbody>

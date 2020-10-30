@@ -1,6 +1,6 @@
 class TaskCategoriesController < ApplicationController
   load_and_authorize_resource
-  before_action :set_task_category, only: [:show, :edit, :update, :destroy]
+  before_action :set_task_category, only: [:show, :edit, :update, :destroy, :show_completed]
 
   # GET /task_categories
   # GET /task_categories.json
@@ -11,6 +11,9 @@ class TaskCategoriesController < ApplicationController
   # GET /task_categories/1
   # GET /task_categories/1.json
   def show
+  end
+
+  def show_completed
   end
 
   # GET /task_categories/new

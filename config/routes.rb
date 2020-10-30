@@ -13,7 +13,11 @@ Rails.application.routes.draw do
   end
   resources :planets
 
-  resources :task_categories
+  resources :task_categories do 
+    collection do 
+      get :show_completed
+    end
+  end
   resources :tasks do 
     collection do
       get :add_progress
