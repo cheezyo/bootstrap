@@ -1,6 +1,8 @@
 <p id="notice"><%= notice %></p>
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-	<h1 class="h3 mb-0 text-gray-800"><i class="fas fa-baseball-ball"></i> <%= @planet.title %></h1>
+	<h1 class="h3 mb-0 text-gray-800"><i class="fas fa-baseball-ball"></i> <%= @planet.title %> (<%= @planet.players.count %>)
+		<small>stats last 12 months</small>
+	</h1>
  </div>
  <hr/>
 
@@ -70,7 +72,7 @@
 						        <% if @planet.stats? %>
 						      	<td><%= p.get_match_reports %></td>
 						      	<% end %>
-						      	<td><%= p.get_tasks_last_year.count %>
+						      	<td><%= p.get_tasks_last_year.where(:done => false ).or(p.get_tasks_last_year.where(:done => nil )).count %>
 						      		(<%= p.get_tasks_last_year.where(:done => true).count %>)
 						      	</td>
 						      	<% if @planet.diary? %>
