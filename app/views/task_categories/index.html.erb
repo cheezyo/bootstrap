@@ -1,11 +1,14 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Task Categories</h1>
+<%= link_to 'New Task Category', new_task_category_path, :class => "btn btn-primary mt-2 mb-2" %>
 
-<table>
+<table class="table table-striped table-hover table-sm" id="dataTable" width="100%" cellspacing="0">
   <thead>
     <tr>
       <th>Category</th>
+      <th>Active</th>
+      <th>Completed</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -14,6 +17,8 @@
     <% @task_categories.each do |task_category| %>
       <tr>
         <td><%= task_category.category %></td>
+        <td><%= task_category.tasks.where(:done => false).count %></td>
+        <td><%= task_category.tasks.where(:done => true).or(task_category.tasks.where(:done => nil)).count %></td>
         <td><%= link_to 'Show', task_category %></td>
         <td><%= link_to 'Edit', edit_task_category_path(task_category) %></td>
         <td><%= link_to 'Destroy', task_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -24,4 +29,4 @@
 
 <br>
 
-<%= link_to 'New Task Category', new_task_category_path %>
+
