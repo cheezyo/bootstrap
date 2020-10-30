@@ -14,14 +14,12 @@
                   <thead>
                     <tr>
                       <th>Title</th>
-                      <th>Age</th>
                       <th>Player access</th>
                       <th>Diary</th>
                       <th>Ironman</th>
                       <th>UTR</th>
                       <th>Stats</th>
                       <th>Events</th>
-                      <th>Edit</th>
                 
                     </tr>
                   </thead>
@@ -30,45 +28,48 @@
 
                    <% @planets.each do |planet| %>
                     <tr>
-                      <td><%= link_to planet.title, planet %> (<%= planet.players.count %>)</td>
-                      <td><%= planet.age %></td>
+                      <td><%= link_to planet.title, planet %> (<%= planet.players.count %>)
+                            <%= link_to edit_planet_path(planet) do %>
+                              <span><i class="fas fa-pen mr-2 ml-2" style="color:green;"></i></span>
+                            <% end %>
+                      </td>
                       <td><% if planet.player_access? %>
-                        <i class="fas fa-check"></i>
+                        <i class="fas fa-check" style="color: green;"></i>
                         <% else %>
-                        <i class="fas fa-times"></i>
+                        <i class="fas fa-times" style="color: red;"></i>
                         <% end %>
                       </td>
                       <td><% if planet.diary? %>
-                        <i class="fas fa-check"></i>
+                        <i class="fas fa-check" style="color: green;"></i>
                         <% else %>
-                        <i class="fas fa-times"></i>
+                        <i class="fas fa-times" style="color: red;"></i>
                         <% end %>
                       </td>
                       <td><% if planet.ironman? %>
-                        <i class="fas fa-check"></i>
+                        <i class="fas fa-check" style="color: green;"></i>
                         <% else %>
-                        <i class="fas fa-times"></i>
+                        <i class="fas fa-times" style="color: red;"></i>
                         <% end %>
                       </td>
                       <td><% if planet.utr? %>
-                        <i class="fas fa-check"></i>
+                        <i class="fas fa-check" style="color: green;"></i>
                         <% else %>
-                        <i class="fas fa-times"></i>
+                        <i class="fas fa-times" style="color: red;"></i>
                         <% end %>
                       </td>
                       <td><% if planet.stats? %>
-                        <i class="fas fa-check"></i>
+                        <i class="fas fa-check" style="color: green;"></i>
                         <% else %>
-                        <i class="fas fa-times"></i>
+                        <i class="fas fa-times" style="color: red;"></i>
                         <% end %>
                       </td>
                       <td><% if planet.events? %>
-                        <i class="fas fa-check"></i>
+                        <i class="fas fa-check" style="color: green;"></i>
                         <% else %>
-                        <i class="fas fa-times"></i>
+                        <i class="fas fa-times" style="color: red;"></i>
                         <% end %>
                       </td>
-                      <td><%= link_to "Edit", edit_planet_path(planet) %></td>
+                      
                      
 
                     </tr>
