@@ -20,6 +20,7 @@
             <thead>
               <tr>
                 <th>Type of training</th>
+                <th>Player</th>
                 <th>Time</th>
                 <th>Date</th>
                 <th>Rating</th>
@@ -32,6 +33,7 @@
                     <td><%= link_to training.type_of_training.title, edit_training_path(training) %>
                         <%= link_to 'X', training, method: :delete, data: { confirm: 'Are you sure?' }, :style => "color:red;"%>
                     </td>
+                    <td><%= training.user.get_player_profile.fullname %></td>
                     <td><%= training.time %> min</td>
                     <td><%= training.t_date.strftime("%Y-%m-%d (%a)") %></td>
                     <td>
