@@ -87,8 +87,10 @@ class Player < ApplicationRecord
 			program1 = TrainingProgram.where(prog_number: last_ironman.program1).first
 			program2 = TrainingProgram.where(prog_number: last_ironman.program2).first
 			arr = [program1.prog_name, program1.prog_url, program2.prog_name, program2.prog_url]
+		elsif last_ironman.program1 == 99
+			arr = ["Empty", "Du har gjennomført ny test men, pga. skader skal du fokusere på skadeforbyggende program fra fysio.", "Empty", "Ingen test"]
 		else
-			arr = ["Empty", "Du har gjennomført ny test program er ikke oppdatert av trener enda.", "Empty", "Ingen test"]
+			arr = ["Empty", "Du har gjennomført ny test, program er ikke oppdatert av trener enda.", "Empty", "Ingen test"]
 		end
 
 		
