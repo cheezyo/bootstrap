@@ -3,6 +3,7 @@
 						<ul class="nav nav-tabs">
 						   <li class="nav-item "><a href="#program1" data-toggle="tab" class="nav-link active">Program 1</a></li>
 						   <li class="nav-item "><a href="#program2" data-toggle="tab" class="nav-link">Program 2</a></li>
+						   <li class="nav-item "><a href="#basic" data-toggle="tab" class="nav-link">Basic program</a></li>
 						</ul>
 					</div>
 				</div>	
@@ -38,6 +39,14 @@
 								<% end %>
 							</div>
 							<% end %>
+							<div class="tab-pane active" id="basic">
+								<% if @player.get_age > 14 %>
+									<iframe src= "https://app.gomobilus.com/se/open/NTM3MzE2fE5UUTBPVFUwfDE1Mnwta1ozQypXREJpdA%3D%3D?fbclid=IwAR01Sywi2Ww9qJ5ZCV7RuS-VSDT3RxG-_Hx4Ipby1Aci6NxzleNqEp6u4eY" style="border: none;  width:100%; height:3000px;"> </iframe>
+								<% else %>
+
+									<iframe src= "https://app.gomobilus.com/se/open/Mjg3NnxNVEE0TURVPXwxNTJ8LWtaM0MqV0RCaXQ%3D?fbclid=IwAR26rcI1Cj_vPZwq0Xjq9vFXjCYphoQRr56AmQl_V1B_E9gmRVdkfT2AcfU" style="border: none;  width:100%; height:3000px;"> </iframe>
+								<% end %>
+							</div>
 						</div>
 					</div>
 				</div>		
