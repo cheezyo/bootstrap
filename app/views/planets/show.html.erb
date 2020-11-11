@@ -21,6 +21,7 @@
 					 <table class="table table-bordered table-sm" id="dataTable" width="100%" cellspacing="0">
 						  <thead>
 						    <tr>
+					    	  <th>User</th>
 						      <th>
 						      	Name
 
@@ -47,13 +48,16 @@
 						  <tbody>
 						    <% @planet.players.each do |p| %>
 						      <tr>
-						        <td>
-						        	<%= link_to p.fullname, p  %> (<%= p.get_age %>)
-						        	<% if p.got_user? %>
+						      	<td style="width:10px;text-align: center">
+						      		<% if p.got_user? %>
 										<i class="far fa-user fa"></i>
+										<p style="display: none">1</p>
 									<% else %>
 										<i class="fas fa-user-alt-slash"></i>
-									<% end %>
+										<p style="display: none">0</p>
+									<% end %></td>
+						        <td>
+						        	<%= link_to p.fullname, p  %> (<%= p.get_age %>)
 						        </td>
 						        <% if @planet.utr? %>
 						        <td>
