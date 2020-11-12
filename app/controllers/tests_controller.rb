@@ -28,6 +28,8 @@ class TestsController < ApplicationController
 
   def avg 
     @execs = [:sprint, :spider, :fh_throw, :bh_throw, :jump, :box, :chins, :pushups, :situps, :front_stretch, :back_stretch, :beep, :test_score]
+    player_ids = Player.joins(:planet).where(planet_id: [2,3,6]).pluck(:id)
+    tests = Test.where(player_id: player_ids)
 
     @boys = Array.new
     @girls = Array.new 
@@ -36,7 +38,7 @@ class TestsController < ApplicationController
       execs_arr = Array.new 
       (10..19).each do |n|
         arr = Array.new
-        arr = Test.where(test_type: :Junior, age: n, gender: :Male).pluck(ex)
+        arr = tests.where(test_type: :Junior, age: n, gender: :Male).pluck(ex)
         if ex != :chins
           arr.delete(0.0)
         end
@@ -50,7 +52,7 @@ class TestsController < ApplicationController
       execs_arr = Array.new 
       (10..19).each do |n|
         arr = Array.new
-        arr = Test.where(test_type: :Junior, age: n, gender: :Female).pluck(ex)
+        arr = tests.where(test_type: :Junior, age: n, gender: :Female).pluck(ex)
         if ex != :chins
           arr.delete(0.0)
         end
