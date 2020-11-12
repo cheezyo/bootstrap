@@ -37,6 +37,10 @@ class TestsController < ApplicationController
       (10..19).each do |n|
         arr = Array.new
         arr = Test.where(test_type: :Junior, age: n, gender: :Male).pluck(ex)
+        if ex != :chins
+          arr.delete(0.0)
+        end
+
         execs_arr << (arr.inject(0.0){ |sum, el| sum + el } / arr.count).truncate(2)
       end
       @boys << execs_arr
@@ -47,6 +51,9 @@ class TestsController < ApplicationController
       (10..19).each do |n|
         arr = Array.new
         arr = Test.where(test_type: :Junior, age: n, gender: :Female).pluck(ex)
+        if ex != :chins
+          arr.delete(0.0)
+        end
         execs_arr << (arr.inject(0.0){ |sum, el| sum + el } / arr.count).truncate(2)
       end
       @girls << execs_arr
