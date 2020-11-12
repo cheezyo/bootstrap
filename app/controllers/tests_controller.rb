@@ -24,12 +24,19 @@ class TestsController < ApplicationController
     @junior_male = Test.where(:test_type => "Junior", :gender => "Male")
     @senior_male = Test.where(:test_type => "Senior", :gender => "Male")
     @senior_female = Test.where(:test_type => "Senior", :gender => "Female")
+  end
+
+  def avg 
+    @sprint = Array.new
+    (10..19).each do |n|
+      arr = Array.new
+      arr = Test.where(test_type: :Junior, age: n, gender: :Male).pluck(:sprint)
+      @sprint << arr.inject(0.0){ |sum, el| sum + el } / arr.count
+    end
 
 
-     
-
-
-
+    
+    
   end
   # GET /tests/1
   # GET /tests/1.json

@@ -41,6 +41,7 @@ end
       get :update_test_score
       get :all_tests
       get :toplist
+      get :avg
     end
   end
   resources :coaches

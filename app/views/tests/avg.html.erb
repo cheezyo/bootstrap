@@ -1,0 +1,58 @@
+
+
+<%= @sprint %>
+<table class="table table-striped table-hover table-sm table-responsive-xl " id="dataTable" width="100%" cellspacing="0">
+		  <thead class="thead-light">
+		    <tr>
+		    	<th>Exercise</th>
+		    	<% (10..19).each do |n| %>
+		      	<th><%= n %></th> 
+		    	<% end %>
+		    </tr>
+		  </thead>
+
+		  <tbody>
+		  	<tr>
+		  		<td>20 m sprint</td>
+		  		<% @sprint.each do |s| %>
+		  		<td><%= s %></td>
+		  		<% end %>
+		  	</tr>
+		  	<tr>
+		  		<td>Spider</td>
+		  	</tr>
+		  	<tr>
+		  		<td>Fh. throw</td>
+		  	</tr>
+		  	<tr>
+		  		<td>Bh. throw</td>
+		  	</tr>
+		  	<tr>
+		  		<td>Lenght jump</td>
+		  	</tr>
+		  	<tr>
+		  		<td>Box jump</td>
+		  	</tr>
+		  	<tr>
+		  		<td>Chins</td>
+		  	</tr>
+		  	<tr>
+		  		<td>Push ups</td>
+		  	</tr>
+		  	<tr>
+		  		<td>Brutal bench</td>
+		  	</tr>
+		  	<tr>
+		  		<td>Front stretch</td>
+		  	</tr>
+		  	<tr>
+		  		<td>Back stretch</td>
+		  	</tr>
+		  	<tr>
+		  		<td>Beep test</td>
+		  	</tr>
+		  	
+
+		  </tbody>
+
+		</table>
