@@ -28,22 +28,25 @@ class TestsController < ApplicationController
 
   def avg 
     @execs = [:sprint, :spider, :fh_throw, :bh_throw, :jump, :box, :chins, :pushups, :situps, :front_stretch, :back_stretch, :beep, :test_score]
-    player_ids = Player.joins(:planet).where(planet_id: [2,3,6]).pluck(:id)
-    tests = Test.where(player_id: player_ids)
+    player_ids = Player.joins(:planet).where(planet_id: [1,3]).pluck(:id)
+    tests = Test.all
 
     @boys = Array.new
     @girls = Array.new 
-
+    #execersie belongs_to age
     @execs.each do |ex|
       execs_arr = Array.new 
       (10..19).each do |n|
         arr = Array.new
         arr = tests.where(test_type: :Junior, age: n, gender: :Male).pluck(ex)
+        age_arr = Array.new
+        age_arr << arr.min.to_f.truncate(2)
         if ex != :chins
           arr.delete(0.0)
         end
-
-        execs_arr << (arr.inject(0.0){ |sum, el| sum + el } / arr.count).truncate(2)
+        age_arr << (arr.inject(0.0){ |sum, el| sum + el } / arr.count).truncate(2)
+        age_arr << arr.max.to_f.truncate(2)
+        execs_arr << age_arr
       end
       @boys << execs_arr
     end
@@ -53,10 +56,14 @@ class TestsController < ApplicationController
       (10..19).each do |n|
         arr = Array.new
         arr = tests.where(test_type: :Junior, age: n, gender: :Female).pluck(ex)
+        age_arr = Array.new
+        age_arr << arr.min.to_f.truncate(2)
         if ex != :chins
           arr.delete(0.0)
         end
-        execs_arr << (arr.inject(0.0){ |sum, el| sum + el } / arr.count).truncate(2)
+        age_arr << (arr.inject(0.0){ |sum, el| sum + el } / arr.count).truncate(2)
+        age_arr << arr.max.to_f.truncate(2)
+        execs_arr << age_arr
       end
       @girls << execs_arr
     end

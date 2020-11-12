@@ -18,7 +18,7 @@
 			  		<td><b><%= @execs[num].to_s.capitalize %></b></td>
 			  		
 			  			<% s.each do |n| %>
-			  				<td><%= n %></td>
+			  				<td><small><%= n[0] %></small> <b><%= n[1] %></b> <small><%= n[2] %></small></td>
 			  			<% end %>
 			  		
 			  		</tr>
@@ -44,7 +44,7 @@
 			  		<td><b><%= @execs[num].to_s.capitalize %></b></td>
 			  		
 			  			<% s.each do |n| %>
-			  				<td><%= n %></td>
+			  				<td><small><%= n[0] %></small> <b><%= n[1] %></b> <small><%= n[2] %></small></td>
 			  			<% end %>
 			  		
 			  		</tr>
