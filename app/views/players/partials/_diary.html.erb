@@ -13,12 +13,12 @@
 				<h4 class= "text-gray-800">Days this month <%= @date.strftime("%B %Y") %></h4>
 				<%= line_chart @month_line, {xtitle: "Days", ytitle: "Minutes", colors: ["#50c878", "#fff"]}  %>
 				<h4 class= "text-gray-800">This month <%= @date.strftime("%B %Y") %></h4>
-				<%= bar_chart @trainings_month, {xtitle: "Minutes", ytitle: "", colors: ["#50c878", "#fff"]} %>
+				<%= pie_chart @trainings_month %>
 				<h4 class= "text-gray-800">Previous month  <%= (@date - 1.month).strftime("%B %Y") %></h4>
-				<%= bar_chart @trainings_prev_month, {xtitle: "Minutes", ytitle: "", colors: ["#ed2939", "#fff"]} %>
+				<%= pie_chart @trainings_prev_month %>
 
 				<h4 class= "text-gray-800">Year <%= @date.year %> total</h4>
-				<%= bar_chart @trainings_year, {xtitle: "Minutes", ytitle: "", colors: ["#0080FF", "#fff"]}  %>
+				<%= pie_chart @trainings_year %>
 				<h4 class= "text-gray-800">Year <%= @date.year %> by month</h4>
 				<%= line_chart @trainings_year_per_month, {xtitle: "Months", ytitle: "Minutes", colors: ["#F78962", "#fff"]}  %>
 				
