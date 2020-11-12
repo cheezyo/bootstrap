@@ -27,13 +27,30 @@ class TestsController < ApplicationController
   end
 
   def avg 
-    @sprint = Array.new
-    (10..19).each do |n|
-      arr = Array.new
-      arr = Test.where(test_type: :Junior, age: n, gender: :Male).pluck(:sprint)
-      @sprint << arr.inject(0.0){ |sum, el| sum + el } / arr.count
+    @execs = [:sprint, :spider, :fh_throw, :bh_throw, :jump, :box, :chins, :pushups, :situps, :front_stretch, :back_stretch, :beep, :test_score]
+
+    @boys = Array.new
+    @girls = Array.new 
+
+    @execs.each do |ex|
+      execs_arr = Array.new 
+      (10..19).each do |n|
+        arr = Array.new
+        arr = Test.where(test_type: :Junior, age: n, gender: :Male).pluck(ex)
+        execs_arr << (arr.inject(0.0){ |sum, el| sum + el } / arr.count).truncate(2)
+      end
+      @boys << execs_arr
     end
 
+    @execs.each do |ex|
+      execs_arr = Array.new 
+      (10..19).each do |n|
+        arr = Array.new
+        arr = Test.where(test_type: :Junior, age: n, gender: :Female).pluck(ex)
+        execs_arr << (arr.inject(0.0){ |sum, el| sum + el } / arr.count).truncate(2)
+      end
+      @girls << execs_arr
+    end
 
     
     
