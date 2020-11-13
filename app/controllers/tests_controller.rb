@@ -28,8 +28,8 @@ class TestsController < ApplicationController
 
   def avg 
     @execs = [:sprint, :spider, :fh_throw, :bh_throw, :jump, :box, :chins, :pushups, :situps, :front_stretch, :back_stretch, :beep, :test_score]
-    player_ids = Player.joins(:planet).where(planet_id: [1,3]).pluck(:id)
-    tests = Test.all
+    player_ids = Player.joins(:planet).where(planet_id: [2,3,6]).pluck(:id)
+    tests = Test.where(player_id: player_ids)
 
     @boys = Array.new
     @girls = Array.new 
