@@ -42,6 +42,13 @@
 					 	<%= tc.comment %>
 					 	<small><%= tc.created_at.strftime("%d-%m-%Y") %></small>
 					 	
+                        <%= link_to edit_task_comment_path(tc) do %>
+                              <span><i class="fas fa-pen mr-2 ml-2" style="color:green;"></i></span>
+                            <% end %>
+                        <%= link_to tc, method: :delete, data: {confirm: "Are you sure?"} do %>
+                              <span><i class="fas fa-window-close mr-2 ml-2" style="color:red;"></i></span>
+                            <% end %>
+                     
 					 </p>
 				<% end %>
 					
@@ -51,7 +58,7 @@
 			<div class="card-footer py-3">
 				 
 				 <%= link_to "Done", add_progress_tasks_path + "?id=" + t.id.to_s, :class => "btn-sm btn-success mr-1 py-2 float-left" %> 
-			    <%= link_to "Comment", new_task_comment_path + "?task_id=" + t.id.to_s, :class => "btn-sm btn-primary py-2 float-left" %>
+			    <%= link_to "+ Comment", new_task_comment_path + "?task_id=" + t.id.to_s, :class => "btn-sm btn-primary py-2 float-left" %>
 			    <%= link_to 'Destroy', t, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn-sm btn-danger py-2 mr-1 float-right" %>
 			    <%= link_to "Edit", edit_task_path(t), :class => "btn-sm btn-info mr-1 py-2 float-right" %>
 			</div>
