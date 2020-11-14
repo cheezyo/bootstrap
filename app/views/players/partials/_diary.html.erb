@@ -39,9 +39,9 @@
           	<tr>
           		<th>SUM</th>
           		<% (@date.beginning_of_month..@date.end_of_month).each do |d| %>
-          			<th><%= @month_table.where(t_date: d).sum(:time) %></th>
+          			<th><u><%= @month_table.where(t_date: d).sum(:time) %></u></th>
           		<% end %>
-          		<th><%= @month_table.sum(:time) %></th>
+          		<th><u><%= @month_table.sum(:time) %></u></th>
           	</tr>
           </tfoot>
       </table>
@@ -94,12 +94,12 @@
           		<th>SUM</th>
           			<% start_date = @year_ago %>
           			<% (0..12).each do |d| %>
-          				<th>
+          				<th><u>
           					<%= @year_table.where('t_date BETWEEN ? AND ?', start_date.at_beginning_of_month, start_date.at_end_of_month).sum(:time) %>
           					<% start_date = start_date + 1.month %>
-          				</th>
+          				</u></th>
           			<% end %>
-          				<th><%= @year_table.sum(:time) %></th>
+          				<th><u><%= @year_table.sum(:time) %></u></th>
           	</tr>
           </tfoot>
       </table>
