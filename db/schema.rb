@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_14_124914) do
+ActiveRecord::Schema.define(version: 2020_11_14_143021) do
 
   create_table "coaches", force: :cascade do |t|
     t.string "name"
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(version: 2020_11_14_124914) do
     t.text "utr_stats"
     t.text "utr_matches"
     t.text "utr_matches_array"
+    t.boolean "competitor"
   end
 
   create_table "stickers", force: :cascade do |t|
