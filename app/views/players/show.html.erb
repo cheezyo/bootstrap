@@ -139,7 +139,7 @@
 			<div class="tab-pane" id="match_stats">
 				<% if can? :edit, Match %> 
 					<div class="row mb-4 mt-4 ml-4">
-						<%= link_to "New match stat", new_match_path + "?player_id=" + @player.id.to_s, :class => "btn btn-primary" %>
+						<%= link_to "+ New match stat", new_match_path + "?player_id=" + @player.id.to_s, :class => "btn btn-primary pb-2" %>
 					</div>
 				<% end %>
 				<%= render 'matches', player: @player %>
