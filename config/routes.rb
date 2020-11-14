@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :type_of_exercises
+  resources :exercise_types
+  resources :exercises
   resources :matches
   resources :type_of_trainings
   resources :type_of_tranings
@@ -42,6 +45,7 @@ end
       get :all_tests
       get :toplist
       get :avg
+      get :save_year
     end
   end
   resources :coaches

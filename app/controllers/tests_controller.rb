@@ -25,7 +25,17 @@ class TestsController < ApplicationController
     @senior_male = Test.where(:test_type => "Senior", :gender => "Male")
     @senior_female = Test.where(:test_type => "Senior", :gender => "Female")
   end
+  def save_year
+    year = DateTime.now.year - 1
 
+    if params[:year].present? 
+        year = params[:year].to_i
+    end
+    ex = Exercise.new 
+    ex.save_year(year)
+    redirect_to request.referrer
+
+  end
   def avg 
     @execs = [:sprint, :spider, :fh_throw, :bh_throw, :jump, :box, :chins, :pushups, :situps, :front_stretch, :back_stretch, :beep, :test_score]
     player_ids = Player.joins(:planet).where(planet_id: [2,3,6]).pluck(:id)

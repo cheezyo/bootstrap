@@ -1,0 +1,39 @@
+
+<p id="notice"><%= notice %></p>
+
+<% @years.each do |p| %>
+    <%= link_to p, exercises_path + "?year=" + p.to_s %> 
+<% end %>
+<hr/>
+<% [@boys, @girls].each do |t| %>
+<h1 class="h3 mb-3 text-gray-800">
+<%= t.empty? ? "NO DATA" : t.first.year %> <%= t.empty? ? "NO DATA" : t.first.gender %> 
+</h1>
+<table class="table table-striped table-hover table-sm table-responsive-xl "  width="100%" cellspacing="0">
+      <thead class="thead-light">
+        <tr>
+          <th>Exercise/Age</th>
+          <% (10..19).each do |n| %>
+            <th><%= n %></th> 
+          <% end %>
+          
+        </tr>
+      </thead>
+       <tbody>
+          <% num = 0 %>
+          <% t.each do |s| %>
+            <tr>
+            <td><b><%= s.type_of_exercise.title %></b></td>
+            
+              <% s.results.each do |n| %>
+                <td><small><%= n[0] %></small> <b><%= n[1] %></b> <small><%= n[2] %></small></td>
+              <% end %>
+            
+            </tr>
+            <% num = num + 1 %>
+          <% end %>
+      </tbody>
+    </table>
+
+<% end %>
+
