@@ -52,20 +52,24 @@
 
 .show {display: block;}
 </style>
-
+<% if current_user.coach? || current_user.admin? %>
 <div class="row-fluid">
  <div class="d-sm-flex align-items-center justify-content-between mb-4">
-	<h1 class="h3 mb-0 text-gray-800"><%= @player.fullname + " " + @player.gender %> <%= @player.age.strftime("%d-%m-%Y")  %> (<%= @player.get_age %> years)
+	<h1 class="h3 mb-0 text-gray-800">
+		<%= @player.fullname %> 
+		
+		<%= @player.gender %> <%= @player.age.strftime("%d-%m-%Y")  %> (<%= @player.get_age %> years)
 		<% if @player.got_user? %>
 			<i class="far fa-user fa"></i>
 		<% else %>
 			<i class="fas fa-user-alt-slash"></i>
 		<% end %>
+
  	</h1>
  </div>
  <hr/>
 </div>
-<% if current_user.coach? || current_user.admin? %>
+
 <div class="dropdown1">
   <button onclick="myFunction()" class="dropbtn mb-3">Search players <i class="fas fa-angle-double-down"></i></button>
   <div id="myDropdown" class="dropdown-content">
