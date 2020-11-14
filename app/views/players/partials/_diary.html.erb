@@ -48,7 +48,7 @@
 					
 
 	
-	<%= line_chart @month_line, {xtitle: "Days", ytitle: "", colors: ["#50c878", "#fff"]}  %>
+	<%= area_chart @month_line, {xtitle: "Days", ytitle: "", colors: ["#50c878", "#fff"]}  %>
 	<%= pie_chart @trainings_month %>
 	<h4 class= "text-gray-800 mt-3 ml-2"><%= (@date - 1.month).strftime("%B %Y") %></h4>
 	<%= pie_chart @trainings_prev_month %>
@@ -56,7 +56,7 @@
 	<h4 class= "text-gray-800 mt-3 ml-2">Last 12 months <%= @year_ago.strftime("%b %Y") %> - <%= (@year_ago + 12.months).strftime("%b %Y") %></h4>
 	<%= pie_chart @trainings_year %>
 	
-	<%= line_chart @trainings_year_per_month, {xtitle: "Months", ytitle: "", colors: ["#F78962", "#fff"]}  %>
+	<%= area_chart @trainings_year_per_month, {xtitle: "Months", ytitle: "", colors: ["#F78962", "#fff"]}  %>
 
 	<table class="table table-striped table-hover table-sm table-responsive-xl" width="100%" cellspacing="0">
           <thead>
