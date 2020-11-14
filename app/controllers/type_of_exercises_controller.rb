@@ -11,6 +11,9 @@ class TypeOfExercisesController < ApplicationController
   # GET /type_of_exercises/1
   # GET /type_of_exercises/1.json
   def show
+    @boys = @type_of_exercise.exercises.where(gender: :Male)
+    @girls = @type_of_exercise.exercises.where(gender: :Female)
+    @years = @type_of_exercise.exercises.pluck(:year).uniq
   end
 
   # GET /type_of_exercises/new

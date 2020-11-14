@@ -38,8 +38,9 @@ class TestsController < ApplicationController
   end
   def avg 
     @execs = [:sprint, :spider, :fh_throw, :bh_throw, :jump, :box, :chins, :pushups, :situps, :front_stretch, :back_stretch, :beep, :test_score]
-    player_ids = Player.joins(:planet).where(planet_id: [2,3,6]).pluck(:id)
-    tests = Test.where(player_id: player_ids)
+    year = DateTime.now.year - 1
+    #player_ids = Player.joins(:planet).where(planet_id: [2,3,6]).pluck(:id)
+    tests = Test.where(count: :true).where('test_date BETWEEN ? AND ?',DateTime.parse("01-01-" + year.to_s), DateTime.parse("31-12-" + year.to_s))
 
     @boys = Array.new
     @girls = Array.new 

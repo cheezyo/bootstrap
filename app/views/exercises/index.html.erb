@@ -23,7 +23,7 @@
           <% num = 0 %>
           <% t.each do |s| %>
             <tr>
-            <td><b><%= s.type_of_exercise.title %></b></td>
+            <td><b><%= link_to s.type_of_exercise.title, s.type_of_exercise %></b></td>
             
               <% s.results.each do |n| %>
                 <td><small><%= n[0] %></small> <b><%= n[1] %></b> <small><%= n[2] %></small></td>
