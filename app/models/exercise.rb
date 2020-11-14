@@ -34,10 +34,11 @@ class Exercise < ApplicationRecord
 	        arr = Array.new
 	        arr = tests.where(test_type: :Junior, age: n, gender: gender).pluck(ex)
 	        age_arr = Array.new
-	        age_arr << arr.min.to_f.truncate(2)
 	        if ex != :chins
 	          arr.delete(0.0)
 	        end
+	        age_arr << arr.min.to_f.truncate(2)
+	        
 	        age_arr << (arr.inject(0.0){ |sum, el| sum + el } / arr.count).truncate(2)
 	        age_arr << arr.max.to_f.truncate(2)
 	        execs_arr << age_arr
