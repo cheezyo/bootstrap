@@ -102,6 +102,7 @@ class Player < ApplicationRecord
 	def get_training_this_month 
 		self.user.trainings.where('t_date BETWEEN ? AND ?', DateTime.now.at_beginning_of_month, DateTime.now.at_end_of_month).sum(:time)
 	end
+	
 	def get_tasks_last_year
 		self.tasks.where('created_at BETWEEN ? AND ?', DateTime.now - 12.months, DateTime.now)
 	end

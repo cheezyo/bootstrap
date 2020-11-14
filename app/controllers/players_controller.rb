@@ -58,18 +58,25 @@ class PlayersController < ApplicationController
         
         @trainings_prev_month << [t.title, @player.user.trainings.where(type_of_training: t.id).where('t_date BETWEEN ? AND ?', (@date - 1.month).at_beginning_of_month, (@date - 1.month).at_end_of_month).sum(:time)] 
         @trainings_month << [t.title, @player.user.trainings.where(type_of_training: t.id).where('t_date BETWEEN ? AND ?', @date.at_beginning_of_month, @date.at_end_of_month).sum(:time)] 
-        @trainings_year << [t.title, @player.user.trainings.where(type_of_training: t.id).where('t_date BETWEEN ? AND ?', Time.parse('01-01-' + @date.year.to_s), Time.parse('31-12-' + @date.year.to_s)).sum(:time)] 
+        @trainings_year << [t.title, @player.user.trainings.where(type_of_training: t.id).where('t_date BETWEEN ? AND ?', (@date.beginning_of_month - 12.months), @date.at_end_of_month).sum(:time)] 
+        #@trainings_year << [t.title, @player.user.trainings.where(type_of_training: t.id).where('t_date BETWEEN ? AND ?', Time.parse('01-01-' + @date.year.to_s), Time.parse('31-12-' + @date.year.to_s)).sum(:time)] 
       end
       @month_line = Array.new
       (@date.at_beginning_of_month..@date.at_end_of_month).each do |d|
         @month_line << [d, @player.user.trainings.where(t_date: d).sum(:time)]
       end 
-
+      
       @trainings_year_per_month = Array.new
-      (1..12).each do |m|
-        date1 = Time.parse('01-' + m.to_s + "-" + @date.year.to_s)
-        @trainings_year_per_month << [date1.strftime("%B"), @player.user.trainings.where('t_date BETWEEN ? AND ?', date1, date1.at_end_of_month).sum(:time)] 
+      @year_ago = @date.beginning_of_month - 12.months
+      (0..12).each do |m|
+          #date1 = Time.parse('01-' + m.to_s + "-" + @date.year.to_s)
+          @trainings_year_per_month << [@year_ago.strftime("1-%b-%y"), @player.user.trainings.where('t_date BETWEEN ? AND ?', @year_ago.beginning_of_month, @year_ago.at_end_of_month).sum(:time)] 
+          @year_ago = @year_ago + 1.month
       end
+      @year_ago = @date.beginning_of_month - 12.months
+      @month_table = @player.user.trainings.where('t_date BETWEEN ? AND ?', @date.at_beginning_of_month, @date.at_end_of_month)
+      @year_table = @player.user.trainings.where('t_date BETWEEN ? AND ?', @year_ago, (@year_ago + 12.months).at_end_of_month)
+
    
     end
 
