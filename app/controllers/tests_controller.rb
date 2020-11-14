@@ -224,7 +224,7 @@ class TestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def test_params
-      params.require(:test).permit(:sprint, :spider, :jump, :fh_throw, :bh_throw, :box, :player_id, :test_group_id, :chins, :situps, :pushups, :front_stretch, :back_stretch, :beep, :test_score, :gender, :age, :type, :program1, :program2)
+      params.require(:test).permit(:count, :sprint, :spider, :jump, :fh_throw, :bh_throw, :box, :player_id, :test_group_id, :chins, :situps, :pushups, :front_stretch, :back_stretch, :beep, :test_score, :gender, :age, :type, :program1, :program2)
     end
 
     def check_running_score(list, score)

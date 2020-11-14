@@ -83,6 +83,9 @@ class TestGroupsController < ApplicationController
         t.test_date = @test_group.date
         t.gender = player.gender.capitalize
         t.test_type = "Junior"
+        if player.competitor == true
+          t.count = true
+        end
         age = @test_group.date.year - player.age.year 
         t.age = age
         if age > 19
