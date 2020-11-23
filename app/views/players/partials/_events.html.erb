@@ -1,15 +1,12 @@
 
-<% @tournaments.each do |t| %>
-	<p><%= t.title %>
-		<%= t.start_date %>
-	</p>
-<% end %>
 <h1 class="h5 mb-0 text-gray-800 mb-4 pt-3 pl-3"><i class="fas fa-plane-departure"></i> = Klubbtur </h1>
 <h1 class="h5 mb-0 text-gray-800 mb-4 pl-3"><i class="fas fa-street-view"></i> = Trener til stede</h1>
 				<% today_week = DateTime.now.strftime("%U").to_i %>
-				<% date = 5.weeks.ago(DateTime.now) %>
-				<% start_week = today_week - 5 %>
+				<% date = 4.weeks.ago(DateTime.now) %>
+				<% start_week = today_week - 4 %>
 				<% end_week = start_week + 52 %>
+				<% age = @age_str %>
+
 				<table class="table table-bordered table-striped" width="100%" cellspacing="0">
 					<thead>
 						<tr>
@@ -30,7 +27,18 @@
 								(<%= date.monday.strftime("%d")  + "." + date.strftime("%b")+ " - " + date.sunday.strftime("%d") + "." + date.sunday.strftime("%b") %>)
 							</p>
 							</td>
-							<td><% @tournaments.where(:start_date => date.monday..date.sunday).each do |t| %>
+
+							<% if date.year > DateTime.new.year && @age_str != "senior" && age == @age_str%>
+
+								<% if @age_str == "u19" %>
+									<% age = "senior" %>
+								<% else %>
+									<% age = "u" + (@age = @age + 1).to_s %>
+
+								<% end %>
+
+							<% end %>
+							<td><% Tournament.where(age, true).where(:start_date => date.monday..date.sunday).each do |t| %>
 									
 									<p class="text-xs"><%= link_to t.title, t %> 
 									<% if t.club_trip? %>

@@ -14,18 +14,18 @@ class PlayersController < ApplicationController
   # GET /players/1
   # GET /players/1.json
   def show
-    age = (DateTime.now.year - @player.age.year)
-    if age >= 10 
+    @age = (DateTime.now.year - @player.age.year)
+    if @age >= 10 
       
-      if age <= 19 
-        age_str = "u" + age.to_s
-        @sym = age_str.to_sym
+      if @age <= 19 
+        @age_str = "u" + @age.to_s
+        sym = @age_str.to_sym
       else
-        age_str = "senior"
-        @sym = :senior
+        @age_str = "senior"
+        sym = :senior
       end
 
-      @tournaments = Tournament.where(age_str, true).where(end_date: DateTime.now..DateTime::Infinity.new)
+      @tournaments = Tournament.where(@age_str, true).where(end_date: DateTime.now..DateTime::Infinity.new)
       
         t1 = @player.tournaments.where(end_date: DateTime.now..DateTime::Infinity.new)
         t2 = @tournaments.where(end_date: DateTime.now..DateTime::Infinity.new)
