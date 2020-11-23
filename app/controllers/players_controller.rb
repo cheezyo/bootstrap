@@ -25,15 +25,15 @@ class PlayersController < ApplicationController
         @sym = :senior
       end
 
-      @tournaments = Tournament.where(age_str, true)
+      @tournaments = Tournament.where(age_str, true).where(end_date: DateTime.now..DateTime::Infinity.new)
       
-      t1 = @player.tournaments.where(end_date: DateTime.now..DateTime::Infinity.new)
-      t2 = @tournaments.where(end_date: DateTime.now..DateTime::Infinity.new)
-      @tournament = nil  
-     if ! t1.empty? && ! t2.empty?
-      arr = Array.new
-      arr << t1.order('start_date asc').first.start_date.strftime("%U").to_i
-      arr << t2.order('start_date asc').first.start_date.strftime("%U").to_i
+        t1 = @player.tournaments.where(end_date: DateTime.now..DateTime::Infinity.new)
+        t2 = @tournaments.where(end_date: DateTime.now..DateTime::Infinity.new)
+        @tournament = nil  
+      if ! t1.empty? && ! t2.empty?
+        arr = Array.new
+        arr << t1.order('start_date asc').first.start_date.strftime("%U").to_i
+        arr << t2.order('start_date asc').first.start_date.strftime("%U").to_i
       if arr[0] > arr[1]
         @tournament = t2.first
       else
@@ -48,6 +48,7 @@ class PlayersController < ApplicationController
    else
     @tournaments = Array.new
   end
+  
   if @player.got_user?
      @trainings_month = Array.new
      @trainings_year = Array.new
