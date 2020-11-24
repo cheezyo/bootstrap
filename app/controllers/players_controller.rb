@@ -210,7 +210,7 @@ class PlayersController < ApplicationController
 
         d = date.monday.strftime("%d")  + "." + date.strftime("%b")+ " - " + date.sunday.strftime("%d") + "." + date.sunday.strftime("%b")
         
-        if date.year > DateTime.new.year && age_str != "senior" && age == age_str
+        if date.year > DateTime.new.year && age_str != "senior" && age1 == age_str
 
           if age_str == "u19"
             age1 = "senior"
