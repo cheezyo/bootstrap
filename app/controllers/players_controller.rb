@@ -20,6 +20,7 @@ class PlayersController < ApplicationController
     @tournament_hash.each do |t|
       if ! t[1][1].empty? 
         @tournament = Tournament.find(t[1][1].first)
+        break
       end
     end
 
