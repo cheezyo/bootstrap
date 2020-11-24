@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :utr_reports
   resources :type_of_exercises
   resources :exercise_types
   resources :exercises

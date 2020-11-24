@@ -2,15 +2,3 @@
 <%= link_to "Save year 20", save_year_tests_path + "?year=" + "2020" %> 
 <br/>
 
-<h1>Boys</h1>
-<% @player.save_utr_age_groups.each do |p| %>
-<% a = 13 %>
-	<% p.each do |b| %>
-	<%= a %>
-	<small><%= b.max %></small> <%= (b.sum / b.size.to_f).round(2) %> <small><%= b.min %></small> (<%= b.count %>)
-	
-	<br/>
-	<% a = a + 1 %>
-	<% end %>
-	<h1>Girls:</h1>
-<% end %>

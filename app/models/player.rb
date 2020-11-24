@@ -123,7 +123,47 @@ class Player < ApplicationRecord
 		
 
 	end
-	def save_utr_age_groups
+	def save_utr_age_groups_last
+		boys_arr = Array.new
+		girls_arr = Array.new
+
+		(14..20).each do |i| 
+			year = DateTime.now.year - i 
+			start_date = DateTime.parse("01-01-" + year.to_s)
+			end_date = DateTime.parse("31-12-" + year.to_s)
+			boys_arr << Player.where(:age => start_date..end_date).where(gender: "male").reject{|p| ! p.got_utr_profile?}
+			girls_arr << Player.where(:age => start_date..end_date).where(gender: "female").reject{|p| ! p.got_utr_profile?}
+		end
+
+		utr_boys = Array.new
+		boys_arr.each do |age_grp|
+			grp_arr = Array.new 
+			age_grp.each do |p|
+				grp_arr << p.utr_stats["startRating"]
+			end
+			utr_boys << grp_arr
+		end 
+		utr_girls = Array.new
+		girls_arr.each do |age_grp|
+			grp_arr = Array.new 
+			age_grp.each do |p|
+				grp_arr << p.utr_stats["startRating"]
+			end
+			utr_girls << grp_arr
+		end 
+
+		players_arr = Array.new
+		players_arr << utr_boys
+		players_arr << utr_girls
+		utr_rep = UtrReport.new
+		utr_rep.utr_date = DateTime.now - 1.year
+		utr_rep.boys = utr_boys
+		utr_rep.girls = utr_girls
+		utr_rep.save
+
+
+	end
+	def save_utr_age_groups_last_this
 		boys_arr = Array.new
 		girls_arr = Array.new
 
@@ -155,7 +195,12 @@ class Player < ApplicationRecord
 		players_arr = Array.new
 		players_arr << utr_boys
 		players_arr << utr_girls
-		return players_arr
+		utr_rep = UtrReport.new
+		utr_rep.utr_date = DateTime.now
+		utr_rep.boys = utr_boys
+		utr_rep.girls = utr_girls
+		utr_rep.save
+
 
 	end
 	def get_json_matches(player)

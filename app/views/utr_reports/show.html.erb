@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Utr date:</strong>
+  <%= @utr_report.utr_date %>
+</p>
+
+<p>
+  <strong>Boys:</strong>
+  <%= @utr_report.boys %>
+</p>
+
+<p>
+  <strong>Girls:</strong>
+  <%= @utr_report.girls %>
+</p>
+
+<%= link_to 'Edit', edit_utr_report_path(@utr_report) %> |
+<%= link_to 'Back', utr_reports_path %>
