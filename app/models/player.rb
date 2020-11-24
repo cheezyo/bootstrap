@@ -123,6 +123,41 @@ class Player < ApplicationRecord
 		
 
 	end
+	def save_utr_age_groups
+		boys_arr = Array.new
+		girls_arr = Array.new
+
+		(13..19).each do |i| 
+			year = DateTime.now.year - i 
+			start_date = DateTime.parse("01-01-" + year.to_s)
+			end_date = DateTime.parse("31-12-" + year.to_s)
+			boys_arr << Player.where(:age => start_date..end_date).where(gender: "male").reject{|p| ! p.got_utr_profile?}
+			girls_arr << Player.where(:age => start_date..end_date).where(gender: "female").reject{|p| ! p.got_utr_profile?}
+		end
+
+		utr_boys = Array.new
+		boys_arr.each do |age_grp|
+			grp_arr = Array.new 
+			age_grp.each do |p|
+				grp_arr << p.utr_stats["singlesUtr"]
+			end
+			utr_boys << grp_arr
+		end 
+		utr_girls = Array.new
+		girls_arr.each do |age_grp|
+			grp_arr = Array.new 
+			age_grp.each do |p|
+				grp_arr << p.utr_stats["singlesUtr"]
+			end
+			utr_girls << grp_arr
+		end 
+
+		players_arr = Array.new
+		players_arr << utr_boys
+		players_arr << utr_girls
+		return players_arr
+
+	end
 	def get_json_matches(player)
 		matches = "https://agw-prod.myutr.com/v1/player/" + player.utr_profile + "/results?year=last&Type=singles"
 		json_matches = HTTParty.get(matches, headers: {"Authorization" => get_token})
@@ -146,10 +181,6 @@ class Player < ApplicationRecord
 
 		return arr
 	end
-
-
-
-	
 
 	 def get_token 
     	string = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNZW1iZXJJZCI6IjEyOTQxMCIsImVtYWlsIjoiY2V6YXJzaW5jYW5AaG90bWFpbC5jb20iLCJWZXJzaW9uIjoiMSIsIkRldmljZUxvZ2luSWQiOiI1MDA2NDU1IiwibmJmIjoxNjA0MDU0OTA4LCJleHAiOjE2MDY2NDY5MDgsImlhdCI6MTYwNDA1NDkwOH0.NK4QbMZfrqfsz0JAs9IGTzbD6_svTCkBXNjHrFhH3zk"

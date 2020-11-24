@@ -35,9 +35,9 @@
 		  	<tr>
 		  		<td>
 		  			<% if can? :edit, Test %>
-		  				<%= link_to t.test_group.date, tests_path + "?group=" + t.test_group.id.to_s %>
+		  				<%= link_to t.test_date, tests_path + "?group=" + t.test_group.id.to_s %><small>(<%= t.age %>)</small>
 		  			<% else %>
-		  				<%= t.test_group.date %>
+		  				<%= t.test_date %><small>(<%= t.age %>)</small>
 		  			<% end %>
 		  				
 		  		</td>
