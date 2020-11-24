@@ -9,45 +9,21 @@ class PlayersController < ApplicationController
     @players = Player.where.not(planet_id: arkiv)
   end
 
-
+  
 
   # GET /players/1
   # GET /players/1.json
   def show
-    @age = (DateTime.now.year - @player.age.year)
-    if @age >= 10 
-      
-      if @age <= 19 
-        @age_str = "u" + @age.to_s
-        sym = @age_str.to_sym
-      else
-        @age_str = "senior"
-        sym = :senior
+    @tournament_hash = tournament_hash(@player)
+      @tournament = ""
+
+    @tournament_hash.each do |t|
+      if ! t[1][1].empty? 
+        @tournament = Tournament.find(t[1][1].first)
       end
+    end
 
-      @tournaments = Tournament.where(@age_str, true).where(end_date: DateTime.now..DateTime::Infinity.new)
-      
-        t1 = @player.tournaments.where(end_date: DateTime.now..DateTime::Infinity.new)
-        t2 = @tournaments.where(end_date: DateTime.now..DateTime::Infinity.new)
-        @tournament = nil  
-      if ! t1.empty? && ! t2.empty?
-        arr = Array.new
-        arr << t1.order('start_date asc').first.start_date.strftime("%U").to_i
-        arr << t2.order('start_date asc').first.start_date.strftime("%U").to_i
-      if arr[0] > arr[1]
-        @tournament = t2.first
-      else
-        @tournament = t1.first
-      end  
-     elsif t1.empty? && ! t2.empty?
-      @tournament = t2.order('start_date asc').first
-
-     elsif ! t1.empty? && t2.empty?
-      @tournament = t1.order('start_date asc').first
-     end
-   else
-    @tournaments = Array.new
-  end
+    
   
   if @player.got_user?
      @trainings_month = Array.new
@@ -207,4 +183,58 @@ class PlayersController < ApplicationController
     def player_params
       params.require(:player).permit(:competitor, :utr_profile, :name, :age, :user_id, :level_id, :planet_id, :lastname, :gender )
     end
+
+
+    def tournament_hash(player)
+      age = (DateTime.now.year - player.age.year)
+      t_hash = Hash.new
+      today_week = DateTime.now.strftime("%U").to_i
+      date = 4.weeks.ago(DateTime.now)
+      start_week = today_week - 4
+      end_week = start_week + 52
+      age_str = ""
+
+    if age >= 10 
+      
+      if age <= 19 
+        age_str = "u" + age.to_s
+        sym = age_str.to_sym
+      else
+        age_str = "senior"
+        sym = :senior
+      end
+      age1 = age_str
+
+      (start_week..end_week).each do |w|
+
+        d = date.monday.strftime("%d")  + "." + date.strftime("%b")+ " - " + date.sunday.strftime("%d") + "." + date.sunday.strftime("%b")
+        
+        if date.year > DateTime.new.year && age_str != "senior" && age == age_str
+
+          if age_str == "u19"
+            age1 = "senior"
+          else
+            age1 = "u" + (age = age + 1).to_s
+          end
+
+        end
+
+        arr = Array.new
+        
+        
+        arr << d
+        trn_arr = Tournament.where(age1, true).where(:start_date => date.monday..date.sunday).pluck(:id)
+        plr_arr = @player.tournaments.where(:start_date => date.monday..date.sunday).pluck(:id)
+        arr << trn_arr + plr_arr
+        
+        t_hash.store(date.strftime("%U").to_i, arr)
+        date = 1.week.since(date)
+      end
+     
+
+    end
+
+    return t_hash
+  end
+
 end

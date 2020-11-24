@@ -24,7 +24,7 @@
 	                    <div class="col mr-2">
 	                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Next event</div>
 	                      <div class="h5 mb-2 font-weight-bold text-gray-800"><%= @tournament.nil? ? " " : @tournament.start_date.strftime("%d-%m-%Y:")   %> 
-	                      	<% if @tournament.nil? %>
+	                      	<% if @tournament.nil?  || @tournament == "" %>
 	                      		"No up coming tournament"
 	                      	<% else %>
 	                      	<%=  link_to @tournament.title, @tournament  %>
