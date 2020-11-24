@@ -7,9 +7,8 @@
 <% a = 13 %>
 	<% p.each do |b| %>
 	<%= a %>
-	<% b.each do |c|  %>
-		<%= c %>
-	<% end %>
+	<%= b.sum / b.size.to_f %> (<%= b.count %>)
+	
 	<br/>
 	<% a = a + 1 %>
 	<% end %>
