@@ -214,7 +214,8 @@
 					          <thead>
 					            <tr>
 					            	<th><span class="text-xs">Training/Date</span></th>
-					            	<% ((DateTime.now - 5.days)..DateTime.now).each do |d| %>
+					            	<% date_5_d_ago = DateTime.now - 5.days %>
+					            	<% (date_5_d_ago..DateTime.now).each do |d| %>
 					              		<th><span class="text-xs"> <%= d.strftime("%d") %></span></th>
 					            	<% end %>
 					            	<th><span class="text-xs">SUM</span></th>
@@ -226,7 +227,7 @@
 					          	<% TypeOfTraining.all.each do |t| %>
 					          	<tr>
 					          		<td><span class="text-xs"><%= t.title %></span></td>
-					          		<% ((DateTime.now - 5.days)..DateTime.now).each do |d| %>
+					          		<% (date_5_d_ago..DateTime.now).each do |d| %>
 					          			<td><span class="text-xs"><%= @month_table.where(type_of_training: t.id).where(t_date: d).sum(:time) %></span></td>
 					          		<% end %>
 					          		<th><span class="text-xs"><%= @month_table.where(type_of_training: t.id).sum(:time) %></span></th>
@@ -236,10 +237,10 @@
 					          <tfoot>
 					          	<tr>
 					          		<th><span class="text-xs">SUM</th>
-					          		<% ((DateTime.now - 5.days)..DateTime.now).each do |d| %>
+					          		<% (date_5_d_ago..DateTime.now).each do |d| %>
 					          			<th><u><span class="text-xs"><%= @month_table.where(t_date: d).sum(:time) %></span></u></th>
 					          		<% end %>
-					          		<th><u><span class="text-xs"><%= @month_table.sum(:time) %></span></u></th>
+					          		<th><u><span class="text-xs"><%= @month_table.where(t_date: date_5_d_ago..DateTime.now).sum(:time) %></span></u></th>
 					          	</tr>
 					          </tfoot>
 					      </table>
