@@ -51,11 +51,23 @@
 .dropdown1 a:hover {background-color: #ddd;}
 
 .show {display: block;}
+.numberCircle {
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    padding: 8px;
+    border: 2px solid #00ab66;
+    
+    text-align: center;
+}
 </style>
 <% if current_user.coach? || current_user.admin? %>
 <div class="row-fluid">
  <div class="d-sm-flex align-items-center justify-content-between mb-4">
 	<h1 class="h3 mb-0 text-gray-800">
+		<% if @player.got_utr_profile? %>
+		<span class="numberCircle"><%= @player.utr_stats["singlesUtr"] %></span>
+		<% end %>
 		<%= @player.fullname %> 
 		
 		<%= @player.gender %> <%= @player.age.strftime("%d-%m-%Y")  %> (<%= @player.get_age %> years)
@@ -67,6 +79,7 @@
 		<% if @player.competitor %>
 		<i class="far fa-star"></i>
 		<% end %>
+		<%= link_to @player.planet.title, @player.planet %> 
  	</h1>
 
  </div>

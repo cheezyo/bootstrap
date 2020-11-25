@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :periodizations
   resources :utr_reports
   resources :type_of_exercises
   resources :exercise_types
@@ -15,7 +16,11 @@ Rails.application.routes.draw do
       get :remove_player_from_tournament
     end
   end
-  resources :planets
+  resources :planets do 
+    collection do 
+      get :make_periodization
+    end
+  end
 
   resources :task_categories do 
     collection do 

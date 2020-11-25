@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+
+<% @planets.each do |p| %>
+  <%= link_to p.title, periodization_path(p.id) %> 
+<% end %> 
+
+
+<br>
+
+<%= link_to 'New Periodization', new_periodization_path %>

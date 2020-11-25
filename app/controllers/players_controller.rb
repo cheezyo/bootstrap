@@ -14,6 +14,10 @@ class PlayersController < ApplicationController
   # GET /players/1
   # GET /players/1.json
   def show
+    @last_ironman = ""
+    if @player.get_last_ironman != nil
+      @last_ironman = @player.get_last_ironman 
+    end
     @tournament_hash = tournament_hash(@player)
       @tournament = ""
 

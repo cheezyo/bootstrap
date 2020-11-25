@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+<h1>Periodization for <%= link_to @planet.title, @planet %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Week</th>
+      <th>Tennis focus</th>
+      <th>Tennis intesity</th>
+      <th>Physical focus</th>
+      <th>Physical intesity</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @periodizations.each do |periodization| %>
+      <%= form_for periodization do |f| %>
+      <tr>
+        <td><%= periodization.week %></td>
+        <td><%= f.text_area :tennis_focus %></td>
+        <td><%= f.number_field :tennis_intesity, max: 2 %></td>
+        <td><%= f.text_area :physical_focus  %></td>
+        <td><%= f.number_field :physical_intesity %></td>
+        <td><%= periodization.planet.title %></td>
+         <td> <%= f.submit "Update" %></td>
+
+      </tr>
+    <% end %>
+    <% end %>
+  </tbody>
+</table>

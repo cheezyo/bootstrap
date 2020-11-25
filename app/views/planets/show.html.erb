@@ -4,6 +4,11 @@
 		<small>stats last 12 months</small>
 	</h1>
  </div>
+ <% if @planet.has_periodization? %>
+ <%= link_to "Show periodization", periodization_path(@planet.id) %>
+ <% else %>
+ <%= link_to "Create Periodization", make_periodization_planets_path + "?id=" + @planet.id.to_s %>
+ <% end %>
  <hr/>
 
 

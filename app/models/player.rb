@@ -80,6 +80,17 @@ class Player < ApplicationRecord
 		self.tests.order(test_date: :desc).first rescue nil
 	end
 
+	def get_diff_from_last_test
+		tests = self.tests.order(test_date: :desc).first(2)
+
+		if ! tests.nil? && tests.count > 1
+			return tests.first.test_score - tests.last.test_score
+		else
+			return "NO"
+
+		end
+	end
+
 
 	def get_training_programs
 		last_ironman = get_last_ironman

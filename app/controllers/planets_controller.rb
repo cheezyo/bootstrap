@@ -1,6 +1,6 @@
 class PlanetsController < ApplicationController
   load_and_authorize_resource
-  before_action :set_planet, only: [:show, :edit, :update, :destroy]
+  before_action :set_planet, only: [:show, :edit, :update, :destroy, :make_periodization]
 
   # GET /planets
   # GET /planets.json
@@ -13,7 +13,10 @@ class PlanetsController < ApplicationController
   def show
     
   end
-
+  def make_periodization
+    @planet.create_periodization(@planet.id)
+    redirect_to @planet
+  end 
   # GET /planets/new
   def new
     @planet = Planet.new
@@ -72,6 +75,6 @@ class PlanetsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def planet_params
-      params.require(:planet).permit(:player_access, :diary, :ironman, :utr, :events, :stats, :title, :age, :color, :planet_coach_id)
+      params.require(:planet).permit(:periodization, :player_access, :diary, :ironman, :utr, :events, :stats, :title, :age, :color, :planet_coach_id)
     end
 end

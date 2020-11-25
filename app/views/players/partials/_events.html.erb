@@ -8,6 +8,9 @@
 						<tr>
 							<th>Week (date)</th>
 							<th>Event</th>
+							<% if @player.planet.periodization? %>
+								<th>Training focus</th>
+							<% end %>
 							
 
 						
@@ -35,15 +38,25 @@
 									<% end %>
 									</p>
 									<hr/>
-								
-									
 								<% end %>	 
-
+							</td>
+							<% if @player.planet.periodization? %>
+							<td>
+								<% w = @player.planet.periodizations.where(week: a[0]).first %>
+								<p class="text-xs"><b>Tennis: </b><%= w.tennis_focus %>
+								<% if w.tennis_intesity > 0 %>
+								 <b>Intensity: </b> <%= w.tennis_intesity %>
+								 <% end %>
+								</p>
+								<p class="text-xs"><b>Physical: </b><%= w.physical_focus %> 
+								<% if w.physical_intesity > 0 %>
+									<b>Intensity: </b> <%= w.physical_intesity %>
+								<% end %>
+								</p>
+								
 								
 							</td>
-							
-							
-							
+							<% end %>
 						</tr>
 						
 						

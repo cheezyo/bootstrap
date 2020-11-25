@@ -89,7 +89,7 @@
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="fas fa-calendar-alt mr-2"></i>
-                  Events
+                  Season planner
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                  
@@ -102,8 +102,14 @@
                  <%= link_to tournaments_path, :class => "dropdown-item" do %>
                   <span>
                     <i class="far fa-calendar mr-2"></i>
-                    
                     All events
+                  </span>
+                 <% end %>
+                 <%= link_to periodizations_path, :class => "dropdown-item" do %>
+                  <span>
+                    <i class="fas fa-chart-line mr-2"></i>
+                    
+                    Periodization 
                   </span>
                  <% end %>
                 </div>

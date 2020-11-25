@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_24_212951) do
+ActiveRecord::Schema.define(version: 2020_11_25_154145) do
 
   create_table "coaches", force: :cascade do |t|
     t.string "name"
@@ -47,6 +47,17 @@ ActiveRecord::Schema.define(version: 2020_11_24_212951) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "periodizations", force: :cascade do |t|
+    t.integer "week"
+    t.text "tennis_focus"
+    t.integer "tennis_intesity"
+    t.text "physical_focus"
+    t.integer "physical_intesity"
+    t.integer "planet_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "planet_coaches", force: :cascade do |t|
     t.integer "user_id"
     t.integer "planet_id"
@@ -67,6 +78,7 @@ ActiveRecord::Schema.define(version: 2020_11_24_212951) do
     t.boolean "events"
     t.boolean "stats"
     t.boolean "player_access"
+    t.boolean "periodization"
   end
 
   create_table "player_stickers", force: :cascade do |t|

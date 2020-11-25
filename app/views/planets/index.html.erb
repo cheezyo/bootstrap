@@ -20,6 +20,7 @@
                       <th>UTR</th>
                       <th>Stats</th>
                       <th>Events</th>
+                      <th>Periodization</th>
                       <th></th>
                 
                     </tr>
@@ -62,6 +63,12 @@
                         <% end %>
                       </td>
                       <td><% if planet.events? %>
+                        <i class="fas fa-check" style="color: green;"></i>
+                        <% else %>
+                        <i class="fas fa-times" style="color: red;"></i>
+                        <% end %>
+                      </td>
+                      <td><% if planet.periodization? %>
                         <i class="fas fa-check" style="color: green;"></i>
                         <% else %>
                         <i class="fas fa-times" style="color: red;"></i>

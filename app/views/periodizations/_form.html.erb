@@ -1,0 +1,42 @@
+<%= form_with(model: periodization, local: true) do |form| %>
+  <% if periodization.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(periodization.errors.count, "error") %> prohibited this periodization from being saved:</h2>
+
+      <ul>
+        <% periodization.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :week %>
+    <%= form.number_field :week %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tennis_focus %>
+    <%= form.text_area :tennis_focus %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tennis_intesity %>
+    <%= form.number_field :tennis_intesity %>
+  </div>
+
+  <div class="field">
+    <%= form.label :physical_focus %>
+    <%= form.text_area :physical_focus %>
+  </div>
+
+  <div class="field">
+    <%= form.label :physical_intesity %>
+    <%= form.number_field :physical_intesity %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
