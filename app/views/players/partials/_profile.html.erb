@@ -230,7 +230,7 @@
 					          		<% (date_5_d_ago..DateTime.now).each do |d| %>
 					          			<td><span class="text-xs"><%= @month_table.where(type_of_training: t.id).where(t_date: d).sum(:time) %></span></td>
 					          		<% end %>
-					          		<th><span class="text-xs"><%= @month_table.where(type_of_training: t.id).sum(:time) %></span></th>
+					          		<th><span class="text-xs"><%= @month_table.where(t_date: date_5_d_ago..DateTime.now).where(type_of_training: t.id).sum(:time) %></span></th>
 					          	</tr>
 					          	<% end %>
 					          </tbody>
