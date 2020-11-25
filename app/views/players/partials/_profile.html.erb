@@ -53,7 +53,7 @@
 
         </div>
          
-<% if @current_user.admin? %>
+<% if current_user.admin? %>
 	
         <div class="row mt-4">
         	<% if @player.planet.utr? && @player.got_utr_profile? %>
@@ -76,7 +76,7 @@
 													<%= res["players"]["winner1"]["lastName"]%> 
 												</span>
 													
-													<% if @player.utr_stats["singlesUtr"].to_f > 5.00 %>
+													<% if @player.utr_stats["singlesUtr"].to_f > 5.00  || current_user.admin?%>
 														(<%= res["players"]["winner1"]["myUtrSingles"]%>)
 													<% end %>
 													
@@ -84,7 +84,7 @@
 												<%= res["players"]["loser1"]["firstName"] %>
 												<%= res["players"]["loser1"]["lastName"]%>
 												
-												<% if @player.utr_stats["singlesUtr"].to_f > 5.00 %>
+												<% if @player.utr_stats["singlesUtr"].to_f > 5.00 || current_user.admin? %>
 													(<%= res["players"]["loser1"]["myUtrSingles"]%>)
 												<% end %>
 
