@@ -56,9 +56,174 @@
 <% if current_user.admin? %>
 	
         <div class="row mt-4">
-        	<% if @player.planet.utr? && @player.got_utr_profile? %>
-				<div class="col-xl-6 col-md-12 mb-4 mt-1">
+        	<% if @player.planet.diary? && @player.got_user? %>
+            <div class="col-xl-6 col-md-12 mb-4 mt-1">
 	              <div class="card border-left-primary shadow h-100 py-2">
+	                <div class="card-body">
+	                  <div class="row no-gutters align-items-center">
+	                    <div class="col mr-2">
+	                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-3">Training last 5 days</div>
+	                       <table class="table table-striped table-hover table-sm " width="100%" cellspacing="0">
+					          <thead>
+					            <tr>
+					            	<th><span class="text-xs">Training/Date</span></th>
+					            	<% date_5_d_ago = DateTime.now - 5.days %>
+					            	<% (date_5_d_ago..DateTime.now).each do |d| %>
+					              		<th><span class="text-xs"> <%= d.strftime("%d") %></span></th>
+					            	<% end %>
+					            	<th><span class="text-xs">SUM</span></th>
+					            </tr>
+					            
+					          </thead>
+					         
+					          <tbody>
+					          	<% TypeOfTraining.all.each do |t| %>
+					          	<tr>
+					          		<td><span class="text-xs"><%= t.title %></span></td>
+					          		<% (date_5_d_ago..DateTime.now).each do |d| %>
+					          			<td><span class="text-xs"><%= @month_table.where(type_of_training: t.id).where(t_date: d).sum(:time) %></span></td>
+					          		<% end %>
+					          		<th><span class="text-xs"><%= @month_table.where(t_date: date_5_d_ago..DateTime.now).where(type_of_training: t.id).sum(:time) %></span></th>
+					          	</tr>
+					          	<% end %>
+					          </tbody>
+					          <tfoot>
+					          	<tr>
+					          		<th><span class="text-xs">SUM</th>
+					          		<% (date_5_d_ago..DateTime.now).each do |d| %>
+					          			<th><u><span class="text-xs"><%= @month_table.where(t_date: d).sum(:time) %></span></u></th>
+					          		<% end %>
+					          		<th><u><span class="text-xs"><%= @month_table.where(t_date: date_5_d_ago..DateTime.now).sum(:time) %></span></u></th>
+					          	</tr>
+					          </tfoot>
+					      </table>
+	                    
+	                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% end %>
+           <% if @player.planet.periodization? %>
+            <div class="col-xl-6 col-md-12 mb-4 mt-1">
+	              <div class="card border-left-warning shadow h-100 py-2">
+	                <div class="card-body">
+	                  <div class="row no-gutters align-items-center">
+	                    <div class="col mr-2">
+	                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-3">Next 3 weeks</div>
+	                      <% start_date = DateTime.now.strftime("%U").to_i %>
+	                      <table class="table table-striped table-sm " width="100%" cellspacing="0">
+	                      	<thead>
+	                      		<tr>
+	                      			<th><p class="text-xs">Date</p></th>
+	                      			<th><p class="text-xs">Event </p></th>
+	                      			<th><p class="text-xs">Focus </p></th>
+	                      		</tr>
+	                      	</thead>
+	                      	<tbody>
+		                      <% (1..3).each do |week| %>
+		                      <tr>
+		                      	<td><p class="text-xs"><b><%= start_date %></b> <%= @tournament_hash[start_date][0] %>:</p></td>
+		                      	
+		                      	<td>
+		                      	<% if ! @tournament_hash[start_date][1].empty? %>
+		                      			<% @tournament_hash[start_date][1].each do |a| %>
+		                      				<% t = Tournament.find(a) %>
+											<p class="text-xs"><%= link_to t.title, t %> 
+											<% if t.club_trip? %>
+												<i class="fas fa-plane-departure ml-1"></i>
+											<% elsif t.only_coach? %>
+												<i class="fas fa-street-view ml-1"></i>
+											<% end %>
+											</p> 
+		                      			<% end %>
+		                      		
+		                      	<% end %>
+		                      	</td>
+		                      	<td>
+		                      	<% w = @player.planet.periodizations.where(week: start_date).first %>
+								<p class="text-xs"><b>Tennis: </b><%= w.tennis_focus %>
+								<% if w.tennis_intesity > 0 %>
+								 <b>Intensity: </b> <%= w.tennis_intesity %>
+								 <% end %>
+								</p>
+								<p class="text-xs"><b>Physical: </b><%= w.physical_focus %> 
+								<% if w.physical_intesity > 0 %>
+									<b>Intensity: </b> <%= w.physical_intesity %>
+								<% end %>
+								</p>
+		                      	</td>
+		                  	  </tr>
+		                      <% start_date = start_date + 1 %>
+
+		                      <% end %>
+	                      	</tbody>
+	                  	  </table>
+	                    
+	                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+           <% end %> 
+        </div>
+        
+       	<div class="row mt-4">
+			<% if @player.planet.ironman? && @last_ironman != "" %>
+            <div class="col-xl-6 col-md-12 mb-4 mt-1">
+	              <div class="card border-left-primary shadow h-100 py-2">
+	                <div class="card-body">
+	                  <div class="row no-gutters align-items-center">
+	                    <div class="col mr-2">
+	                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-3">Last iroman tests <%= @last_ironman.test_date.strftime("%d-%m-%Y")%><hr/></div>
+	                    <div class="row ml-2">
+	                    <div class="col-xs-3 mr-4">
+	                      <p class="text-xs"><b>Sprint:</b> <%= @last_ironman.sprint %></p>
+	                      <p class="text-xs"><b>Spider:</b> <%= @last_ironman.spider %></p>
+	                      <p class="text-xs"><b>Fh:</b> <%= @last_ironman.fh_throw %></p>
+	                      <p class="text-xs"><b>Bh:</b> <%= @last_ironman.bh_throw %></p>
+	                      <p class="text-xs"><b>Lenght:</b> <%= @last_ironman.jump %></p>
+	                  	</div>
+	                  	<div class="col-xs-3 mr-4">
+	                      <p class="text-xs"><b>Box:</b> <%= @last_ironman.box %></p>
+	                      <p class="text-xs"><b>Chins:</b> <%= @last_ironman.chins %></p>
+	                      <p class="text-xs"><b>Push ups:</b> <%= @last_ironman.pushups %></p>
+	                      <p class="text-xs"><b>Brutal:</b> <%= @last_ironman.situps %></p>
+	                      <p class="text-xs"><b>Beep:</b> <%= @last_ironman.beep %></p>
+	                  	</div>
+	                  	<div class="col-xs-4 mr-4">
+	                      <p class="text-xs"><b>Front stretch:</b> <%= @last_ironman.front_stretch %></p>
+	                      <p class="text-xs"><b>Back stretch:</b> <%= @last_ironman.back_stretch %></p>
+	                      <p class="text-xs"><b>Score:</b> <%= @last_ironman.test_score %>
+	                      	<% diff = @player.get_diff_from_last_test %>
+	                      	<% if diff == "NO" %>
+	                      		first
+	                      	<% else %>
+	                      		<% if diff > 0 %>
+	                      			<i class="fas fa-arrow-up" style="color: green;"></i>
+	                      			+<%= diff.to_i %>
+	                      		<% else %>
+	                      			<i class="fas fa-arrow-down" style="color: red;"></i>
+	                      			<%= diff.to_i %>
+	                      		<% end %>
+	                      	<% end %>
+	                      </p>
+	                      <% if @last_ironman.program1 != nil && @last_ironman.program2 != nil %>
+	                      <p class="text-xs"><b>Focus 1:</b> <%= TrainingProgram.where(prog_number: @last_ironman.program1).first.prog_name %></p>
+	                      <p class="text-xs"><b>Focus 2:</b> <%= TrainingProgram.where(prog_number: @last_ironman.program2).first.prog_name %></p>
+	                      <% end %>
+	                  	</div>
+	                  </div>
+	                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% end %>
+            
+            <% if @player.planet.utr? && @player.got_utr_profile? %>
+				<div class="col-xl-6 col-md-12 mb-4 mt-1">
+	              <div class="card border-left-warning shadow h-100 py-2">
 	                <div class="card-body">
 	                  <div class="row no-gutters align-items-center">
 	                    <div class="col mr-2">
@@ -137,170 +302,6 @@
               </div>
             </div>
             <% end %>
-           <% if @player.planet.periodization? %>
-            <div class="col-xl-6 col-md-12 mb-4 mt-1">
-	              <div class="card border-left-warning shadow h-100 py-2">
-	                <div class="card-body">
-	                  <div class="row no-gutters align-items-center">
-	                    <div class="col mr-2">
-	                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-3">Next 3 weeks</div>
-	                      <% start_date = DateTime.now.strftime("%U").to_i %>
-	                      <table class="table table-striped table-sm " width="100%" cellspacing="0">
-	                      	<thead>
-	                      		<tr>
-	                      			<th><p class="text-xs">Date</p></th>
-	                      			<th><p class="text-xs">Event </p></th>
-	                      			<th><p class="text-xs">Focus </p></th>
-	                      		</tr>
-	                      	</thead>
-	                      	<tbody>
-		                      <% (1..3).each do |week| %>
-		                      <tr>
-		                      	<td><p class="text-xs"><b><%= start_date %></b> <%= @tournament_hash[start_date][0] %>:</p></td>
-		                      	
-		                      	<td>
-		                      	<% if ! @tournament_hash[start_date][1].empty? %>
-		                      			<% @tournament_hash[start_date][1].each do |a| %>
-		                      				<% t = Tournament.find(a) %>
-											<p class="text-xs"><%= link_to t.title, t %> 
-											<% if t.club_trip? %>
-												<i class="fas fa-plane-departure ml-1"></i>
-											<% elsif t.only_coach? %>
-												<i class="fas fa-street-view ml-1"></i>
-											<% end %>
-											</p> 
-		                      			<% end %>
-		                      		
-		                      	<% end %>
-		                      	</td>
-		                      	<td>
-		                      	<% w = @player.planet.periodizations.where(week: start_date).first %>
-								<p class="text-xs"><b>Tennis: </b><%= w.tennis_focus %>
-								<% if w.tennis_intesity > 0 %>
-								 <b>Intensity: </b> <%= w.tennis_intesity %>
-								 <% end %>
-								</p>
-								<p class="text-xs"><b>Physical: </b><%= w.physical_focus %> 
-								<% if w.physical_intesity > 0 %>
-									<b>Intensity: </b> <%= w.physical_intesity %>
-								<% end %>
-								</p>
-		                      	</td>
-		                  	  </tr>
-		                      <% start_date = start_date + 1 %>
-
-		                      <% end %>
-	                      	</tbody>
-	                  	  </table>
-	                    
-	                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-           <% end %> 
-        </div>
-        
-       	<div class="row mt-4">
-				
-            <% if @player.planet.diary? && @player.got_user? %>
-            <div class="col-xl-6 col-md-12 mb-4 mt-1">
-	              <div class="card border-left-primary shadow h-100 py-2">
-	                <div class="card-body">
-	                  <div class="row no-gutters align-items-center">
-	                    <div class="col mr-2">
-	                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-3">Training last 5 days</div>
-	                       <table class="table table-striped table-hover table-sm " width="100%" cellspacing="0">
-					          <thead>
-					            <tr>
-					            	<th><span class="text-xs">Training/Date</span></th>
-					            	<% date_5_d_ago = DateTime.now - 5.days %>
-					            	<% (date_5_d_ago..DateTime.now).each do |d| %>
-					              		<th><span class="text-xs"> <%= d.strftime("%d") %></span></th>
-					            	<% end %>
-					            	<th><span class="text-xs">SUM</span></th>
-					            </tr>
-					            
-					          </thead>
-					         
-					          <tbody>
-					          	<% TypeOfTraining.all.each do |t| %>
-					          	<tr>
-					          		<td><span class="text-xs"><%= t.title %></span></td>
-					          		<% (date_5_d_ago..DateTime.now).each do |d| %>
-					          			<td><span class="text-xs"><%= @month_table.where(type_of_training: t.id).where(t_date: d).sum(:time) %></span></td>
-					          		<% end %>
-					          		<th><span class="text-xs"><%= @month_table.where(t_date: date_5_d_ago..DateTime.now).where(type_of_training: t.id).sum(:time) %></span></th>
-					          	</tr>
-					          	<% end %>
-					          </tbody>
-					          <tfoot>
-					          	<tr>
-					          		<th><span class="text-xs">SUM</th>
-					          		<% (date_5_d_ago..DateTime.now).each do |d| %>
-					          			<th><u><span class="text-xs"><%= @month_table.where(t_date: d).sum(:time) %></span></u></th>
-					          		<% end %>
-					          		<th><u><span class="text-xs"><%= @month_table.where(t_date: date_5_d_ago..DateTime.now).sum(:time) %></span></u></th>
-					          	</tr>
-					          </tfoot>
-					      </table>
-	                    
-	                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <% end %>
-           <% if @player.planet.ironman? && @last_ironman != "" %>
-            <div class="col-xl-6 col-md-12 mb-4 mt-1">
-	              <div class="card border-left-warning shadow h-100 py-2">
-	                <div class="card-body">
-	                  <div class="row no-gutters align-items-center">
-	                    <div class="col mr-2">
-	                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-3">Last iroman tests <%= @last_ironman.test_date.strftime("%d-%m-%Y")%><hr/></div>
-	                    <div class="row ml-2">
-	                    <div class="col-xs-3 mr-4">
-	                      <p class="text-xs"><b>Sprint:</b> <%= @last_ironman.sprint %></p>
-	                      <p class="text-xs"><b>Spider:</b> <%= @last_ironman.spider %></p>
-	                      <p class="text-xs"><b>Fh:</b> <%= @last_ironman.fh_throw %></p>
-	                      <p class="text-xs"><b>Bh:</b> <%= @last_ironman.bh_throw %></p>
-	                      <p class="text-xs"><b>Lenght:</b> <%= @last_ironman.jump %></p>
-	                  	</div>
-	                  	<div class="col-xs-3 mr-4">
-	                      <p class="text-xs"><b>Box:</b> <%= @last_ironman.box %></p>
-	                      <p class="text-xs"><b>Chins:</b> <%= @last_ironman.chins %></p>
-	                      <p class="text-xs"><b>Push ups:</b> <%= @last_ironman.pushups %></p>
-	                      <p class="text-xs"><b>Brutal:</b> <%= @last_ironman.situps %></p>
-	                      <p class="text-xs"><b>Beep:</b> <%= @last_ironman.beep %></p>
-	                  	</div>
-	                  	<div class="col-xs-4 mr-4">
-	                      <p class="text-xs"><b>Front stretch:</b> <%= @last_ironman.front_stretch %></p>
-	                      <p class="text-xs"><b>Back stretch:</b> <%= @last_ironman.back_stretch %></p>
-	                      <p class="text-xs"><b>Score:</b> <%= @last_ironman.test_score %>
-	                      	<% diff = @player.get_diff_from_last_test %>
-	                      	<% if diff == "NO" %>
-	                      		first
-	                      	<% else %>
-	                      		<% if diff > 0 %>
-	                      			<i class="fas fa-arrow-up" style="color: green;"></i>
-	                      			+<%= diff.to_i %>
-	                      		<% else %>
-	                      			<i class="fas fa-arrow-down" style="color: red;"></i>
-	                      			<%= diff.to_i %>
-	                      		<% end %>
-	                      	<% end %>
-	                      </p>
-	                      <% if @last_ironman.program1 != nil && @last_ironman.program2 != nil %>
-	                      <p class="text-xs"><b>Focus 1:</b> <%= TrainingProgram.where(prog_number: @last_ironman.program1).first.prog_name %></p>
-	                      <p class="text-xs"><b>Focus 2:</b> <%= TrainingProgram.where(prog_number: @last_ironman.program2).first.prog_name %></p>
-	                      <% end %>
-	                  	</div>
-	                  </div>
-	                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <% end %>
+           
         </div>
 <% end %>
