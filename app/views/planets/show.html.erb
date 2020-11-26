@@ -69,10 +69,10 @@
 						        <td>
 						        	<%= link_to p.fullname, p  %> (<%= p.get_age %>)
 						        </td>
+						        <% if @planet.diary? %>
 						        <td style="text-align: center">
 						        	<i class="<%= p.get_rating[0] %>"></i> <span style="display: none"><%= p.get_rating[1] %> </span>
 						        </td>
-						        <% if @planet.diary? %>
 						      	<td>
 						      		<% if p.got_user? %>
 						      		<%= p.get_training_this_month %>
@@ -93,7 +93,7 @@
 						      	</td>
 						      	<% if @planet.ironman? %>
 						      		<td><%= p.get_diff_from_last_test[0] %> 
-						      			<small><i class="<%= p.get_diff_from_last_test[1] %>" style="color:<%= p.get_diff_from_last_test[2] %>"></i> (<%= p.get_diff_from_last_test[3] %> ago)</small>
+						      			<i class="<%= p.get_diff_from_last_test[1] %>" style="color:<%= p.get_diff_from_last_test[2] %>"></i> <small>(<%= p.get_diff_from_last_test[3] %> ago)</small>
 						      		</td>
 						      	<% end %>
 						        <% if @planet.utr? %>
