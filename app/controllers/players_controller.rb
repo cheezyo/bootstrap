@@ -23,7 +23,7 @@ class PlayersController < ApplicationController
     if @player.get_last_ironman != nil
       @last_ironman = @player.get_last_ironman 
     end
-    
+
     @tournament_hash = tournament_hash(@player)
       @tournament = ""
 
@@ -225,8 +225,12 @@ class PlayersController < ApplicationController
         trn_arr = Tournament.where(age1, true).where(:start_date => date.monday..date.sunday).pluck(:id)
         plr_arr = @player.tournaments.where(:start_date => date.monday..date.sunday).pluck(:id)
         arr << trn_arr + plr_arr
+        if date.strftime("%U").to_i == 0 
+          t_hash.store(52, arr)
+        else
+          t_hash.store(date.strftime("%U").to_i, arr)
+        end
         
-        t_hash.store(date.strftime("%U").to_i, arr)
         date = 1.week.since(date)
       end
      

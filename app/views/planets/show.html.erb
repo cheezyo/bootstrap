@@ -92,7 +92,9 @@
 						      		(<%= p.get_tasks_last_year.where(:done => true).count %>)
 						      	</td>
 						      	<% if @planet.ironman? %>
-						      		<td><%= p.get_diff_from_last_test[0] %> <small><i class="<%= p.get_diff_from_last_test[1] %>" style="color:<%= p.get_diff_from_last_test[2] %>"></i></small></td>
+						      		<td><%= p.get_diff_from_last_test[0] %> 
+						      			<small><i class="<%= p.get_diff_from_last_test[1] %>" style="color:<%= p.get_diff_from_last_test[2] %>"></i> (<%= p.get_diff_from_last_test[3] %> ago)</small>
+						      		</td>
 						      	<% end %>
 						        <% if @planet.utr? %>
 						        <td>

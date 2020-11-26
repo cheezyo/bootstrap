@@ -85,17 +85,20 @@ class Player < ApplicationRecord
 		arr = Array.new
 		if ! tests.nil? && tests.count > 1
 			 diff = (tests.first.test_score - tests.last.test_score).round(1)
+			 days = (tests.first.test_date - tests.last.test_date).to_i
 			 arr << diff
 			 if diff > 0
 			 	arr << "fas fa-arrow-up "
 			 	arr << "green"
+
 			 else
 			 	arr << "fas fa-arrow-down"
 			 	arr << "red"
 			 end
+			 arr << days
 			 return arr
 		else
-			return arr = [0.0,"NO", "#000"]
+			return arr = [0.0,"NO", "#000", 0]
 		end
 	end
 
