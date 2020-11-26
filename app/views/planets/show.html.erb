@@ -32,7 +32,7 @@
 
 						      </th>
 						      <% if @planet.utr? %>
-						      <th>lst. 7 d</th>
+						      <th>7 days</th>
 						      <th>UTR</th>
 						      <th>W</th>
 						      <th>L</th>
@@ -40,13 +40,13 @@
 						      <th>%</th>
 						      <% end %>
 						      <% if @planet.stats? %>
-						      <th>Match reports last year</th>
+						      <th>Stats</th>
 						      <% end %>
 
 						      <th>Tasks </th>
 						      <% if @planet.diary? %>
-						      <th>Training this month</th>
-						      <th>Training last 12 m.</th>
+						      <th><%= DateTime.now.strftime("%b") %></th>
+						      <th><%= DateTime.now.year %></th>
 						      <% end %>
 						    </tr>
 						  </thead>
@@ -65,9 +65,9 @@
 
 								</td>
 						        <td>
-						        	<%= link_to p.fullname, p  %> (<%= p.get_age %>) 
+						        	<%= link_to p.fullname, p  %> (<%= p.get_age %>)
 						        </td>
-						        <td><i class="<%= p.get_rating %>"></i></td>
+						        <td style="text-align: center"><i class="<%= p.get_rating[0] %>"></i> <span style="display: none"><%= p.get_rating[1] %> </span></td>
 						        <% if @planet.utr? %>
 						        <td>
 						        	<% if p.got_utr_profile? %>

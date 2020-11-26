@@ -93,7 +93,8 @@ class Player < ApplicationRecord
 
 	def get_rating
 		rating = ""
-    	face = "far fa-times-circle fa-1x"
+    	face = Array.new
+    	
 	    if self.got_user?
 	      rating = self.user.trainings.where(t_date: (DateTime.now - 7.days)..DateTime.now).pluck(:rating)
 	      rating = rating.map(&:to_f)
@@ -102,18 +103,26 @@ class Player < ApplicationRecord
 	        case rating1
 
 	        when 0..1.5 
-	          face = "far fa-frown fa-1x"
+	          face << "far fa-frown fa-1x"
+	          face << 1
 	        when 1.6..2.5
-	          face = "far fa-meh fa-1x"
+	          face << "far fa-meh fa-1x"
+	          face << 2
 	        when 2.6..3.5
-	          face = "far fa-grin-alt fa-1x"
+	          face << "far fa-grin-alt fa-1x"
+	          face << 3
 	        when 3.6..4
-	          face = "far fa-grin-hearts fa-1x"
-	        else
-	          face = "far fa-times-circle fa-1x"
+	          face << "far fa-grin-hearts fa-1x"
+	          face << 4
 	        end
+	    
+	     	
 	      end
 	    end
+	    if face.count <= 0 
+	    	face  << "far fa-times-circle fa-1x"
+    		face << 0
+    	end
 	    face
 	end
 
