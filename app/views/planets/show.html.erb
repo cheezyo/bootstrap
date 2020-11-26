@@ -93,7 +93,7 @@
 						      	</td>
 						      	<% if @planet.ironman? %>
 						      		<td><%= p.get_diff_from_last_test[0] %> 
-						      			<i class="<%= p.get_diff_from_last_test[1] %>" style="color:<%= p.get_diff_from_last_test[2] %>"></i> <small>(<%= p.get_diff_from_last_test[3] %> ago)</small>
+						      			<i class="<%= p.get_diff_from_last_test[1] %>" style="color:<%= p.get_diff_from_last_test[2] %>"></i> <small>(<%= p.get_diff_from_last_test[3] %> | <%= p.get_diff_from_last_test[4] %>)</small>
 						      		</td>
 						      	<% end %>
 						        <% if @planet.utr? %>

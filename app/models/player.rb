@@ -86,6 +86,7 @@ class Player < ApplicationRecord
 		if ! tests.nil? && tests.count > 1
 			 diff = (tests.first.test_score - tests.last.test_score).round(1)
 			 days = (tests.first.test_date - tests.last.test_date).to_i
+			 days_since_last_test = (DateTime.now - tests.first.test_date).to_i
 			 arr << diff
 			 if diff > 0
 			 	arr << "fas fa-arrow-up "
@@ -96,9 +97,10 @@ class Player < ApplicationRecord
 			 	arr << "red"
 			 end
 			 arr << days
+			 arr << days_since_last_test
 			 return arr
 		else
-			return arr = [0.0,"NO", "#000", 0]
+			return arr = [0.0,"NO", "#000", 0, 0]
 		end
 	end
 
