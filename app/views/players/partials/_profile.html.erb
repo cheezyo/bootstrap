@@ -203,7 +203,7 @@
 	                      <p class="text-xs"><b>Front stretch:</b> <%= @last_ironman.front_stretch %></p>
 	                      <p class="text-xs"><b>Back stretch:</b> <%= @last_ironman.back_stretch %></p>
 	                      <p class="text-xs"><b>Score:</b> <%= @last_ironman.test_score %>
-	                      	<% diff = @player.get_diff_from_last_test %>
+	                      	<% diff = @player.get_diff_from_last_test[0] %>
 	                      	<% if diff == "NO" %>
 	                      		first
 	                      	<% else %>
