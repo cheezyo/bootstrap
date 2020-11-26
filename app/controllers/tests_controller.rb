@@ -41,6 +41,8 @@ class TestsController < ApplicationController
     @players = Player.all
     #@players_w_utr = @players.reject!{|p| ! p.got_utr_profile?}
     @player = Player.new
+    arr = [16, 14, 15]
+    @test = Test.find(arr)
 
     
   end

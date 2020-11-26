@@ -12,7 +12,7 @@ class PeriodizationsController < ApplicationController
   # GET /periodizations/1.json
   def show
     @planet = Planet.find(params[:id])
-    @periodizations = @planet.periodizations
+    @periodizations = @planet.periodizations.order(week: :asc)
   end
 
   # GET /periodizations/new

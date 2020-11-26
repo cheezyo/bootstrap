@@ -65,7 +65,7 @@ def self.get_beep_score (gender)
 		max = 171
 		low = 32
 	end
-	get_count_score(max, low, 1.00, 9, 1200)
+	get_count_score(max, low, 2.00, 9, 1200)
 end
 
 def self.get_chins_score (gender)
