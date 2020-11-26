@@ -95,7 +95,7 @@ class Player < ApplicationRecord
 			 end
 			 return arr
 		else
-			return arr = ["NO","NO", "#000"]
+			return arr = [0.0,"NO", "#000"]
 		end
 	end
 
