@@ -21,8 +21,6 @@ class PlayersController < ApplicationController
       rating = rating.map(&:to_f)
       if rating.count > 0 
         @rating = rating.sum / rating.count
-      
-
         case @rating
 
         when 0..1.5 

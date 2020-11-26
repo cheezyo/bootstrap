@@ -91,6 +91,31 @@ class Player < ApplicationRecord
 		end
 	end
 
+	def get_rating
+		rating = ""
+    	face = "far fa-times-circle fa-1x"
+	    if self.got_user?
+	      rating = self.user.trainings.where(t_date: (DateTime.now - 7.days)..DateTime.now).pluck(:rating)
+	      rating = rating.map(&:to_f)
+	      if rating.count > 0 
+	        rating1 = rating.sum / rating.count
+	        case rating1
+
+	        when 0..1.5 
+	          face = "far fa-frown fa-1x"
+	        when 1.6..2.5
+	          face = "far fa-meh fa-1x"
+	        when 2.6..3.5
+	          face = "far fa-grin-alt fa-1x"
+	        when 3.6..4
+	          face = "far fa-grin-hearts fa-1x"
+	        else
+	          face = "far fa-times-circle fa-1x"
+	        end
+	      end
+	    end
+	    face
+	end
 
 	def get_training_programs
 		last_ironman = get_last_ironman

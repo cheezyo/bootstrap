@@ -32,6 +32,7 @@
 
 						      </th>
 						      <% if @planet.utr? %>
+						      <th>lst. 7 d</th>
 						      <th>UTR</th>
 						      <th>W</th>
 						      <th>L</th>
@@ -60,10 +61,13 @@
 									<% else %>
 										<i class="fas fa-user-alt-slash"></i>
 										<p style="display: none">0</p>
-									<% end %></td>
+									<% end %>
+
+								</td>
 						        <td>
-						        	<%= link_to p.fullname, p  %> (<%= p.get_age %>)
+						        	<%= link_to p.fullname, p  %> (<%= p.get_age %>) 
 						        </td>
+						        <td><i class="<%= p.get_rating %>"></i></td>
 						        <% if @planet.utr? %>
 						        <td>
 						        	<% if p.got_utr_profile? %>
