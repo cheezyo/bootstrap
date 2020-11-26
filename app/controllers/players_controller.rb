@@ -14,6 +14,32 @@ class PlayersController < ApplicationController
   # GET /players/1
   # GET /players/1.json
   def show
+    @rating = ""
+    @face = "far fa-times-circle fa-1x"
+    if @player.got_user?
+      rating = @player.user.trainings.where(t_date: (DateTime.now - 7.days)..DateTime.now).pluck(:rating)
+      rating = rating.map(&:to_f)
+      if rating.count > 0 
+        @rating = rating.sum / rating.count
+      
+
+        case @rating
+
+        when 0..1.5 
+          @face = "far fa-frown fa-1x"
+        when 1.6..2.5
+          @face = "far fa-meh fa-1x"
+        when 2.6..3.5
+          @face = "far fa-grin-alt fa-1x"
+        when 3.6..4
+          @face = "far fa-grin-hearts fa-1x"
+        else
+          @face = "far fa-times-circle fa-1x"
+
+        end
+      end
+    end
+    @r = rating
     @last_ironman = ""
     if @player.get_last_ironman != nil
       @last_ironman = @player.get_last_ironman 
