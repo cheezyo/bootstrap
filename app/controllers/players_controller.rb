@@ -14,34 +14,16 @@ class PlayersController < ApplicationController
   # GET /players/1
   # GET /players/1.json
   def show
-    @rating = ""
-    @face = "far fa-times-circle fa-1x"
-    if @player.got_user?
-      rating = @player.user.trainings.where(t_date: (DateTime.now - 7.days)..DateTime.now).pluck(:rating)
-      rating = rating.map(&:to_f)
-      if rating.count > 0 
-        @rating = rating.sum / rating.count
-        case @rating
+    @rating = @player.get_rating
+    
+    @tasks = @player.tasks.where(done: false).order(task_category_id: :asc)
+    @completed_tasks = @player.tasks.where(done: true).order(task_category_id: :asc)
 
-        when 0..1.5 
-          @face = "far fa-frown fa-1x"
-        when 1.6..2.5
-          @face = "far fa-meh fa-1x"
-        when 2.6..3.5
-          @face = "far fa-grin-alt fa-1x"
-        when 3.6..4
-          @face = "far fa-grin-hearts fa-1x"
-        else
-          @face = "far fa-times-circle fa-1x"
-
-        end
-      end
-    end
-    @r = rating
     @last_ironman = ""
     if @player.get_last_ironman != nil
       @last_ironman = @player.get_last_ironman 
     end
+    
     @tournament_hash = tournament_hash(@player)
       @tournament = ""
 
@@ -84,22 +66,10 @@ class PlayersController < ApplicationController
       @year_table = @player.user.trainings.where('t_date BETWEEN ? AND ?', @year_ago, (@year_ago + 12.months).at_end_of_month)
 
    
-    end
-
-    @tasks = @player.tasks.where(done: false).order(task_category_id: :asc)
-    @completed_tasks = @player.tasks.where(done: true).order(task_category_id: :asc)
-    
-      #results?year=last&Type=singles
-    #if @player.got_utr_profile? 
-    # stats = "https://agw-prod.myutr.com/v1/player/" + @player.utr_profile + "/stats?Months=12&Type=singles&resultType=myutr&fetchAllResults=true"
-     #matches = "https://agw-prod.myutr.com/v1/player/" + @player.utr_profile + "/results?year=last&Type=singles"
-     #@json_stats = HTTParty.get(stats, headers: {"Authorization" => get_token})
-     #@json_matches = HTTParty.get(matches, headers: {"Authorization" => get_token})
-     #@myutr = @json_stats.parsed_response["singlesUtr"].to_f rescue nil
-    #end
-      
-    
+    end 
   end
+
+
   def utr
   @player = Player.find(1) 
      if @player.got_utr_profile? 

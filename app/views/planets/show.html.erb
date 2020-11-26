@@ -31,22 +31,24 @@
 						      	Name
 
 						      </th>
+						      <% if @planet.diary? %>
+						      	<th>7 days</th>
+						      	<th><%= DateTime.now.strftime("%b") %></th>
+						      	<th><%= DateTime.now.year %></th>
+						      <% end %>
+						      <th>Tasks </th>
+						      <% if @planet.ironman? %>
+						      	<th>Ironman</th>
+						      <% end %>
 						      <% if @planet.utr? %>
-						      <th>7 days</th>
-						      <th>UTR</th>
-						      <th>W</th>
-						      <th>L</th>
-						      <th>T</th>
-						      <th>%</th>
+							      <th>UTR</th>
+							      <th>W</th>
+							      <th>L</th>
+							      <th>T</th>
+							      <th>%</th>
 						      <% end %>
 						      <% if @planet.stats? %>
-						      <th>Stats</th>
-						      <% end %>
-
-						      <th>Tasks </th>
-						      <% if @planet.diary? %>
-						      <th><%= DateTime.now.strftime("%b") %></th>
-						      <th><%= DateTime.now.year %></th>
+						      	<th>Stats</th>
 						      <% end %>
 						    </tr>
 						  </thead>
@@ -67,15 +69,38 @@
 						        <td>
 						        	<%= link_to p.fullname, p  %> (<%= p.get_age %>)
 						        </td>
-						        <td style="text-align: center"><i class="<%= p.get_rating[0] %>"></i> <span style="display: none"><%= p.get_rating[1] %> </span></td>
+						        <td style="text-align: center">
+						        	<i class="<%= p.get_rating[0] %>"></i> <span style="display: none"><%= p.get_rating[1] %> </span>
+						        </td>
+						        <% if @planet.diary? %>
+						      	<td>
+						      		<% if p.got_user? %>
+						      		<%= p.get_training_this_month %>
+						      		<% else %>
+						      		0
+						      		<% end %>
+						      	</td>
+						      	<td>
+						      		<% if p.got_user? %>
+						      		<%= p.get_training_this_year %>
+						      		<% else %>
+						      		0
+						      		<% end %>
+						      	</td>
+						      	<% end %>
+						      	<td><%= p.get_tasks_last_year.where(:done => false ).or(p.get_tasks_last_year.where(:done => nil )).count %>
+						      		(<%= p.get_tasks_last_year.where(:done => true).count %>)
+						      	</td>
+						      	<% if @planet.ironman? %>
+						      		<td><%= p.get_diff_from_last_test[0] %> <small><i class="<%= p.get_diff_from_last_test[1] %>" style="color:<%= p.get_diff_from_last_test[2] %>"></i></small></td>
+						      	<% end %>
 						        <% if @planet.utr? %>
 						        <td>
 						        	<% if p.got_utr_profile? %>
 						        	<%= p.utr_stats["singlesUtr"] %>
 						        	<% else %>
 						        	0
-						        	<% end %>
-						        	
+						        	<% end %>	
 						        </td>
 						        <% if p.got_utr_profile? %>
 						        <% m = p.utr_matches_array %>
@@ -94,25 +119,6 @@
 
 						        <% if @planet.stats? %>
 						      	<td><%= p.get_match_reports %></td>
-						      	<% end %>
-						      	<td><%= p.get_tasks_last_year.where(:done => false ).or(p.get_tasks_last_year.where(:done => nil )).count %>
-						      		(<%= p.get_tasks_last_year.where(:done => true).count %>)
-						      	</td>
-						      	<% if @planet.diary? %>
-						      	<td>
-						      		<% if p.got_user? %>
-						      		<%= p.get_training_this_month %>
-						      		<% else %>
-						      		0
-						      		<% end %>
-						      	</td>
-						      	<td>
-						      		<% if p.got_user? %>
-						      		<%= p.get_training_this_year %>
-						      		<% else %>
-						      		0
-						      		<% end %>
-						      	</td>
 						      	<% end %>
 						      </tr>
 						    <% end %>

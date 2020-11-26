@@ -82,12 +82,20 @@ class Player < ApplicationRecord
 
 	def get_diff_from_last_test
 		tests = self.tests.order(test_date: :desc).first(2)
-
+		arr = Array.new
 		if ! tests.nil? && tests.count > 1
-			return tests.first.test_score - tests.last.test_score
+			 diff = (tests.first.test_score - tests.last.test_score).round(1)
+			 arr << diff
+			 if diff > 0
+			 	arr << "fas fa-arrow-up "
+			 	arr << "green"
+			 else
+			 	arr << "fas fa-arrow-down"
+			 	arr << "red"
+			 end
+			 return arr
 		else
-			return "NO"
-
+			return arr = ["NO","NO", "#000"]
 		end
 	end
 
