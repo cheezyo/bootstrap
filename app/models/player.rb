@@ -83,21 +83,25 @@ class Player < ApplicationRecord
 	def get_diff_from_last_test
 		tests = self.tests.order(test_date: :desc).first(2)
 		arr = Array.new
-		if ! tests.nil? && tests.count > 1
+		if ! tests.nil? && tests.count >= 1
 			 diff = (tests.first.test_score - tests.last.test_score).to_i
 			 days = (tests.first.test_date - tests.last.test_date).to_i
-			 days_since_last_test = (DateTime.now - tests.first.test_date).to_i
+			 #days_since_last_test = (DateTime.now - tests.first.test_date).to_i
 			 arr << diff
 			 if diff > 0
 			 	arr << "fas fa-arrow-up "
 			 	arr << "green"
 
-			 else
+			 elsif diff < 0
 			 	arr << "fas fa-arrow-down"
 			 	arr << "red"
+			 else
+			 	arr << "NO"
+			 	arr << "#000"
+
 			 end
 			 arr << days
-			 arr << days_since_last_test
+			 arr << (DateTime.now - self.get_last_ironman.test_date).to_i
 			 return arr
 		else
 			return arr = [0,"NO", "#000", 0, 0]
