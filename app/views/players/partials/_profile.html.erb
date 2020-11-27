@@ -203,18 +203,10 @@
 	                      <p class="text-xs"><b>Front stretch:</b> <%= @last_ironman.front_stretch %></p>
 	                      <p class="text-xs"><b>Back stretch:</b> <%= @last_ironman.back_stretch %></p>
 	                      <p class="text-xs"><b>Score:</b> <%= @last_ironman.test_score %>
-	                      	<% diff = @player.get_diff_from_last_test[0] %>
-	                      	<% if diff == 0.0 %>
-	                      		first
-	                      	<% else %>
-	                      		<% if diff > 0 %>
-	                      			<i class="fas fa-arrow-up" style="color: green;"></i>
-	                      			+<%= diff.to_i %>
-	                      		<% else %>
-	                      			<i class="fas fa-arrow-down" style="color: red;"></i>
-	                      			<%= diff.to_i %>
-	                      		<% end %>
-	                      	<% end %>
+	                      	<% diff = @player.get_diff_from_last_test %>	
+	                      	<i class="<%= diff[1] %>" style="color: <%= diff[2] %>;"></i>
+	                      	<%= diff[0].to_i %>	
+	                      	(<%= diff[3] %> | <%= diff[4] %>)
 	                      </p>
 	                      <% if @last_ironman.program1 != nil && @last_ironman.program2 != nil %>
 	                      <p class="text-xs"><b>Focus 1:</b> <%= TrainingProgram.where(prog_number: @last_ironman.program1).first.prog_name %></p>

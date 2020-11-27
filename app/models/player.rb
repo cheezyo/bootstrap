@@ -100,7 +100,7 @@ class Player < ApplicationRecord
 			 arr << days_since_last_test
 			 return arr
 		else
-			return arr = [0.0,"NO", "#000", 0, 0]
+			return arr = [0,"NO", "#000", 0, 0]
 		end
 	end
 
