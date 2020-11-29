@@ -6,7 +6,7 @@
  </div>
  <% if @planet.has_periodization? %>
  <%= link_to "Show periodization", periodization_path(@planet.id) %>
- <% else %>
+ <% elsif @planet.periodization? %>
  <%= link_to "Create Periodization", make_periodization_planets_path + "?id=" + @planet.id.to_s %>
  <% end %>
  <hr/>

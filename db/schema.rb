@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_29_190509) do
+ActiveRecord::Schema.define(version: 2020_11_29_231107) do
 
   create_table "coaches", force: :cascade do |t|
     t.string "name"
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 2020_11_29_190509) do
     t.boolean "stats"
     t.boolean "player_access"
     t.boolean "periodization"
+    t.boolean "feedback"
   end
 
   create_table "player_stickers", force: :cascade do |t|

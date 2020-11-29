@@ -75,6 +75,6 @@ class PlanetsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def planet_params
-      params.require(:planet).permit(:periodization, :player_access, :diary, :ironman, :utr, :events, :stats, :title, :age, :color, :planet_coach_id)
+      params.require(:planet).permit(:feedback, :periodization, :player_access, :diary, :ironman, :utr, :events, :stats, :title, :age, :color, :planet_coach_id)
     end
 end
