@@ -32,7 +32,7 @@
 
                     <% @user.players.each do |p| %>
                     <tr>
-                      <td><%= link_to p.name, p %></td>
+                      <td><%= link_to p.fullname, p %></td>
                       <td><%= p.get_age %></td>
                       <td><%= p.planet.title %></td>
                       <td><%= p.level.name %></td>
