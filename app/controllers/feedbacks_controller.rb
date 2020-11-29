@@ -51,7 +51,7 @@ class FeedbacksController < ApplicationController
     @feedback.coach = @feedback.player.coach.name
     respond_to do |format|
       if @feedback.save
-        #UserMailer.send_feedback(@feedback).deliver
+        UserMailer.send_feedback(@feedback).deliver
         format.html { redirect_to @feedback, notice: 'Feedback was successfully created.' }
         format.json { render :show, status: :created, location: @feedback }
       else
