@@ -13,7 +13,7 @@ class Player < ApplicationRecord
 	has_many :player_tournaments, :dependent => :delete_all
 	has_many :tournaments, through: :player_tournaments
 	has_many :matches, :dependent => :delete_all
-
+	has_many :feedbacks
 	validates :name, presence: true
 	validates :lastname, presence: true
 	validates :gender, presence: true
@@ -38,6 +38,10 @@ class Player < ApplicationRecord
 
 	def got_utr_profile?
 		! self.utr_stats.nil? && ! self.utr_stats.blank?
+	end
+
+	def got_utr_id?
+		! self.utr_profile.nil? && ! self.utr_profile.blank?
 	end
 	
 	def fullname
@@ -175,7 +179,7 @@ class Player < ApplicationRecord
 	end
 	def do_it 
 
-		Player.all.reject{|p| ! p.got_utr_profile?}.each do |player|
+		Player.all.reject{|p| ! p.got_utr_id?}.each do |player|
 			player.utr_stats = get_utr1(player)
 			json_matches = get_json_matches(player)
 			player.utr_matches = json_matches

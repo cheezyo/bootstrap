@@ -180,7 +180,7 @@ class PlayersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def player_params
-      params.require(:player).permit(:competitor, :utr_profile, :name, :age, :user_id, :level_id, :planet_id, :lastname, :gender )
+      params.require(:player).permit(:parent_email, :competitor, :utr_profile, :name, :age, :user_id, :level_id, :planet_id, :lastname, :gender )
     end
 
 

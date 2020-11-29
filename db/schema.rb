@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_25_154145) do
+ActiveRecord::Schema.define(version: 2020_11_29_190509) do
 
   create_table "coaches", force: :cascade do |t|
     t.string "name"
@@ -26,6 +26,15 @@ ActiveRecord::Schema.define(version: 2020_11_25_154145) do
     t.text "results"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "feedbacks", force: :cascade do |t|
+    t.integer "player_id"
+    t.text "feed_back"
+    t.date "email_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "coach"
   end
 
   create_table "levels", force: :cascade do |t|
@@ -109,6 +118,7 @@ ActiveRecord::Schema.define(version: 2020_11_25_154145) do
     t.text "utr_matches"
     t.text "utr_matches_array"
     t.boolean "competitor"
+    t.text "parent_email"
   end
 
   create_table "stickers", force: :cascade do |t|

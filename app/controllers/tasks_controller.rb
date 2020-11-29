@@ -47,6 +47,7 @@ class TasksController < ApplicationController
     @task.done = false
     respond_to do |format|
       if @task.save
+        
         format.html { redirect_to @task.player, notice: 'Task was successfully created.' }
         format.json { render :show, status: :created, location: @task }
       else

@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  resources :feedbacks do
+    collection do 
+      get :generate_feedbacks
+    end
+  end
   resources :periodizations
   resources :utr_reports
   resources :type_of_exercises

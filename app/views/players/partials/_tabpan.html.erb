@@ -24,9 +24,15 @@
 		    <% if @player.planet.stats? %>
 		    <li class="nav-item "><a href="#match_stats" data-toggle="tab" class="nav-link text-secondary">Stats</a></li>
 		   <% end %>
+		   
+		   <% if current_user.admin? || current_user.coach? %>
+		   <li class="nav-item "><a href="#feedback" data-toggle="tab" class="nav-link text-secondary">Feedback (<%= @player.feedbacks.count %>)</a></li>
+		   <% end %>
 
 		   <% if current_user.admin? || current_user.coach? %>
 		   <li class="nav-item "><a href="#settings" data-toggle="tab" class="nav-link text-secondary">Settings</a></li>
 		   <% end %>
+
+		   
 
 		</ul>

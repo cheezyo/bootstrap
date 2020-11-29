@@ -158,7 +158,13 @@
 				<%= render 'matches', player: @player %>
 			</div>
 		<% end %>
-		
+		<% if current_user.coach? || current_user.admin? %>
+			<div class="tab-pane" id="feedback">
+
+				<%= render 'players/partials/feedback', player: @player %>
+
+			</div>
+		<% end %>
 		<% if current_user.coach? || current_user.admin? %>
 			<div class="tab-pane" id="settings">
 

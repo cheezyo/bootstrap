@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  player_id: 1
+  feed_back: MyText
+  email_date: 2020-11-29
+
+two:
+  player_id: 1
+  feed_back: MyText
+  email_date: 2020-11-29

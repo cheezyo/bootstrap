@@ -7,10 +7,10 @@ def create
     
       if @user_player.save
       	
-     	redirect_to Player.find(@user_player.player_id), notice: 'Player was successfully created.'
+     	redirect_to request.referrer, notice: 'Player was successfully created.'
         
       else
-     	 redirect_to users_path, notice: 'Player was updatet.'
+     	 redirect_to request.referrer, notice: 'Player was updatet.'
        
       end
 
@@ -20,10 +20,10 @@ def update
     
       if @user_player.update(user_player_params)
       	
-     	redirect_to users_path, notice: 'User was successfully created.'
+     	redirect_to request.referrer, notice: 'User was successfully created.'
         
       else
-     	 redirect_to users_path, notice: 'User was updatet.'
+     	 redirect_to request.referrer, notice: 'User was updatet.'
        
       end
 
