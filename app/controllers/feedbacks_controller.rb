@@ -48,9 +48,10 @@ class FeedbacksController < ApplicationController
   # POST /feedbacks.json
   def create
     @feedback = Feedback.new(feedback_params)
-    @feedback.coach = @feedback.player.coach.name
+    
     respond_to do |format|
       if @feedback.save
+        
         UserMailer.send_feedback(@feedback).deliver
         format.html { redirect_to @feedback, notice: 'Feedback was successfully created.' }
         format.json { render :show, status: :created, location: @feedback }

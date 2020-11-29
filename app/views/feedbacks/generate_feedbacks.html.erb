@@ -25,7 +25,7 @@
 	<tr>
 		
 	
-	<%= form_for Feedback.new do |form| %>
+	
 
 		<td><%= link_to p.fullname, p %> | <%=  p.get_age %> | <%=  p.level.name %></td>
 		<td>
@@ -37,11 +37,16 @@
 			No previouse feedback
 			<% end %>
 		</td>
-		<td> <%= form.text_area :feed_back, :size => "50" %><br/>
+		<td> 
+		<%= form_for Feedback.new do |form| %>
+		  <%= form.text_area :feed_back, :size => "50" %><br/>
 		  <%= form.submit "Save and send", :class => "btn btn-success" %>
+		  <%= form.hidden_field :coach, :value => @coach.name %>
+		  <%= form.hidden_field :player_id, :value => p.id %>
+		<% end %>
 		</td>
 		
-	<% end %>
+	
 	</tr>
 <% end %>
 </tbody>
