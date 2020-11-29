@@ -174,6 +174,10 @@ class Player < ApplicationRecord
 		self.tasks.where('created_at BETWEEN ? AND ?', DateTime.now - 12.months, DateTime.now)
 	end
 
+	def get_feedbacks_last_year
+		self.feedbacks.where('created_at BETWEEN ? AND ?', DateTime.now - 12.months, DateTime.now)
+	end
+
 	def get_match_reports 
 		self.matches.where('created_at BETWEEN ? AND ?', DateTime.now - 12.months, DateTime.now).count
 	end

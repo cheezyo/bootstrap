@@ -34,6 +34,7 @@
 						      	<th><%= DateTime.now.year %></th>
 						      <% end %>
 						      <th>Tasks </th>
+						      <th>Feedback</th>
 						      <% if @planet.ironman? %>
 						      	<th>Ironman</th>
 						      <% end %>
@@ -87,6 +88,9 @@
 						      	<% end %>
 						      	<td><%= p.get_tasks_last_year.where(:done => false ).or(p.get_tasks_last_year.where(:done => nil )).count %>
 						      		(<%= p.get_tasks_last_year.where(:done => true).count %>)
+						      	</td>
+						      	<td>
+						      		<%= p.get_feedbacks_last_year.count %>
 						      	</td>
 						      	<% if @planet.ironman? %>
 						      		<td><%= p.get_diff_from_last_test[0] %> 
