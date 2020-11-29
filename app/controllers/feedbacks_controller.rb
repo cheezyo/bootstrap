@@ -53,7 +53,7 @@ class FeedbacksController < ApplicationController
       if @feedback.save
         
         UserMailer.send_feedback(@feedback).deliver
-        format.html { redirect_to @feedback, notice: 'Feedback was successfully created.' }
+        format.html { redirect_to request.referrer, notice: 'Feedback was successfully created.' }
         format.json { render :show, status: :created, location: @feedback }
       else
         format.html { render :new }
