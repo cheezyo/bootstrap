@@ -1,9 +1,12 @@
  <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800"><%= @coach.name %>`s players</h1>
-           
+            <h1 class="h3 mb-0 text-gray-800"><%= @coach.name %>`s players</h1>     
 </div>
 
+<%= link_to "Under 12", generate_feedbacks_feedbacks_path + "?id=" + @coach.id.to_s + "&age=12" %> |
+<%= link_to "Over 13", generate_feedbacks_feedbacks_path+ "?id=" + @coach.id.to_s + "&age=13" %>
 <hr/>
+
+<h1 class="h5 mb-0 text-gray-800">Showing all players <%= @age %> </h1>
 
 <table class="table table-bordered table-striped " width="100%" cellspacing="0">
 		<thead>
@@ -17,13 +20,13 @@
 		<tbody>
 
 
-<% @coach.players.order(name: :asc).each do |p| %>
+<% @players.order(name: :asc).each do |p| %>
 	<tr>
 		
 	
 	<%= form_for Feedback.new do |form| %>
 
-		<td><%= link_to p.fullname, p %> | <%=  p.level.name %></td>
+		<td><%= link_to p.fullname, p %> | <%=  p.get_age %> | <%=  p.level.name %></td>
 		<td>
 			<% if p.feedbacks.count >= 1 %>
 			<%= p.feedbacks.order(created_at: :desc).first.created_at.strftime("%Y-%m-%d: ") %>

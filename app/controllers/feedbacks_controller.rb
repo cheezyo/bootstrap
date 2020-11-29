@@ -27,6 +27,21 @@ class FeedbacksController < ApplicationController
     else
       @coach = User.find(params[:id])
     end
+     date1 = DateTime.parse("01-01-" + (DateTime.now - 12.years).year.to_s)
+    if params[:age].blank? || params[:age].empty?
+      @players = @coach.players
+      @age = ""
+    elsif params[:age] == "12"
+      @players = @coach.players.where('age >= ?', date1 )
+      @age = " under 12"
+
+    elsif params[:age] == "13"
+      @players = @coach.players.where('age <= ?', date1 )
+      @age = " over 13"
+    else
+      @players = @coach.players
+      @age = ""
+    end
 
   end
   # POST /feedbacks
