@@ -29,7 +29,16 @@ class Player < ApplicationRecord
 		parent = User.find(user_ids).select{|u| u.parent == true }
 		parent.first
 	end
-
+	def get_last_feedback_date
+		feedback = get_last_feedback
+		if feedback == "No feedback"
+			"No feedback"
+		else
+			days_ago = (DateTime.parse(feedback.created_at.strftime("%d-%m-%Y"))..DateTime.now).count
+			date = feedback.created_at.strftime("%d-%m-%Y") 
+			strng = date + ", " + days_ago.to_s + " days ago."
+		end
+	end
 	def player_profile
 		ids = UserPlayer.where(player_id: self.id).pluck(:user_id)
 		user = User.find(ids).reject{|u| u.coach == true || u.admin == true || u.parent == true}
@@ -176,6 +185,16 @@ class Player < ApplicationRecord
 
 	def get_feedbacks_last_year
 		self.feedbacks.where('created_at BETWEEN ? AND ?', DateTime.now - 12.months, DateTime.now)
+	end
+
+	def get_last_feedback 
+		feedbacks = get_feedbacks_last_year
+		if feedbacks != nil && feedbacks.count >= 1 
+			feedbacks.order(created_at: :desc).first
+
+		else
+			"No feedback"
+		end
 	end
 
 	def get_match_reports 
