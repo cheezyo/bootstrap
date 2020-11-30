@@ -89,6 +89,7 @@ class PlayersController < ApplicationController
 
   # GET /players/1/edit
   def edit
+    session[:return_to] ||= request.referer
   end
 
   def add_sticker
@@ -137,8 +138,12 @@ class PlayersController < ApplicationController
   def update
     respond_to do |format|
       if @player.update(player_params)
-        format.html { redirect_to request.referrer, notice: 'Player was successfully updated.' }
-        format.json { render :show, status: :ok, location: @player }
+        if session[:return_to].nil?
+          format.html { redirect_to request.referer, notice: 'Player was successfully updated.' }
+        else
+          format.html { redirect_to session.delete(:return_to), notice: 'Player was successfully updated.' }
+          format.json { render :show, status: :ok, location: @player }
+        end
       else
         format.html { render :edit }
         format.json { render json: @player.errors, status: :unprocessable_entity }

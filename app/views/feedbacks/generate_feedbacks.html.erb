@@ -42,6 +42,7 @@
 		</td>
 		<td> 
 		<% if p.got_parent_email? %>
+			 <p class="text-gray-800"><b>To:</b> <i><%= p.parent_email %></i></p>
 			<%= form_for Feedback.new do |form| %>
 			  <%= form.text_area :feed_back, :size => "50" %><br/>
 			  <%= form.submit "Save and send", :class => "btn btn-success" %>
