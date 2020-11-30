@@ -17,7 +17,6 @@ class Player < ApplicationRecord
 	validates :name, presence: true
 	validates :lastname, presence: true
 	validates :gender, presence: true
-	validates :competitor, presence: true
 	validates :planet_id, presence: true
 	validates :level_id, presence: true
 	serialize :utr_stats
