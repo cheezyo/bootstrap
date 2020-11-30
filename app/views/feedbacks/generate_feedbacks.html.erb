@@ -41,11 +41,20 @@
 			<% end %>
 		</td>
 		<td> 
-		<%= form_for Feedback.new do |form| %>
-		  <%= form.text_area :feed_back, :size => "50" %><br/>
-		  <%= form.submit "Save and send", :class => "btn btn-success" %>
-		  <%= form.hidden_field :coach, :value => @coach.name %>
-		  <%= form.hidden_field :player_id, :value => p.id %>
+		<% if p.got_parent_email? %>
+			<%= form_for Feedback.new do |form| %>
+			  <%= form.text_area :feed_back, :size => "50" %><br/>
+			  <%= form.submit "Save and send", :class => "btn btn-success" %>
+			  <%= form.hidden_field :coach, :value => @coach.name %>
+			  <%= form.hidden_field :player_id, :value => p.id %>
+			<% end %>
+		<% else %>
+			<%= form_for p do |form| %>
+			  <%= form.text_field :parent_email,placeholder: 'Parent @email' %><br/>
+			  <%= form.submit "Update parent email", :class => "btn btn-warning mt-2" %>
+			  
+			  <%= form.hidden_field :player_id, :value => p.id %>
+			<% end %>
 		<% end %>
 		</td>
 		

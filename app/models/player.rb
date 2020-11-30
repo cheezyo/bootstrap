@@ -64,7 +64,9 @@ class Player < ApplicationRecord
 	def got_parent? 
 		!self.users.select{|u| u.parent == true }.empty?
 	end
-
+	def got_parent_email? 
+		! self.parent_email.nil? && ! self.parent_email.blank?
+	end
 	def got_coach? 
 		!self.users.select{|u| u.coach == true || u.admin == true }.empty?
 	end
