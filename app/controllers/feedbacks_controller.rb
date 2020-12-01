@@ -48,11 +48,11 @@ class FeedbacksController < ApplicationController
   # POST /feedbacks.json
   def create
     @feedback = Feedback.new(feedback_params)
-    
+    @coach = User.find(params[:coach_id])
     respond_to do |format|
       if @feedback.save
         
-        UserMailer.send_feedback(@feedback).deliver
+        UserMailer.send_feedback(@feedback, @coach).deliver
         format.html { redirect_to request.referrer, notice: 'Feedback was successfully created.' }
         format.json { render :show, status: :created, location: @feedback }
       else
@@ -94,6 +94,6 @@ class FeedbacksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def feedback_params
-      params.require(:feedback).permit(:coach, :player_id, :feed_back, :email_date)
+      params.require(:feedback).permit(:coach_id, :coach, :player_id, :feed_back, :email_date)
     end
 end

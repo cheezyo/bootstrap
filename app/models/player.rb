@@ -83,8 +83,8 @@ class Player < ApplicationRecord
 		self.users.select{|u| u.parent == true }.first
 	end
 
-	def coach 
-		self.users.select{|u| u.coach == true || u.admin == true }.first
+	def coaches 
+		self.users.select{|u| u.coach == true || u.admin == true }
 	end
 
 	def got_level? 

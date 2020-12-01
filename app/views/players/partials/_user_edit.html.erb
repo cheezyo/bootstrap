@@ -24,7 +24,7 @@
 							<% end %>
 						
 						<% end %>
-						<% if !@player.got_coach? && current_user.admin? %>  
+						<% if current_user.admin? %>  
 								<br/><small>Add coach:</small>               
 								<%= form_for UserPlayer.new do |f| %>
 								<%= f.collection_select :user_id, User.where(coach: true), :id, :name, :class => "form-control form-control-user", :include_blank => 'choose user' %>
@@ -32,15 +32,7 @@
 								<%= f.submit "Add" , :class => "btn btn-success"%>
 							<% end %>
 						<% end %>
-						<% if @player.got_coach? && current_user.admin? %>
-								<br/><small>Change coach:</small>               
-								<%= form_for UserPlayer.where(user_id: @player.coach.id, player_id: @player.id).first do |f| %>
-								<%= f.collection_select :user_id, User.where(coach: true), :id, :name, :class => "form-control form-control-user", :include_blank => 'choose user' %>
-								<%= f.hidden_field :player_id, :value => @player.id %>
-								<%= f.submit "Edit" , :class => "btn btn-success"%>
-							<% end %>
-							<% end %>
-
+						
 					<% end %>
 						<h3>Level</h3>
 						<%= form_for @player do |f| %>

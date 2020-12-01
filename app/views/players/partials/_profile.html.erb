@@ -7,7 +7,17 @@
 	                    <div class="col mr-2">
 	                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-3">Info <hr/></div>
 	                      <div class="h5 mb-2 font-weight-bold text-gray-800">Parent: <small><%=  @player.got_parent? ? @player.parent.name : "NO PARENT" %></small></div>
-	                      <div class="h5 mb-2 font-weight-bold text-gray-800">Coach: <small><%= @player.got_coach? ? @player.coach.name : "NO COACH" %></small></div>
+	                      <div class="h5 mb-2 font-weight-bold text-gray-800">Coach: 
+	                      	<small>
+	                      	<% if @player.got_coach? %>
+	                      		<% @player.coaches.each do |c| %>
+	                      			<%= c.name %>,
+	                      		<% end %>
+	                      	<% else %>
+	                      		No coach
+	                      	<% end %>
+	                      	</small>
+	                      </div>
 	                      <% if @player.planet.events? %>
 		                      <div class="h5 mb-2 font-weight-bold text-gray-800">Next event: 
 		                      	<small>

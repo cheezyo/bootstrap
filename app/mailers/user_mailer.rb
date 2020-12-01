@@ -5,10 +5,10 @@ class UserMailer < ApplicationMailer
   #
   #   en.user_mailer.send_feedback.subject
   #
-  def send_feedback(feedback)
+  def send_feedback(feedback, coach)
     @feedback = feedback
-    
+    @coach = coach
 
-    mail to: feedback.player.parent_email, subject: "Feedback fra trener", reply_to: feedback.player.coach.email, cc: feedback.player.coach.email 
+    mail to: feedback.player.parent_email, subject: "Feedback fra trener", reply_to: coach.email, cc: coach.email 
   end
 end

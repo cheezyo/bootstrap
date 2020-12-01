@@ -68,7 +68,9 @@
                       <th>Tasks</th>
                       <th>Feedback</th>
                       <th></th>
-					  <th>Edit</th>
+                      <th>Coaches</th>
+                      <th>Add coach</th>
+					             <th>Edit</th>
                       
                     </tr>
                   </thead>
@@ -83,7 +85,22 @@
                       <td><%= p.level.name %></td>
                       <td><%= p.get_tasks_last_year.count %></td>
                       <td><%= p.get_feedbacks_last_year.count %></td>
-                      <td><%= p.get_last_feedback_date %>
+                      <td><%= p.get_last_feedback_date %></td>
+                      <td>
+                        <% if p.got_coach? %> 
+                          <%p.coaches.each do |c| %>
+                            <%= link_to c.name, c %>,
+                          <% end %>
+                        </td>
+                        <% end %> 
+                        <td>                
+                            <%= form_for UserPlayer.new do |f| %>
+                            <%= f.collection_select :user_id, User.where(coach: true), :id, :name, :class => "form-control form-control-user", :include_blank => 'Choose coach' %>
+                            <%= f.hidden_field :player_id, :value => p.id %>
+                            <%= f.submit "Add" , :class => "btn btn-success"%>
+                          <% end %>
+                        
+                       
 
                       </td>
                       <td><%= link_to 'Edit', edit_player_path(p) %></td>

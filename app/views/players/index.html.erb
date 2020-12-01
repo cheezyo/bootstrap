@@ -22,7 +22,8 @@
                       <th>Name</th>
                       <th>Age</th>
                       <th>Planet</th>
-                      <th>Coach</th>
+                      <th>Coaches</th>
+                      <th>Add coach</th>
                      
                    
                 
@@ -36,22 +37,22 @@
                       <td><%= link_to player.fullname, player %></td>
                       <td><%= player.get_age %></td>
                       <td><%= player.planet.blank? ? "empty" : player.planet.title %></td>
-                      <td>
-                        <% if !player.got_coach? && current_user.admin? %>  
-                                          
+                      
+                        <% if player.got_coach? %>  
+                        <td>
+                            <%player.coaches.each do |c| %>
+                              <%= link_to c.name, c %>,
+                            <% end %>
+                        </td>
+                        <% end %> 
+                        <td>                
                             <%= form_for UserPlayer.new do |f| %>
                             <%= f.collection_select :user_id, User.where(coach: true), :id, :name, :class => "form-control form-control-user", :include_blank => 'Choose coach' %>
                             <%= f.hidden_field :player_id, :value => player.id %>
                             <%= f.submit "Add" , :class => "btn btn-success"%>
                           <% end %>
-                        <% end %>
-                        <% if player.got_coach? && current_user.admin? %>           
-                            <%= form_for UserPlayer.where(user_id: player.coach.id, player_id: player.id).first do |f| %>
-                            <%= f.collection_select :user_id, User.where(coach: true), :id, :name, :class => "form-control form-control-user" %>
-                            <%= f.hidden_field :player_id, :value => player.id %>
-                            <%= f.submit "Edit" , :class => "btn btn-success"%>
-                          <% end %>
-                          <% end %>
+                        
+                       
 
                       </td>
                       

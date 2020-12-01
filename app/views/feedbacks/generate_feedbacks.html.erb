@@ -52,6 +52,7 @@
 			  <%= form.submit "Save and send", :class => "btn btn-success" %>
 			  <%= form.hidden_field :coach, :value => @coach.name %>
 			  <%= form.hidden_field :player_id, :value => p.id %>
+			  <%= hidden_field_tag :coach_id, @coach.id %>
 			<% end %>
 		<% else %>
 			<%= form_for p do |form| %>
