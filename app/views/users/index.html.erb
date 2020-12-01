@@ -65,19 +65,13 @@
                       <td>
                         <% if user.player? && user.got_profile? && ! user.got_coach? %>
                           
-                            <%= form_for UserPlayer.new do |f| %>
-                              <%= f.collection_select :user_id, User.where(coach: true), :id, :name, :class => "form-control form-control-user", :include_blank => 'choose coach' %>
-                              <%= f.hidden_field :player_id, :value => user.get_player_profile.id %>
-                              <%= f.submit "Add" , :class => "btn btn-success"%>
-                            <% end %>
-                          
-                        <% elsif user.player? && user.got_profile? && user.got_coach?  %>
-                          <%= form_for UserPlayer.where(user_id: user.get_player_profile.coach.id, player_id: user.get_player_profile.id).first do |f| %>
-                            <%= f.collection_select :user_id, User.where(coach: true), :id, :name, :class => "form-control form-control-user", :include_blank => 'choose user' %>
-                            <%= f.hidden_field :player_id, :value => user.get_player_profile.id %>
-                            <%= f.submit "Change" , :class => "btn btn-success"%>
+                             <%= form_for UserPlayer.new do |f| %>
+                            <%= f.collection_select :user_id, User.where(coach: true), :id, :name, :class => "form-control form-control-user", :include_blank => 'Choose coach' %>
+                            <%= f.hidden_field :player_id, :value => user.player.id %>
+                            <%= f.submit "Add" , :class => "btn btn-success"%>
                           <% end %>
-
+                          
+                        
                         <% else %>
                         Empty
                         <% end %>

@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  add_flash_types :success, :warning, :danger, :info
   before_action :authorized
   protect_from_forgery with: :exception
   helper_method :respond_modal_with

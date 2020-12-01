@@ -123,26 +123,35 @@ class PlayersController < ApplicationController
   def create
     @player = Player.new(player_params)
     
-    respond_to do |format|
-      if @player.save
-        
-        if ! params[:coach_id].nil?
-          up = UserPlayer.new
-          up.player_id = @player.id
-          up.user_id = params[:coach_id].to_i
-          up.save!
+    if Player.exists?(name: player_params['name'], parent_email: player_params['parent_email'], age: player_params['age'])
+      if session[:return_to].nil?
 
-        end
-
-        if session[:return_to].nil?
-          format.html { redirect_to request.referer, notice: @player.name + ' was successfully created and added to your team' }
-        else
-          format.html { redirect_to session.delete(:return_to), notice: 'Player was successfully created.' }        
-          format.json { render :show, status: :created, location: @player }
-        end
+        redirect_to request.referer, danger: player_params['name'] + ' is already in database'
       else
-        format.html { render :new }
-        format.json { render json: @player.errors, status: :unprocessable_entity }
+        redirect_to session.delete(:return_to), danger: player_params['name'] + ' is already in database'
+      end
+    else
+      respond_to do |format|
+        if @player.save
+          
+          if ! params[:coach_id].nil?
+            up = UserPlayer.new
+            up.player_id = @player.id
+            up.user_id = params[:coach_id].to_i
+            up.save!
+
+          end
+
+          if session[:return_to].nil?
+            format.html { redirect_to request.referer, success: @player.name + ' was successfully created and added to your team' }
+          else
+            format.html { redirect_to session.delete(:return_to), success: 'Player was successfully created.' }        
+            format.json { render :show, status: :created, location: @player }
+          end
+        else
+          format.html { render :new }
+          format.json { render json: @player.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -153,9 +162,9 @@ class PlayersController < ApplicationController
     respond_to do |format|
       if @player.update(player_params)
         if session[:return_to].nil?
-          format.html { redirect_to request.referer, notice: 'Player was successfully updated.' }
+          format.html { redirect_to request.referer, success: 'Player was successfully updated.' }
         else
-          format.html { redirect_to session.delete(:return_to), notice: 'Player was successfully updated.' }
+          format.html { redirect_to session.delete(:return_to), success: 'Player was successfully updated.' }
           format.json { render :show, status: :ok, location: @player }
         end
       else
@@ -170,7 +179,7 @@ class PlayersController < ApplicationController
   def destroy
     @player.destroy
     respond_to do |format|
-      format.html { redirect_to players_url, notice: 'Player was successfully destroyed.' }
+      format.html { redirect_to players_url, success: 'Player was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

@@ -23,7 +23,11 @@
 
       <%= render 'layouts/partials/nav' %>    
       <div class="container-fluid" style="padding-top: 110px">
-        <p id="notice"><%= notice %></p>
+        <% flash.each do |message_type, message| %>
+      <div class="alert alert-<%= message_type %>">
+        <%= message %>
+      </div>
+    <% end %>
       <div class="col-md-12 p-0 ">
         <%= yield %>
       </div>

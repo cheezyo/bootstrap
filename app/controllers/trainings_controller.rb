@@ -36,7 +36,7 @@ class TrainingsController < ApplicationController
     @training.user_id = @current_user.id
     respond_to do |format|
       if @training.save
-        format.html { redirect_to session.delete(:return_to), notice: 'Training was successfully created.' }
+        format.html { redirect_to session.delete(:return_to), success: 'Training was successfully created.' }
         format.json { render :show, status: :created, location: @training }
       else
         format.html { render :new }
@@ -50,7 +50,7 @@ class TrainingsController < ApplicationController
   def update
     respond_to do |format|
       if @training.update(training_params)
-        format.html { redirect_to session.delete(:return_to), notice: 'Training was successfully updated.' }
+        format.html { redirect_to session.delete(:return_to), success: 'Training was successfully updated.' }
         format.json { render :show, status: :ok, location: @training }
       else
         format.html { render :edit }
@@ -64,7 +64,7 @@ class TrainingsController < ApplicationController
   def destroy
     @training.destroy
     respond_to do |format|
-      format.html { redirect_to trainings_url, notice: 'Training was successfully destroyed.' }
+      format.html { redirect_to trainings_url, success: 'Training was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
