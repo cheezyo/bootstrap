@@ -1,11 +1,56 @@
 
-   <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800"><%= @user.name %></h1>
-           
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+  <h1 class="h3 mb-0 text-gray-800"><%= @user.name %></h1>         
 </div>
-
 <hr/>
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Add player to team</h6>
+  </div>
+<div class="card-body">
 
+  <%= form_for Player.new do |form| %>
+    <table class="table table-bordered table-striped table-hover" width="100%" cellspacing="0">
+      <thead>
+        <tr>
+          <th>First name</th>
+          <th>Last name</th>
+          <th>Gender</th>
+          <th>Born</th>
+          <th>Parent email</th>
+          <th>Diploma</th>
+          <th>Planet</th>
+          <th>Save</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> <%= form.text_field :name, autofocus: true, autocomplete: "First name", :class => "form-control form-control-user", placeholder: 'First name' %></td>
+          <td><%= form.text_field :lastname, autocomplete: "Last name", :class => "form-control form-control-user", placeholder: 'Last name'%></td>
+          <td>
+            
+            <%= form.label :gender, "male", :value => "male"  %>
+            <%= form.radio_button :gender, "male" %>
+            <%= form.label :gender, "female", :value => "female" %>
+            <%= form.radio_button :gender, "female" %>
+          </td>
+          <td> 
+            <%= form.date_field :age, start_year: 1940, end_year: Time.now.year, :class => 'form-control'  %>
+              
+          </td>
+          <td> <%= form.text_field :parent_email, autocomplete: "Parent @email", :class => "form-control form-control-user", placeholder: 'Parent @email'%></td>
+          
+          <td> <%= form.collection_select :level_id, Level.all, :id, :name, :class => "form-control form-control-user" %></td>
+          <td><%= form.collection_select :planet_id, Planet.all, :id, :title, :class => "form-control form-control-user" %></td>
+          <%= hidden_field_tag :coach_id, @user.id %>
+          <td> <%= form.submit class: "btn btn-success btn-user"%></td>
+        </tr>
+      </tbody>
+    </table>
+
+  <% end %>
+</div>
+</div>
 
 <div class="card shadow mb-4">
             <div class="card-header py-3">

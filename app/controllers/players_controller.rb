@@ -84,6 +84,7 @@ class PlayersController < ApplicationController
   end
   # GET /players/new
   def new
+    session[:return_to] ||= request.referer
     @player = Player.new
   end
 
@@ -121,11 +122,24 @@ class PlayersController < ApplicationController
   # POST /players.json
   def create
     @player = Player.new(player_params)
-
+    
     respond_to do |format|
       if @player.save
-        format.html { redirect_to @player, notice: 'Player was successfully created.' }
-        format.json { render :show, status: :created, location: @player }
+        
+        if ! params[:coach_id].nil?
+          up = UserPlayer.new
+          up.player_id = @player.id
+          up.user_id = params[:coach_id].to_i
+          up.save!
+
+        end
+
+        if session[:return_to].nil?
+          format.html { redirect_to request.referer, notice: @player.name + ' was successfully created and added to your team' }
+        else
+          format.html { redirect_to session.delete(:return_to), notice: 'Player was successfully created.' }        
+          format.json { render :show, status: :created, location: @player }
+        end
       else
         format.html { render :new }
         format.json { render json: @player.errors, status: :unprocessable_entity }
@@ -185,7 +199,7 @@ class PlayersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def player_params
-      params.require(:player).permit(:parent_email, :competitor, :utr_profile, :name, :age, :user_id, :level_id, :planet_id, :lastname, :gender )
+      params.require(:player).permit(:coach_id, :parent_email, :competitor, :utr_profile, :name, :age, :user_id, :level_id, :planet_id, :lastname, :gender )
     end
 
 
