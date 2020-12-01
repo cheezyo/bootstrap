@@ -1,3 +1,7 @@
+ <% User.all.where(coach: :true).each do |c| %>
+ 	<%= link_to c.name, generate_feedbacks_feedbacks_path + "?id=" + c.id.to_s %> | 
+
+ <% end %>
  <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800"><%= @coach.name %>`s players</h1>     
 </div>

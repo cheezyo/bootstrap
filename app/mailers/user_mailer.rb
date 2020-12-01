@@ -7,7 +7,8 @@ class UserMailer < ApplicationMailer
   #
   def send_feedback(feedback)
     @feedback = feedback
+    
 
-    mail to: feedback.player.parent_email, subject: "Feedback fra trener", reply_to: feedback.player.coach.email, bcc: "feedback@stavangertk.no" 
+    mail to: feedback.player.parent_email, subject: "Feedback fra trener", reply_to: feedback.player.coach.email, cc: feedback.player.coach.email 
   end
 end
