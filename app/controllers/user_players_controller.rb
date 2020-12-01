@@ -31,8 +31,9 @@ def update
 
 
   def destroy
-  	 @player.destroy
-  	 redirect_to users_path, notice: 'profile deleted'
+  	 @user_player = UserPlayer.find(params[:id])
+      @user_player.destroy
+  	 redirect_to request.referrer, notice: 'profile deleted'
   end
 private 
 

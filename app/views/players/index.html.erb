@@ -41,7 +41,9 @@
                         <% if player.got_coach? %>  
                         <td>
                             <%player.coaches.each do |c| %>
-                              <%= link_to c.name, c %>,
+                              <%= link_to c.name, c %>
+                              <% up =  UserPlayer.where(user_id: c.id, player_id: player.id).first %>
+                               <%= link_to 'X', up, method: :delete, data: { confirm: 'Are you sure?' }, :style => "color:red" %> ,
                             <% end %>
                         </td>
                         <% end %> 
