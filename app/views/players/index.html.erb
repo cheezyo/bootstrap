@@ -37,9 +37,9 @@
                       <td><%= link_to player.fullname, player %></td>
                       <td><%= player.get_age %></td>
                       <td><%= player.planet.blank? ? "empty" : player.planet.title %></td>
-                      
+                      <td>
                         <% if player.got_coach? %>  
-                        <td>
+                        
                             <%player.coaches.each do |c| %>
                               <%= link_to c.name, c %>
                               <% up =  UserPlayer.where(user_id: c.id, player_id: player.id).first %>
@@ -48,8 +48,9 @@
                             <% end %>
                         <% else %>
                                No coach
-                        </td>
-                        <% end %> 
+                        
+                        <% end %>
+                        </td> 
                         <td>                
                             <%= form_for UserPlayer.new do |f| %>
                             <%= f.collection_select :user_id, User.where(coach: true), :id, :name, :class => "form-control form-control-user", :include_blank => 'Choose coach' %>
