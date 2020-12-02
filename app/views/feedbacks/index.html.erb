@@ -24,7 +24,7 @@
         <td><%= link_to feedback.player.fullname, feedback.player %></td>
         <td><%= link_to feedback.coach, User.find_by_name(feedback.coach) %></td>
         <td><%= link_to feedback.player.planet.title, feedback.player.planet %></td>
-        <td><%= feedback.feed_back.truncate(144) %> <%= link_to "Les mer...", feedback %></td>
+        <td><%= feedback.feed_back.truncate(184) %> <%= link_to "Les mer...", feedback %></td>
         
         
         <td><%= link_to 'Delete', feedback, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-sm btn-danger" %></td>

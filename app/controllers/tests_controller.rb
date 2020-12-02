@@ -38,11 +38,14 @@ class TestsController < ApplicationController
 
   end
   def avg 
-    @players = Player.all
+    @players = Player.where(parent_email: nil)
     #@players_w_utr = @players.reject!{|p| ! p.got_utr_profile?}
     @player = Player.new
     arr = [16, 14, 15]
     @test = Test.find(arr)
+
+
+
 
     
   end

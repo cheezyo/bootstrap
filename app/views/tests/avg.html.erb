@@ -54,3 +54,11 @@
 </tbody>
 <% end %>
 </table>
+
+
+<% @players.each do |p| %>
+	<%= form_for p do |f| %>
+	<p><%= p.name %> - <%= f.text_field :parent_email %><%= f.submit "save" %></p>
+	
+	<% end %>
+<% end %>
