@@ -1,0 +1,47 @@
+<div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">My players</h6>
+            </div>
+            <div class="card-body">
+              <div class="table">
+                <table class="table table-bordered table-striped table-hover" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Age</th>
+                      <th>Planet</th>
+                      <th>Level</th>
+                      <th>Feedbacks</th>
+                      <th>Last fb</th>
+                      <th>Coaches</th>
+                  
+                      
+                    </tr>
+                  </thead>
+               
+                  <tbody>
+
+                    <% @user.players.each do |p| %>
+                    <tr>
+                      <td><%= p.fullname %></td>
+                      <td><%= p.get_age %></td>
+                      <td><%= p.planet.title %></td>
+                      <td><%= p.level.name %></td>
+                      <td><%= p.get_feedbacks_last_year.count %></td>
+                      <td><%= p.get_last_feedback.truncate(33) %></td>
+                      <td>
+                        <% if p.got_coach? %> 
+                          <%p.coaches.each do |c| %>
+                            <%= c.name %>,
+                          <% end %>
+                        </td>
+                        <% end %> 
+                       
+                    </tr>
+                  <% end %>
+                 
+                    </tbody>
+                </table>
+              </div>
+            </div>
+          </div>

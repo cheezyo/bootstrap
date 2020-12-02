@@ -1,4 +1,5 @@
 class TypeOfExercisesController < ApplicationController
+  load_and_authorize_resource
   before_action :set_type_of_exercise, only: [:show, :edit, :update, :destroy]
 
   # GET /type_of_exercises

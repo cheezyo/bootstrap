@@ -1,4 +1,5 @@
 class UtrReportsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_utr_report, only: [:show, :edit, :update, :destroy]
 
   # GET /utr_reports
