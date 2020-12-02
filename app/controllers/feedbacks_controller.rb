@@ -52,7 +52,7 @@ class FeedbacksController < ApplicationController
     respond_to do |format|
       if @feedback.save
         
-        UserMailer.send_feedback(@feedback, @coach).deliver
+        #UserMailer.send_feedback(@feedback, @coach).deliver
         format.html { redirect_to request.referrer, success: 'Feedback was successfully created and sent.' }
         format.json { render :show, status: :created, location: @feedback }
       else

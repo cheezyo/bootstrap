@@ -1,19 +1,23 @@
-<p id="notice"><%= notice %></p>
+<div class="card border-left-warning shadow h-100 ">
+    <div class="card-header">
+    			To: <%= @feedback.player.parent_email %> <br/>
+          	Date: <%= @feedback.created_at.strftime("%d-%m-%y %H:%M") %>
+    	</div>
+    <div class="card-body">
 
-<p>
-  <strong>Player:</strong>
-  <%= @feedback.player_id %>
-</p>
+      <div class="row no-gutters align-items-center">
+        <div class="col mr-2">
 
-<p>
-  <strong>Feed back:</strong>
-  <%= @feedback.feed_back %>
-</p>
+        
+         <%= @feedback.coach %>
+          <%= @feedback.feed_back %>
+        </div>
+  </div>
+</div>
+<div class="card-footer">
+	<p>Created by <%= link_to @feedback.coach, User.find_by_name(@feedback.coach) %>
+	<%= link_to 'Delete', @feedback, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn-sm btn-danger py-2 mr-1 float-right" %></p>
+</div>
+</div>
 
-<p>
-  <strong>Coach:</strong>
-  <%= @feedback.coach %>
-</p>
-
-<%= link_to 'Edit', edit_feedback_path(@feedback) %> |
-<%= link_to 'Back', feedbacks_path %>
+<%= link_to "< Back to feedbacks", feedbacks_path, :class => "btn btn-info mt-4" %>
