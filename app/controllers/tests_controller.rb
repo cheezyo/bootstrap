@@ -44,7 +44,7 @@ class TestsController < ApplicationController
     @player = Player.new
     arr = [16, 14, 15]
     @test = Test.find(arr)
-
+    @users = User.where(coach: :true)
 
 
 

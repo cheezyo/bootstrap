@@ -5,10 +5,14 @@ class UsersController < ApplicationController
 	 before_action :set_user, only: [:show, :edit, :update, :destroy]
 	 #before_action :check_if_admin, except: [:new, :create]
   def index
-    @names = ["No profile", "Players","Parents", "Coaches", "Admins"]
+    @names = ["No profile", "Players","Parents", "Helper coaches", "Coaches", "Admins"]
     if params[:user_type] == "Parents"
       @users = User.where(parent: :true)
       @name = "Parents"
+
+    elsif params[:user_type] == "Helper coaches"
+      @users = User.where(helper_coach: :true)
+      @name = "Helper coaches"
     elsif  params[:user_type] == "Coaches"
       @users = User.where(coach: :true)
       @name = "Coaches"
@@ -65,7 +69,7 @@ class UsersController < ApplicationController
 	  params[:user].delete(:password_confirmation)
 	end
      if @user.update(user_params)
-       redirect_to users_path
+       redirect_to request.referer
      else
        render 'edit'
      end
@@ -85,7 +89,7 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:name, :email, :password, :admin, :coach, :parent, :lastname, :player)
+      params.require(:user).permit(:helper_coach, :name, :email, :password, :admin, :coach, :parent, :lastname, :player)
     end
 
     def check_if_admin

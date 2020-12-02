@@ -1,4 +1,4 @@
- <% User.all.where(coach: :true).each do |c| %>
+ <% User.where(coach: :true).or(User.where(helper_coach: :true)).each do |c| %>
  	<%= link_to c.name, generate_feedbacks_feedbacks_path + "?id=" + c.id.to_s %> | 
 
  <% end %>

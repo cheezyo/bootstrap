@@ -51,7 +51,7 @@
                         </td> 
                         <td>                
                             <%= form_for UserPlayer.new do |f| %>
-                            <%= f.collection_select :user_id, User.where(coach: true), :id, :name, :class => "form-control form-control-user", :include_blank => 'Choose coach' %>
+                            <%= f.collection_select :user_id, User.where(coach: true).or(User.where(helper_coach: :true)), :id, :name, :class => "form-control form-control-user", :include_blank => 'Choose coach' %>
                             <%= f.hidden_field :player_id, :value => player.id %>
                             <%= f.submit "Add" , :class => "btn btn-success"%>
                           <% end %>

@@ -68,7 +68,7 @@ class Player < ApplicationRecord
 		! self.parent_email.nil? && ! self.parent_email.blank?
 	end
 	def got_coach? 
-		!self.users.select{|u| u.coach == true || u.admin == true }.empty?
+		!self.users.select{|u| u.coach == true || u.admin == true || u.helper_coach == true }.empty?
 	end
 
 	def got_user? 
@@ -84,7 +84,7 @@ class Player < ApplicationRecord
 	end
 
 	def coaches 
-		self.users.select{|u| u.coach == true || u.admin == true }
+		self.users.select{|u| u.coach == true || u.admin == true || u.helper_coach == true }
 	end
 
 	def got_level? 

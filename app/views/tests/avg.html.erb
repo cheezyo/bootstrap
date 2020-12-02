@@ -10,3 +10,17 @@
 	
 	<% end %>
 <% end %>
+
+
+
+<% @users.each do |u| %>
+	<%= form_for(u) do |f| %>
+		<p><%= u.name %> - 
+			<%= f.label :coach %>
+                  <%= f.check_box :coach %>
+                  <%= f.label :helper_coach %>
+                  <%= f.check_box :helper_coach %>
+                  <%= f.submit "Save" %>
+		</p>
+	<% end %>
+<% end %>
