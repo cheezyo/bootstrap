@@ -1,13 +1,13 @@
  <% User.where(coach: :true).or(User.where(helper_coach: :true)).each do |c| %>
- 	<%= link_to c.name, generate_feedbacks_feedbacks_path + "?id=" + c.id.to_s %> | 
+ 	<%= link_to c.name, generate_feedbacks_feedbacks_path + "?c_id=" + c.id.to_s %> | 
 
  <% end %>
  <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800"><%= @coach.name %>`s players</h1>     
 </div>
 
-<%= link_to "Under 12", generate_feedbacks_feedbacks_path + "?id=" + @coach.id.to_s + "&age=12" %> |
-<%= link_to "Over 13", generate_feedbacks_feedbacks_path+ "?id=" + @coach.id.to_s + "&age=13" %>
+<%= link_to "Under 12", generate_feedbacks_feedbacks_path + "?c_id=" + @coach.id.to_s + "&age=12" %> |
+<%= link_to "Over 13", generate_feedbacks_feedbacks_path+ "?c_id=" + @coach.id.to_s + "&age=13" %>
 <hr/>
 
 <h1 class="h5 mb-0 text-gray-800">Showing all players <%= @age %> </h1>

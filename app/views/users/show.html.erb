@@ -5,7 +5,7 @@
 <% elsif  @user.parent? %>
 <%= render 'users/partials/show_parent' %>
 
-<% else %>
+<% elsif @user.player?  %>
 <%= render 'users/partials/show_player' %>
 
 <% end %>

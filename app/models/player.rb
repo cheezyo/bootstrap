@@ -28,14 +28,14 @@ class Player < ApplicationRecord
 		parent = User.find(user_ids).select{|u| u.parent == true }
 		parent.first
 	end
-	def get_last_feedback
+	def get_last_feedback_date
 		feedback = get_last_feedback
 		if feedback == "No feedback"
 			"No feedback"
 		else
 			days_ago = (DateTime.parse(feedback.created_at.strftime("%d-%m-%Y"))..DateTime.now).count
 			date = feedback.created_at.strftime("%d-%m-%Y") 
-			strng = date + ", " + days_ago.to_s + " days ago. " + feedback.feed_back
+			strng = date + ", " + days_ago.to_s + " days ago."
 		end
 	end
 	def player_profile

@@ -28,7 +28,7 @@
                       <td><%= p.planet.title %></td>
                       <td><%= p.level.name %></td>
                       <td><%= p.get_feedbacks_last_year.count %></td>
-                      <td><%= p.get_last_feedback.truncate(33) %></td>
+                      <td><%= p.get_last_feedback_date %></td>
                       <td>
                         <% if p.got_coach? %> 
                           <%p.coaches.each do |c| %>

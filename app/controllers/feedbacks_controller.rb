@@ -22,11 +22,11 @@ class FeedbacksController < ApplicationController
   def edit
   end
   def generate_feedbacks
-    if params[:id].blank? || params[:id].empty? 
+    if params[:c_id].blank? || params[:c_id].empty? 
       @coach = current_user
 
     else
-      @coach = User.find(params[:id])
+      @coach = User.find(params[:c_id])
     end
      date1 = DateTime.parse("01-01-" + (DateTime.now - 12.years).year.to_s)
     if params[:age].blank? || params[:age].empty?
