@@ -1,59 +1,7 @@
 <%= link_to "Save year 19", save_year_tests_path + "?year=" + "2019" %>
 <%= link_to "Save year 20", save_year_tests_path + "?year=" + "2020" %> 
 <br/>
-<table class="table table-striped table-hover table-sm table-responsive-xl " width="100%" cellspacing="0">
-<thead>
-	<tr>
-		<th>Sprint</th>
-		<th>Spider</th>
-		<th>Jump</th>
-		<th>FH</th>
-		<th>BH</th>
-		<th>Box</th>
-		<th>Chins</th>
-		<th>Push</th>
-		<th>Sit</th>
-		<th>front</th>
-		<th>Back</th>
-		<th>Beep</th>
-		<th>Tot</th>
-	</tr>
-</thead>
-<% @test.each do |t| %>
-<% arr = Array.new %>
-<tbody>
-	<tr>
-		<td><%= t.player.name %></td>
-		<td><%= Test.get_sprint_score("female")[t.sprint] %> - <%= t.sprint %></td>
-		<% arr << Test.get_sprint_score("female")[t.sprint] %>
-		<td><%= Test.get_spider_score("female")[t.spider] %> - <%= t.spider %></td>
-		<% arr << Test.get_spider_score("female")[t.spider] %>
-		<td><%= Test.get_jump_score("female")[t.jump] %> - <%= t.jump %></td>
-		<% arr << Test.get_jump_score("female")[t.jump] %>
-		<td><%= (Test.get_throw_score("female")[t.fh_throw] + Test.get_throw_score("female")[t.bh_throw])/2 %> - <%= t.fh_throw %>| <%= t.bh_throw %> </td>
-		
-		
-		<% arr << (Test.get_throw_score("female")[t.bh_throw] + Test.get_throw_score("female")[t.fh_throw])/2 %>
-		<td><%= Test.get_box_score("female")[t.box.to_f] %> - <%= t.box %></td>
-		<% arr << Test.get_box_score("female")[t.box.to_f] %>
-		<td><%= Test.get_chins_score("female")[t.chins.to_f] %> - <%= t.chins %></td>
-		<% arr << Test.get_chins_score("female")[t.chins.to_f] %>
-		<td><%= Test.get_pushups_score("female")[t.pushups.to_f] %> - <%= t.pushups %></td>
-		<% arr << Test.get_pushups_score("female")[t.pushups.to_f] %>
-		<td><%= Test.get_situps_score("female")[t.situps.to_f] %> - <%= t.situps %></td>
-		<% arr << Test.get_situps_score("female")[t.situps.to_f] %>
-		<td><%= Test.get_stretch_front_score("female")[t.front_stretch] %> - <%= t.front_stretch %></td>
-		<% arr << Test.get_stretch_front_score("female")[t.front_stretch] %>
-		<td><%= Test.get_stretch_back_score("female")[t.back_stretch] %> - <%= t.back_stretch %></td>
-		<% arr << Test.get_stretch_back_score("female")[t.back_stretch] %>
-		<td><%= Test.get_beep_score("female")[t.beep] %> - <%= t.beep %></td>
-		<% arr << Test.get_beep_score("female")[t.beep] %>
-		<td><%= arr.sum %></td>
 
-	</tr>
-</tbody>
-<% end %>
-</table>
 
 
 <% @players.each do |p| %>

@@ -38,6 +38,7 @@ class TestsController < ApplicationController
 
   end
   def avg 
+     session[:return_to] ||= request.referer
     @players = Player.where(parent_email: nil)
     #@players_w_utr = @players.reject!{|p| ! p.got_utr_profile?}
     @player = Player.new
