@@ -20,10 +20,10 @@ class TestsController < ApplicationController
   end
 
   def toplist
-    @junior_female = Test.where(:test_type => "Junior", :gender => "Female")
-    @junior_male = Test.where(:test_type => "Junior", :gender => "Male")
-    @senior_male = Test.where(:test_type => "Senior", :gender => "Male")
-    @senior_female = Test.where(:test_type => "Senior", :gender => "Female")
+    @junior_female = Test.where(:test_type => "Junior", :gender => "Female").reject{|a| a.spider == 0.0 || a.sprint == 0.0}
+    @junior_male = Test.where(:test_type => "Junior", :gender => "Male").reject{|a| a.spider == 0.0 || a.sprint == 0.0}
+    @senior_male = Test.where(:test_type => "Senior", :gender => "Male").reject{|a| a.spider == 0.0 || a.sprint == 0.0}
+    @senior_female = Test.where(:test_type => "Senior", :gender => "Female").reject{|a| a.spider == 0.0 || a.sprint == 0.0}
   end
   
   def save_year
