@@ -1,5 +1,14 @@
 <style type="text/css">
-	.pagebreak { page-break-before: always; }
+	@media print {
+	@page {size: A4 landscape;}
+
+   
+    h1 {  page-break-before: always;}
+    .first {margin-top: -120px;}
+    
+    h3 {margin-top: -10px;}
+}
+
 </style>
 
 
@@ -9,17 +18,19 @@
 <% exercises = [:sprint, :spider] %>
 <% norsk = ["20 meter sprint", "Spider test"] %>
 <% counter = 0 %>
+<h1></h1>
 <% exercises.each do |e| %>
 
-	
-		<h1 class="h2 mb-3 mt-3 text-gray-800"> <%= norsk[counter] %> </h1>
+		
+		<h1 class="h2 mb-3 text-gray-800 "> <%= norsk[counter] %> </h1>
 		<% counter2 = 0 %>
 		<% test_types.each do |tt| %>
+		
 		<% if counter2 == 2 || counter2 == 0 %>
 		<div class="row">
 		<% end %>
 			<div class="col-md-12 col-lg-6">
-				<h1 class="h3 mb-0 text-gray-800"><%= test_types_norsk[counter2]  %></h1>
+				<h3 class="h3 mb-0 text-gray-800"><%= test_types_norsk[counter2]  %></h1>
 				<%= render :partial => 'tests/partials/table_start' %>
 
 				<% if test_types[counter2].count >= 5 %>
@@ -56,7 +67,7 @@
 
 
 <% counter = counter + 1 %>
-<div class="pagebreak"> </div>
+
 <% end %><!--END exercises -->
 
 
@@ -67,14 +78,14 @@
 <% exercises.each do |e| %>
 
 	
-		<h1 class="h2 mb-3 mt-3 text-gray-800"> <%= norsk[counter] %> </h1>
+		<h1 class="h2 text-gray-800"> <%= norsk[counter] %> </h1>
 		<% counter2 = 0 %>
 		<% test_types.each do |tt| %>
 			<% if counter2 == 2 || counter2 == 0 %>
 			<div class="row">
 				<% end %>
 				<div class="col-md-12 col-lg-6">
-					<h1 class="h3 mb-0 text-gray-800"><%= test_types_norsk[counter2]  %></h1>
+					<h3 class="h3 mb-0 text-gray-800"><%= test_types_norsk[counter2]  %></h1>
 					<%= render :partial => 'tests/partials/table_start' %>
 
 					<% if test_types[counter2].count >= 5 %>
@@ -114,5 +125,5 @@
 	
 
 <% counter = counter + 1 %>
-<div class="pagebreak"> </div>
+
 <% end %><!--END exercises -->
