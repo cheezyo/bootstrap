@@ -40,7 +40,7 @@ class Player < ApplicationRecord
 	end
 	def player_profile
 		ids = UserPlayer.where(player_id: self.id).pluck(:user_id)
-		user = User.find(ids).reject{|u| u.coach == true || u.admin == true || u.parent == true}
+		user = User.find(ids).reject{|u| u.coach == true || u.admin == true || u.parent == true || u.helper_coach == true || u.receptionist == true}
 		user.first
 	end
 
@@ -318,8 +318,8 @@ class Player < ApplicationRecord
 	end
 
 	 def get_token 
-
-    	string = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNZW1iZXJJZCI6IjEyOTQxMCIsImVtYWlsIjoiY2V6YXJzaW5jYW5AaG90bWFpbC5jb20iLCJWZXJzaW9uIjoiMSIsIkRldmljZUxvZ2luSWQiOiI1MjcyNjMxIiwibmJmIjoxNjA2Njk2NTMzLCJleHAiOjE2MDkyODg1MzMsImlhdCI6MTYwNjY5NjUzM30.ekexlMsD3fAnZN217kqzl4QBQuF-9A4hY-FRkSXjsFI"
+	 	
+    	string = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNZW1iZXJJZCI6IjEyOTQxMCIsImVtYWlsIjoiY2V6YXJzaW5jYW5AaG90bWFpbC5jb20iLCJWZXJzaW9uIjoiMSIsIkRldmljZUxvZ2luSWQiOiI1NTUzMTA2IiwibmJmIjoxNjA5OTQ2NDg1LCJleHAiOjE2MTI1Mzg0ODUsImlhdCI6MTYwOTk0NjQ4NX0.N9vUQR6-IQseS0uzEiTQXJwkEkH2xyrUCv2J7lbH0w4"
   	end                  
 
 
