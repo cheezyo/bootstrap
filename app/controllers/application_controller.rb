@@ -8,14 +8,20 @@ class ApplicationController < ActionController::Base
    rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
       format.json { head :forbidden }
-      format.html { redirect_to current_user, :notice => exception.message }
+      format.html { redirect_to root_url, :warning => exception.message }
     end
   end
     
     protected
 
     def authorized
-      redirect_to '/my/users/sign_in' unless user_signed_in?
+      if user_signed_in?
+        true
+      else
+        false
+      end
+
+      #redirect_to '/my/users/sign_in' unless user_signed_in?
     end
 
     def configure_permitted_parameters

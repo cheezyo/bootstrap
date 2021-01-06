@@ -1,0 +1,66 @@
+<div class="card shadow h-100 mt-4">
+  <div class="card-header">
+    <h1 class="h3 mb-0 text-gray-800">Stringing log</h1>
+  </div>
+
+<div class="row mt-4 ml-2 mr-2">
+  <div class="col-xl-6 col-md-12 mb-4 mt-1">
+      <div class="card border-left-success shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+            <div class="text font-weight-bold text-success text-uppercase mb-3">Done</div>
+              <table class="table table-striped">
+                <thead>
+                  <th></th>
+                  <th></th>
+                  <th>Paid</th>
+                </thead>
+                <tbody>
+              <% Stringing.where.not(done: nil).where(pick_up: nil).each do |a| %>
+
+              <tr>
+                <td><%= a.done.strftime("%Y-%m-%d") %></td>
+                <td><%= a.customer %></td>
+                <td>
+                  <% if a.paid? %>
+                  <i class="fas fa-check" style="color: green;"></i>
+                  <% else %>
+                  <i class="fas fa-times" style="color: red;"></i>
+                  <% end %>
+                </td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+    <div class="col-xl-6 col-md-12 mb-4 mt-1">
+      <div class="card border-left-warning shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+            <div class="text font-weight-bold text-warning text-uppercase mb-3">Queue</div>
+              <table class="table table-striped">
+                <tbody>
+              <% Stringing.where(done: nil, pick_up: nil).each do |a| %>
+
+              <tr>
+                <td><%= a.created_at.strftime("%Y-%m-%d") %></td>
+                <td><%= a.customer %></td>
+                <td></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

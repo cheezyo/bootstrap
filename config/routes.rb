@@ -1,4 +1,17 @@
 Rails.application.routes.draw do
+  resources :stringings do
+    collection do 
+      post :paid
+      post :unpay
+      post :done
+      post :undo
+      post :pick_up
+      post :return_pick_up
+      get :queue
+    end
+  end
+
+
   resources :feedbacks do
     collection do 
       get :generate_feedbacks
@@ -70,7 +83,8 @@ end
 end
   resources :user_players, only: [:create, :update,:destroy] 
   devise_for :users, :path_prefix => 'my'
-  resources :users 
+  resources :users
+   
   resources :pages do 
 	collection do 
 		get :index

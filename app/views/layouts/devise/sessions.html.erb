@@ -19,6 +19,12 @@
   <body class="bg-gradient-primary">
   <div id="wrapper">
      <div class="container-fluid">
+       <div class="container-fluid" style="margin-top: 5px">
+        <% flash.each do |message_type, message| %>
+        <div class="alert alert-<%= message_type %>">
+          <%= message %>
+        </div>
+      <% end %>
         <%= yield %>
 
   

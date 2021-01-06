@@ -6,9 +6,10 @@ class Ability
   def initialize(user)
        user ||= User.new # guest user (not logged in)
         #can :create, User
-    
+   
       can [:create, :new, :sign_up], User
-    
+      can :queue, Stringing
+      can [:show, :update], User, id: user.id
     if user.admin? || user.coach? # additional permissions for administrators
           can :manage, :all
 
@@ -16,7 +17,7 @@ class Ability
     if user.player?  # additional permissions for logged in users 
       can [:show, :update], User, id: user.id
       cannot :create, User
-      can [:show, :update, :ironman_player], Player, player_profile: user 
+      can [:show, :update], Player, player_profile: user
       can :toplist, Test
       can :show, Tournament
       can [:create, :update, :index, :destroy], Training
@@ -27,6 +28,11 @@ class Ability
       can [:show, :update], Player, parent: user 
       can :toplist, Test
       can :show, Tournament
+      end
+
+      if user.receptionist?
+        can [:show, :update], User, id: user.id
+        can :manage, Stringing
       end
     
   

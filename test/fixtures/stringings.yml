@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  customer: MyString
+  type_of_strings: MyString
+  tension: 1.5
+  price: 1.5
+  done: 2020-12-08
+  delivered: 2020-12-08
+  pick_up: 2020-12-08
+  paid: 2020-12-08
+  registered_by: 1
+  payment_registration: 1
+  payment_type: MyString
+
+two:
+  customer: MyString
+  type_of_strings: MyString
+  tension: 1.5
+  price: 1.5
+  done: 2020-12-08
+  delivered: 2020-12-08
+  pick_up: 2020-12-08
+  paid: 2020-12-08
+  registered_by: 1
+  payment_registration: 1
+  payment_type: MyString

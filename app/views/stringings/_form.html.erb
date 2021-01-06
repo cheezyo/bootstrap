@@ -1,0 +1,72 @@
+<%= form_with(model: stringing, local: true) do |form| %>
+  <% if stringing.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(stringing.errors.count, "error") %> prohibited this stringing from being saved:</h2>
+
+      <ul>
+        <% stringing.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :customer %>
+    <%= form.text_field :customer %>
+  </div>
+
+  <div class="field">
+    <%= form.label :type_of_strings %>
+    <%= form.text_field :type_of_strings %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tension %>
+    <%= form.text_field :tension %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.text_field :price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :done %>
+    <%= form.date_select :done %>
+  </div>
+
+  <div class="field">
+    <%= form.label :delivered %>
+    <%= form.date_select :delivered %>
+  </div>
+
+  <div class="field">
+    <%= form.label :pick_up %>
+    <%= form.date_select :pick_up %>
+  </div>
+
+  <div class="field">
+    <%= form.label :paid %>
+    <%= form.date_select :paid %>
+  </div>
+
+  <div class="field">
+    <%= form.label :registered_by %>
+    <%= form.number_field :registered_by %>
+  </div>
+
+  <div class="field">
+    <%= form.label :payment_registration %>
+    <%= form.number_field :payment_registration %>
+  </div>
+
+  <div class="field">
+    <%= form.label :payment_type %>
+    <%= form.text_field :payment_type %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -55,6 +55,10 @@
                 <% end %>
               </li>
 
+            <% elsif current_user.receptionist? %>
+              <%= link_to  stringings_path, :class => "nav-link" do %>
+                <span><i class="fas fa-table-tennis mr-2"></i>Stringing log</span>
+            <% end %>
 
 
             <% elsif current_user.coach? %>
@@ -202,7 +206,41 @@
 
 
 
-            <% if current_user.player? || current_user.parent? %>
+            <% if current_user.player? || current_user.parent? || current_user.receptionist? %>
+            <ul class="navbar-nav ml-auto">
+            
+             <div class="topbar-divider d-none d-sm-block"></div>
+            <!-- Nav Item - User Information -->
+                <li class="nav-item dropdown ">
+                  <a class="nav-link dropdown-toggle " href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="far fa-user fa mr-2"></i>
+                    <span class="mr-2 d-lg-inline "><%= current_user.name %></span>
+                  </a>
+              <!-- Dropdown - User Information -->
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="#">
+                <%= link_to current_user, :class => "dropdown-item" do  %>
+                <i class="fas fa-user mr-2"></i>
+                  My user
+                <% end %>
+                 <%= link_to edit_user_path(current_user), :class => "dropdown-item" do  %>
+                <i class="fas fa-user-edit mr-2"></i>
+                  Edit user
+                <% end %> 
+             
+              <div class="dropdown-divider"></div>
+                <%= link_to destroy_user_session_path, method: :delete, :class => "dropdown-item" do  %>
+                <i class="fas fa-sign-out-alt mr-2"></i>
+                  
+                  Logout
+                
+                <% end %>
+              </div>
+            </li>
+          </ul>
+          <% end %>
+
+           <% if current_user.no_roles? %>
             <ul class="navbar-nav ml-auto">
             
              <div class="topbar-divider d-none d-sm-block"></div>

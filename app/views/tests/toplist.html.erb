@@ -9,6 +9,7 @@
     h3 {margin-top: -10px;}
 }
 
+
 </style>
 
 
@@ -34,6 +35,7 @@
 				<%= render :partial => 'tests/partials/table_start' %>
 
 				<% if test_types[counter2].count >= 5 %>
+
 				<% ex = tt.pluck(e, :player_id, :id).sort{ |a,b| a <=> b} %>
 				<% (0..4).each do |i| %>
 
@@ -95,11 +97,11 @@
 
 							<% t = Test.find(ex[i][2]) %>	
 							  	<% if i == 0 %>
-							  	<tr class="warning">
+							  	<tr style="background-color:#FFD700;">
 							  	<% elsif i == 1 %>
-							  	<tr class="secondary">
+							  	<tr style="background-color: #C0C0C0;">
 							  	<% elsif i == 2 %>
-							  	<tr class="primary">
+							  	<tr style="background-color: #cd7f32;">
 							  	<% else %>
 							  	<tr>
 							  	<% end %>

@@ -11,9 +11,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   
 
-def player? 
-	!self.coach? && !self.admin? && !self.parent?
-
+def no_roles? 
+	! self.player? && ! self.parent? && ! self.helper_coach && ! self.coach? && ! self.admin? 
 end
 
 

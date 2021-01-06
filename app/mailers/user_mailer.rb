@@ -11,4 +11,6 @@ class UserMailer < ApplicationMailer
 
     mail to: feedback.player.parent_email, subject: "Feedback fra trener", reply_to: coach.email, cc: coach.email 
   end
+
+
 end

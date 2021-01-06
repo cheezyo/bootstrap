@@ -1,7 +1,11 @@
 class PagesController < ApplicationController
 
 	def index
-		
+	if current_user.present?
+
+     else
+      redirect_to '/my/users/sign_in'
+     end
 	end
 
 	def task_report

@@ -50,7 +50,7 @@ class UsersController < ApplicationController
       respond_to do |format|
         if @user.save
         	sign_in(@user) unless current_user.present?
-          format.html { redirect_to @user, notice: 'User was successfully created.' }
+          format.html { redirect_to root_url, success: 'User was successfully created.' }
           format.json { render :show, status: :created, location: @user }
         else
           format.html { redirect_to new_user_path, notice: 'Password needs to match, please try again' }
@@ -59,9 +59,9 @@ class UsersController < ApplicationController
       end
     end
   end
-   def show 
+  def show 
 
-   end
+  end
 
    def update
      if params[:user][:password].blank?
@@ -77,7 +77,7 @@ class UsersController < ApplicationController
   def destroy
       @user.destroy
       respond_to do |format|
-        format.html { redirect_to root_url, notice: 'User was successfully destroyed.' }
+        format.html { redirect_to root_url, sucess: 'User was successfully destroyed.' }
         format.json { head :no_content }
       end
     end
@@ -89,7 +89,7 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:helper_coach, :name, :email, :password, :admin, :coach, :parent, :lastname, :player)
+      params.require(:user).permit(:receptionist, :helper_coach, :name, :email, :password, :admin, :coach, :parent, :lastname, :player)
     end
 
     def check_if_admin
