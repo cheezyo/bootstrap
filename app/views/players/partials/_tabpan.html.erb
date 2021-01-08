@@ -30,6 +30,9 @@
 		   <% end %>
 
 		   <% if current_user.admin? || current_user.coach? %>
+		   <li class="nav-item "><a href="#notes" data-toggle="tab" class="nav-link text-secondary">Notes (<%= @player.notes.count %>)</a></li>
+		   <% end %>
+		     <% if current_user.admin? || current_user.coach? %>
 		   <li class="nav-item "><a href="#settings" data-toggle="tab" class="nav-link text-secondary">Settings</a></li>
 		   <% end %>
 

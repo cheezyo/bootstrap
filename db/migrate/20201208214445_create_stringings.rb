@@ -3,10 +3,10 @@ class CreateStringings < ActiveRecord::Migration[6.0]
     create_table :stringings do |t|
       t.string :customer
       t.string :type_of_strings
-      t.float :tension
+      t.string :tension
       t.float :price
       t.date :done
-      t.date :delivered
+      t.integer :delivered
       t.date :pick_up
       t.date :paid
       t.integer :registered_by

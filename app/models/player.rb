@@ -14,6 +14,7 @@ class Player < ApplicationRecord
 	has_many :tournaments, through: :player_tournaments
 	has_many :matches, :dependent => :delete_all
 	has_many :feedbacks
+	has_many :notes
 	validates :name, presence: true
 	validates :lastname, presence: true
 	validates :gender, presence: true

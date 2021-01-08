@@ -1,4 +1,4 @@
-<h1>New task <%= @player.nil? ? "" : " for " + @player.fullname %> </h1>
+<h1 class="h3 mb-4 text-gray-800">New task <%= @player.nil? ? "" : " for " + @player.fullname %> </h1>
 
 <%= render 'form', task: @task %>
 

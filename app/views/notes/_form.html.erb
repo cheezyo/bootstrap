@@ -1,0 +1,33 @@
+<%= form_with(model: note, local: true) do |form| %>
+  <% if note.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(note.errors.count, "error") %> prohibited this note from being saved:</h2>
+
+      <ul>
+        <% note.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  
+  <div class="col-sm-12 col-lg-6 mb-4">
+    <%= form.text_area :note, :class => "form-control form-control-user" %>
+
+  </div>
+ 
+<% if @player.nil? %>
+  <div class="field">
+    <%= form.label :player_id %>
+    <%= form.collection_select :player_id, Player.all, :id, :fullname %>
+  </div>
+<% else %>
+<%= form.hidden_field :player_id, :value => @player.id %>
+<%= form.hidden_field :user_id, :value => @current_user.id %>
+<% end %>
+
+<div class="col-sm-12 col-lg-6 mb-4">
+    <%= form.submit :class => "btn btn-success" %>
+</div>
+<% end %>

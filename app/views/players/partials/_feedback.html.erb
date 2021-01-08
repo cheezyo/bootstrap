@@ -1,22 +1,26 @@
 
-	<table class="table table-bordered table-striped" width="100%" cellspacing="0">
-		<thead>
-			<tr>
-				<th>Date</th>
-				<th>Feedback</th>
-				<th>Coach</th>
-			</tr>
-		</thead>
-		<tbody>
-			<% @player.feedbacks.order(created_at: :desc).each do |f| %>
-			<tr>
-				<td><%= f.created_at.strftime("%d-%m-%Y %H:%M") %></td>
-				<td><%= f.feed_back %></td>
-				<td><%= f.coach %></td>
-			</tr>
-			<% end %>
-		</tbody>
-	</table>
 	
+	
+
+<% @player.feedbacks.order(created_at: :desc).each do |f| %>
+<div class="card mt-2">
+		    <div class="card-header py-3" id="headingOne">
+		      	<div class="text-md font-weight-bold text-primary mb-2 ">
+				    Feedback 
+				    <span class="text-gray-800"><%= f.created_at.strftime("%d-%m-%Y %H:%M") %></span>
+		      	</div>
+		   
+		    </div>
+
+		    <div class="card-body py-3">
+		    	<p><%= f.feed_back %></p>				
+			</div>
+			
+			<div class="card-footer py-3">
+				<%= f.coach %>
+			</div>
+			
+		</div>
+	<% end %>
 
 	

@@ -1,0 +1,28 @@
+<% if can? :update, Note %>
+	<div class="row mb-3 mt-3 ml-4">		    		
+	<%= link_to "+ Add note", new_note_path + "?player_id=" + @player.id.to_s, :class => "btn btn-primary pb-2 " %>
+	</div>
+<% end %>
+
+<% @player.notes.each do |n| %>
+<div class="card mb-2">
+		    <div class="card-header py-3" id="headingOne">
+		      	<div class="text-md font-weight-bold text-primary mb-2 ">
+				    Note 
+				    <span class="text-gray-800"><%= n.created_at.strftime("%d-%m-%Y") %></span>
+		      	</div>
+		   
+		    </div>
+
+		    <div class="card-body py-3">
+		    	<p><%= n.note %></p>				
+			</div>
+			<% if can? :update, Note %>
+			<div class="card-footer py-3">
+				<%= n.user.name %>
+			    <%= link_to 'Delete', n, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn-sm btn-danger py-2 mr-1 float-right" %>
+			    <%= link_to "Edit", edit_note_path(n), :class => "btn-sm btn-info mr-1 py-2 float-right" %>
+			</div>
+			<% end %>
+		</div>
+	<% end %>
