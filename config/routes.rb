@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       post :pick_up
       post :return_pick_up
       get :queue
+      get :pick_ups
     end
   end
 
