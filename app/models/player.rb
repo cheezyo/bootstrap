@@ -320,7 +320,7 @@ class Player < ApplicationRecord
 
 	 def get_token 
 	 	
-    	string = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNZW1iZXJJZCI6IjEyOTQxMCIsImVtYWlsIjoiY2V6YXJzaW5jYW5AaG90bWFpbC5jb20iLCJWZXJzaW9uIjoiMSIsIkRldmljZUxvZ2luSWQiOiI1NTUzMTA2IiwibmJmIjoxNjA5OTQ2NDg1LCJleHAiOjE2MTI1Mzg0ODUsImlhdCI6MTYwOTk0NjQ4NX0.N9vUQR6-IQseS0uzEiTQXJwkEkH2xyrUCv2J7lbH0w4"
+    	string = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNZW1iZXJJZCI6IjEyOTQxMCIsImVtYWlsIjoiY2V6YXJzaW5jYW5AaG90bWFpbC5jb20iLCJWZXJzaW9uIjoiMSIsIkRldmljZUxvZ2luSWQiOiI1ODQ1OTk3IiwibmJmIjoxNjEyNzMxMTczLCJleHAiOjE2MTUzMjMxNzMsImlhdCI6MTYxMjczMTE3M30.4soxc3AgEhwmpBRnqHklY3QKbrO8vs4CF8j4sOJGbhc"
   	end                  
 
 
