@@ -53,7 +53,7 @@ class StringingsController < ApplicationController
 
   def pick_up
     @stringing = Stringing.find(params[:id])
-    @stringing.pick_up = DateTime.now
+    @stringing.picked_up = true
     @stringing.delivered = current_user.id
     @stringing.save
     redirect_to request.referrer
@@ -66,7 +66,7 @@ class StringingsController < ApplicationController
   end
 
   def return_pick_up
-    @stringing.pick_up = nil
+    @stringing.picked_up = false
     @stringing.delivered = nil  
     @stringing.save
     redirect_to request.referrer
