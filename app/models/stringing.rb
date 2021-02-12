@@ -5,7 +5,7 @@ class Stringing < ApplicationRecord
 	end
 
 	def deilivered? 
-		self.picked_up == true
+		self.pick_up != nil
 	end
 
 	def done? 
@@ -22,7 +22,7 @@ class Stringing < ApplicationRecord
 
 
 	def self.get_paid_and_done
-		Stringing.where.not(paid: nil, done: nil).where(picked_up: false).order(done: :desc)
+		Stringing.where.not(paid: nil, done: nil).where(pick_up: nil).order(done: :desc)
 	end
 
 	def self.get_queue

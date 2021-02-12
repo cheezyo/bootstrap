@@ -110,7 +110,10 @@
                 <td><%= a.done.strftime("%Y-%m-%d") %></td>
                 <td><%= a.customer %></td>
                 <td>
-                  <%= link_to "DELIVER", pick_up_stringings_path + "?id=" + a.id.to_s, :class => "btn btn-success btn-sm" %>
+                 <%= form_for(a, url: pick_up_stringings_path, method: :post) do |form| %>
+                    <%= hidden_field_tag :id, a.id %>
+                    <%= form.submit "DELIVER",class: "btn btn-success btn-sm"%>
+                  <% end %>
                 
                 </td>
               </tr>
@@ -196,13 +199,14 @@
             <%= form_for(stringing, url: return_pick_up_stringings_path, method: :post) do |form| %>
              <%= hidden_field_tag :id, stringing.id %>
             <%= form.submit stringing.pick_up.strftime("%Y-%m-%d"),class: "btn btn-success btn-small", data: { confirm: 'Are you sure it not done?' }%><br/>
-            <%= User.find(stringing.delivered).name %>
+            
             <% end %>
           <% else %>
             <%= form_for(stringing, url: pick_up_stringings_path, method: :post) do |form| %>
-             <%= hidden_field_tag :id, stringing.id %>
-            <%= form.submit "NO",class: "btn btn-danger btn-small" %>
+              <%= hidden_field_tag :id, stringing.id %>
+              <%= form.submit "NO",class: "btn btn-danger btn-small" %>
             <% end %>
+            
           <% end %>
         </td>
         
