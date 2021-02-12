@@ -58,14 +58,14 @@ class StringingsController < ApplicationController
     redirect_to request.referrer
   end
   def pick_ups
-    @stringing.pick_up = DateTime.now
+    @stringing.picked_up = true
     @stringing.delivered = current_user.id
     @stringing.save
     redirect_to request.referrer
   end
 
   def return_pick_up
-    @stringing.pick_up = nil
+    @stringing.picked_up = false
     @stringing.delivered = nil  
     @stringing.save
     redirect_to request.referrer
@@ -82,7 +82,7 @@ class StringingsController < ApplicationController
     @stringing.registered_by = current_user.id
     respond_to do |format|
       if @stringing.save
-        format.html { redirect_to @stringing, notice: 'Stringing was successfully created.' }
+        format.html { redirect_to stringings_url, notice: 'Stringing was successfully created.' }
         format.json { render :show, status: :created, location: @stringing }
       else
         format.html { render :new }
@@ -123,6 +123,6 @@ class StringingsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def stringing_params
-      params.require(:stringing).permit(:customer, :type_of_strings, :tension, :price, :done, :delivered, :pick_up, :paid, :registered_by, :payment_registration, :payment_type)
+      params.require(:stringing).permit(:picked_up, :customer, :type_of_strings, :tension, :price, :done, :delivered, :pick_up, :paid, :registered_by, :payment_registration, :payment_type)
     end
 end
