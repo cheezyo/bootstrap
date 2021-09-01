@@ -241,7 +241,7 @@ class PlayersController < ApplicationController
           if age_str == "u19"
             age1 = "senior"
           else
-            age1 = "u" + (age = age + 1).to_s
+            age1 = "u" + (age = age).to_s
           end
 
         end
