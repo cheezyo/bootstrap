@@ -77,7 +77,7 @@
 						<%= res["players"]["loser1"]["lastName"]%>
 						(<%= res["players"]["loser1"]["myUtrSingles"]%>)
 
-						<% if res["completionType"] == "winnerdidnotstart" ||  res["completionType"] == "" %>
+						<% if res["completionType"] == "winnerdidnotstart" ||  res["score"].empty? %>
 							W.O
 						<% else %>
 							<%= res["score"]["1"]["winner"]%>-<%= res["score"]["1"]["loser"]%> 
