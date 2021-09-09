@@ -185,7 +185,7 @@ class Player < ApplicationRecord
 		if coach
 			tennis = self.user.trainings.where(type_of_training: 3)
 		else
-			tennis = self.user.trainings.where(id: 1)
+			tennis = self.user.trainings.where(type_of_training: 1)
 		end 
 
 		if year 
