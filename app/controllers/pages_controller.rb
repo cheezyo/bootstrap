@@ -32,5 +32,13 @@ class PagesController < ApplicationController
 		
 	end
 
+	def diary_report
+		players = Array.new
+		Planet.where(diary: true).each do |p|
+			players << p.players.pluck(:id)
+		end
+		@players = Player.find(players)
+	end
+
 
 end

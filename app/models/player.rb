@@ -180,6 +180,53 @@ class Player < ApplicationRecord
 	def get_training_this_month 
 		self.user.trainings.where('t_date BETWEEN ? AND ?', DateTime.now.at_beginning_of_month, DateTime.now.at_end_of_month).sum(:time)
 	end
+
+	def get_tennis_trainings(coach, year)
+		if coach
+			tennis = self.user.trainings.where(type_of_training: 3)
+		else
+			tennis = self.user.trainings.where(id: 1)
+		end 
+
+		if year 
+			tennis = tennis.where('t_date BETWEEN ? AND ?', DateTime.now - 12.months, DateTime.now).sum(:time)	
+		else
+			tennis = tennis.where('t_date BETWEEN ? AND ?', DateTime.now.at_beginning_of_month, DateTime.now.at_end_of_month).sum(:time)
+		end
+
+		
+		return tennis
+	end
+
+	def tennis_total(year)
+		tot = get_tennis_trainings(true, year)
+		tot = tot + get_tennis_trainings(false, year)
+		return tot
+	end
+
+	def get_physical_trainings(coach, year)
+		if coach
+			tennis = self.user.trainings.where(type_of_training: 4)
+		else
+			tennis = self.user.trainings.where(type_of_training: 2)
+		end 
+
+		if year 
+			tennis = tennis.where('t_date BETWEEN ? AND ?', DateTime.now - 12.months, DateTime.now).sum(:time)	
+		else
+			tennis = tennis.where('t_date BETWEEN ? AND ?', DateTime.now.at_beginning_of_month, DateTime.now.at_end_of_month).sum(:time)
+		end
+
+		
+		return tennis
+	end
+
+	def physical_total(year)
+		tot = get_physical_trainings(true, year)
+		tot = tot + get_physical_trainings(false, year)
+		return tot
+	end
+
 	
 	def get_tasks_last_year
 		self.tasks.where('created_at BETWEEN ? AND ?', DateTime.now - 12.months, DateTime.now)
@@ -295,6 +342,8 @@ class Player < ApplicationRecord
 
 	end
 	def get_json_matches(player)
+		matches = "https://agw-prod.myutr.com/v1/player/1739222/results?year=last&Type=singles"
+		json_matches = HTTParty.get(matches, headers: {"Authorization" => "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNZW1iZXJJZCI6IjEyOTQxMCIsImVtYWlsIjoiY2V6YXJzaW5jYW5AaG90bWFpbC5jb20iLCJWZXJzaW9uIjoiMSIsIkRldmljZUxvZ2luSWQiOiI3ODY5MTI0IiwibmJmIjoxNjI5NTUwNzk5LCJleHAiOjE2MzIxNDI3OTksImlhdCI6MTYyOTU1MDc5OX0.P_oKK8oNkRmrIY3yOtMyC2BmHuW24ZkxO0GxwT4apJ0"})
 		matches = "https://agw-prod.myutr.com/v1/player/" + player.utr_profile + "/results?year=last&Type=singles"
 		json_matches = HTTParty.get(matches, headers: {"Authorization" => get_token})
 		return json_matches.parsed_response

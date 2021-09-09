@@ -1,0 +1,81 @@
+  <table class="table table-striped table-hover table-sm"id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      
+                      <th>Player</th>
+                      <th>Tennis m t</th>
+                      <th>Tennis u t</th>
+                      <th>Tennis tot mnd</th>
+                      <th>Fys m t</th>
+                      <th>Fys u t</th>
+                      <th>Fys tot mnd</th>
+                      <th>Tr. tot mnd</th>
+                      <th>Tennis m t</th>
+                      <th>Tennis u t</th>
+                      <th>Tennis tot år</th>
+                      <th>Fys m t</th>
+                      <th>Fys u t</th>
+                      <th>Fys tot år</th>
+                      <th>Tr. tot år</th>
+                      
+                      
+                
+                    </tr>
+                  </thead>
+                 
+                  <tbody>
+                    <% @players.each do |p| %>
+                    <% if p.got_user? %>
+                  <tr>
+                    
+                    <td>
+                      <%= link_to p.fullname, p  %> (<%= p.get_age %>)
+                    </td>
+                  <td>
+                    <%= p.get_tennis_trainings(true, false) %>
+                  </td>
+                  <td>
+                    <%= p.get_tennis_trainings(false, false) %>
+                  </td>
+                  <td><b>
+                    <%= p.tennis_total(false) %>
+                  </b></td>
+                  <td>
+                    <%= p.get_physical_trainings(true, false) %>
+                  </td>
+                   <td>
+                    <%= p.get_physical_trainings(false, false) %>
+                  </td>
+                   <td><b>
+                    <%= p.physical_total(false) %>
+                  </b></td>
+                  <td><b>
+                    <%= p.get_training_this_month %>
+                  </b></td>
+                  <td>
+                    <%= p.get_tennis_trainings(true, true) %>
+                  </td>
+                  <td>
+                    <%= p.get_tennis_trainings(false, true) %>
+                  </td>
+                  <td><b>
+                    <%= p.tennis_total(false) %>
+                  </b></td>
+                  <td>
+                    <%= p.get_physical_trainings(true, true) %>
+                  </td>
+                   <td>
+                    <%= p.get_physical_trainings(false, true) %>
+                  </td>
+                   <td><b>
+                    <%= p.physical_total(true) %>
+                  </b></td>
+                  <td><b>
+                    <%= p.get_training_this_year %>
+                  </b></td>
+                  
+                </tr>
+                <% end %>
+                <% end %>
+              </tbody>
+            </table>

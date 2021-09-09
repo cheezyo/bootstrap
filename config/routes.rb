@@ -91,6 +91,7 @@ end
 	collection do 
 		get :index
     get :task_report
+    get :diary_report
   end
 end
   root :to => 'pages#index'
