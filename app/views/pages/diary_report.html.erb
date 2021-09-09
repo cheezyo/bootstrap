@@ -32,43 +32,43 @@
                       <%= link_to p.fullname, p  %> (<%= p.get_age %>)
                     </td>
                   <td>
-                    <%= p.get_tennis_trainings(true, false) / 60 %>
+                    <%= p.get_tennis_trainings(true, false, @date) / 60 %>
                   </td>
                   <td>
-                    <%= p.get_tennis_trainings(false, false) / 60 %>
+                    <%= p.get_tennis_trainings(false, false, @date) / 60 %>
                   </td>
                   <td><b>
-                    <%= p.tennis_total(false) / 60 %>
+                    <%= p.tennis_total(false, @date) / 60 %>
                   </b></td>
                   <td>
-                    <%= p.get_physical_trainings(true, false) / 60 %>
+                    <%= p.get_physical_trainings(true, false, @date) / 60 %>
                   </td>
                    <td>
-                    <%= p.get_physical_trainings(false, false) / 60 %>
+                    <%= p.get_physical_trainings(false, false, @date) / 60 %>
                   </td>
                    <td><b>
-                    <%= p.physical_total(false) / 60 %>
+                    <%= p.physical_total(false, @date) / 60 %>
                   </b></td>
                   <td><b>
                     <%= p.get_training_this_month / 60 %>
                   </b></td>
                   <td>
-                    <%= p.get_tennis_trainings(true, true) / 60 %>
+                    <%= p.get_tennis_trainings(true, true, @date) / 60 %>
                   </td>
                   <td>
-                    <%= p.get_tennis_trainings(false, true) / 60 %>
+                    <%= p.get_tennis_trainings(false, true, @date) / 60 %>
                   </td>
                   <td><b>
-                    <%= p.tennis_total(false) / 60 %>
+                    <%= p.tennis_total(false, @date) / 60 %>
                   </b></td>
                   <td>
-                    <%= p.get_physical_trainings(true, true) / 60 %>
+                    <%= p.get_physical_trainings(true, true, @date) / 60 %>
                   </td>
                    <td>
-                    <%= p.get_physical_trainings(false, true) / 60 %>
+                    <%= p.get_physical_trainings(false, true, @date) / 60 %>
                   </td>
                    <td><b>
-                    <%= p.physical_total(true) /60 %>
+                    <%= p.physical_total(true, @date) /60 %>
                   </b></td>
                   <td><b>
                     <%= p.get_training_this_year / 60%>

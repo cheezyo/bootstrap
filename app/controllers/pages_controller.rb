@@ -38,7 +38,12 @@ class PagesController < ApplicationController
 			players << p.players.pluck(:id)
 		end
 		@players = Player.find(players)
+		@date = DateTime.now 
+		if params[:date]
+			@date = DateTime.parse(params[:date])
+		end
 	end
+
 
 
 end

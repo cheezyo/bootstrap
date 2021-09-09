@@ -181,7 +181,7 @@ class Player < ApplicationRecord
 		self.user.trainings.where('t_date BETWEEN ? AND ?', DateTime.now.at_beginning_of_month, DateTime.now.at_end_of_month).sum(:time)
 	end
 
-	def get_tennis_trainings(coach, year)
+	def get_tennis_trainings(coach, year, date)
 		if coach
 			tennis = self.user.trainings.where(type_of_training: 3)
 		else
@@ -189,22 +189,22 @@ class Player < ApplicationRecord
 		end 
 
 		if year 
-			tennis = tennis.where('t_date BETWEEN ? AND ?', DateTime.now - 12.months, DateTime.now).sum(:time)	
+			tennis = tennis.where('t_date BETWEEN ? AND ?', date - 12.months, date).sum(:time)	
 		else
-			tennis = tennis.where('t_date BETWEEN ? AND ?', DateTime.now.at_beginning_of_month, DateTime.now.at_end_of_month).sum(:time)
+			tennis = tennis.where('t_date BETWEEN ? AND ?', date.at_beginning_of_month, date.at_end_of_month).sum(:time)
 		end
 
 		
 		return tennis
 	end
 
-	def tennis_total(year)
-		tot = get_tennis_trainings(true, year)
-		tot = tot + get_tennis_trainings(false, year)
+	def tennis_total(year, date)
+		tot = get_tennis_trainings(true, year, date)
+		tot = tot + get_tennis_trainings(false, year, date)
 		return tot
 	end
 
-	def get_physical_trainings(coach, year)
+	def get_physical_trainings(coach, year, date)
 		if coach
 			tennis = self.user.trainings.where(type_of_training: 4)
 		else
@@ -212,18 +212,18 @@ class Player < ApplicationRecord
 		end 
 
 		if year 
-			tennis = tennis.where('t_date BETWEEN ? AND ?', DateTime.now - 12.months, DateTime.now).sum(:time)	
+			tennis = tennis.where('t_date BETWEEN ? AND ?',date - 12.months, date).sum(:time)	
 		else
-			tennis = tennis.where('t_date BETWEEN ? AND ?', DateTime.now.at_beginning_of_month, DateTime.now.at_end_of_month).sum(:time)
+			tennis = tennis.where('t_date BETWEEN ? AND ?', date.at_beginning_of_month, date.at_end_of_month).sum(:time)
 		end
 
 		
 		return tennis
 	end
 
-	def physical_total(year)
-		tot = get_physical_trainings(true, year)
-		tot = tot + get_physical_trainings(false, year)
+	def physical_total(year, date)
+		tot = get_physical_trainings(true, year, date)
+		tot = tot + get_physical_trainings(false, year, date)
 		return tot
 	end
 
