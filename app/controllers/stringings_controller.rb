@@ -1,6 +1,6 @@
 class StringingsController < ApplicationController
   load_and_authorize_resource except: [:queue]
-  before_action :set_stringing, only: [:pick_up, :show, :edit, :update, :destroy, :paid, :unpay, :done, :undo, :return_pick_up]
+  before_action :set_stringing, only: [:pick_ups, :show, :edit, :update, :destroy, :paid, :unpay, :done, :undo, :return_pick_up]
 
   # GET /stringings
   # GET /stringings.json
@@ -51,7 +51,7 @@ class StringingsController < ApplicationController
     redirect_to request.referrer
   end
 
-  def pick_up
+  def pick_ups
     
     @stringing.picked_up = true
     @stringing.pick_up = DateTime.now
@@ -59,7 +59,7 @@ class StringingsController < ApplicationController
     @stringing.save
     redirect_to stringings_path
   end
-  def pick_ups
+  def pick_up
     @stringing.picked_up = true
     @stringing.delivered = current_user.id
     @stringing.save
