@@ -52,9 +52,9 @@ class StringingsController < ApplicationController
   end
 
   def pick_ups
-    
-    @stringing.update(picked_up: true)
     @stringing.update(pick_up: DateTime.now)
+    #@stringing.update(picked_up: true)
+   
     @stringing.update(delivered: current_user.id)
     
     redirect_to stringings_path
