@@ -1,6 +1,6 @@
 class StringingsController < ApplicationController
   load_and_authorize_resource except: [:queue]
-  before_action :set_stringing, only: [:pick_ups, :show, :edit, :update, :destroy, :paid, :unpay, :done, :undo, :return_pick_up]
+  before_action :set_stringing, only: [:pick_up, :show, :edit, :update, :destroy, :paid, :unpay, :done, :undo, :return_pick_up]
 
   # GET /stringings
   # GET /stringings.json
@@ -52,7 +52,7 @@ class StringingsController < ApplicationController
   end
 
   def pick_up
-    @stringing = Stringing.find(params[:id])
+    
     @stringing.picked_up = true
     @stringing.delivered = current_user.id
     @stringing.save
