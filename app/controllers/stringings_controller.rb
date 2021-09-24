@@ -53,10 +53,10 @@ class StringingsController < ApplicationController
 
   def pick_ups
     
-    @stringing.picked_up = true
-    @stringing.pick_up = DateTime.now
-    @stringing.delivered = current_user.id
-    @stringing.save
+    @stringing.update(picked_up: true)
+    @stringing.update(pick_up: DateTime.now)
+    @stringing.update(delivered: current_user.id)
+    
     redirect_to stringings_path
   end
   def pick_up
