@@ -110,8 +110,8 @@
                 <td><%= a.done.strftime("%Y-%m-%d") %></td>
                 <td><%= a.customer %></td>
                 <td>
-                 <%= form_for a do |form| %>
-                    <%= hidden_field_tag :picked_up, true  %>
+                 <%= form_for(a, url: pick_up_stringings_path, method: :post) do |form| %>
+                    <%= hidden_field_tag :id, a.id %>
                     <%= form.submit "DELIVER",class: "btn btn-success btn-sm"%>
                   <% end %>
                 
