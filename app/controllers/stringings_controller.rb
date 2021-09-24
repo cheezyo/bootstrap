@@ -56,20 +56,20 @@ class StringingsController < ApplicationController
     @stringing.picked_up = true
     @stringing.delivered = current_user.id
     @stringing.save
-    redirect_to request.referrer
+    redirect_to stringings_path
   end
   def pick_ups
     @stringing.picked_up = true
     @stringing.delivered = current_user.id
     @stringing.save
-    redirect_to request.referrer
+    redirect_to stringings_path
   end
 
   def return_pick_up
     @stringing.picked_up = false
     @stringing.delivered = nil  
     @stringing.save
-    redirect_to request.referrer
+    redirect_to stringings_path
   end
 
   def queue
