@@ -54,6 +54,7 @@ class StringingsController < ApplicationController
   def pick_up
     
     @stringing.picked_up = true
+    @stringing.pick_up = DateTime.now
     @stringing.delivered = current_user.id
     @stringing.save
     redirect_to stringings_path
