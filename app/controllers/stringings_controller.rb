@@ -55,7 +55,7 @@ class StringingsController < ApplicationController
     @stringing.update(pick_up: DateTime.now)
     #@stringing.update(picked_up: true)
    
-    @stringing.update(delivered: current_user.id)
+    #@stringing.update(delivered: current_user.id)
     
     redirect_to stringings_path
   end
