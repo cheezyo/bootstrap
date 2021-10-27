@@ -38,7 +38,7 @@
                     <%= p.get_tennis_trainings(false, false, @date) / 60 %>
                   </td>
                   <td><b>
-                    <%= p.tennis_total(false, @date) / 60 %>
+                    <%= tennis = ( p.tennis_total(false, @date) / 60) %>
                   </b></td>
                   <td>
                     <%= p.get_physical_trainings(true, false, @date) / 60 %>
@@ -47,10 +47,10 @@
                     <%= p.get_physical_trainings(false, false, @date) / 60 %>
                   </td>
                    <td><b>
-                    <%= p.physical_total(false, @date) / 60 %>
+                    <%= physical = ( p.physical_total(false, @date) / 60 ) %>
                   </b></td>
                   <td><b>
-                    <%= p.get_training_this_month / 60 %>
+                    <%= (tennis + physical) / 60 %>
                   </b></td>
                   <td>
                     <%= p.get_tennis_trainings(true, true, @date) / 60 %>
@@ -59,7 +59,7 @@
                     <%= p.get_tennis_trainings(false, true, @date) / 60 %>
                   </td>
                   <td><b>
-                    <%= p.tennis_total(false, @date) / 60 %>
+                    <%= tennis_year = (p.tennis_total(false, @date) / 60) %>
                   </b></td>
                   <td>
                     <%= p.get_physical_trainings(true, true, @date) / 60 %>
@@ -68,10 +68,10 @@
                     <%= p.get_physical_trainings(false, true, @date) / 60 %>
                   </td>
                    <td><b>
-                    <%= p.physical_total(true, @date) /60 %>
+                    <%= physical_year = (p.physical_total(true, @date) /60) %>
                   </b></td>
                   <td><b>
-                    <%= p.get_training_this_year / 60%>
+                    <%= (tennis_year + physical_year) / 60%>
                   </b></td>
                   
                 </tr>
