@@ -367,9 +367,9 @@ class Player < ApplicationRecord
 		return arr
 	end
 
-	 def get_token 
 	 	
-    	string = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNZW1iZXJJZCI6IjEyOTQxMCIsImVtYWlsIjoiY2V6YXJzaW5jYW5AaG90bWFpbC5jb20iLCJWZXJzaW9uIjoiMSIsIkRldmljZUxvZ2luSWQiOiI4MzA2NzYxIiwibmJmIjoxNjMyNDY5ODA4LCJleHAiOjE2MzUwNjE4MDgsImlhdCI6MTYzMjQ2OTgwOH0.Mcffmko1P2GHdc_hfrLGevpJwlWVImik77cD1x_XE9E"
+	 def get_token 
+    	string = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNZW1iZXJJZCI6IjEyOTQxMCIsImVtYWlsIjoiY2V6YXJzaW5jYW5AaG90bWFpbC5jb20iLCJWZXJzaW9uIjoiMSIsIkRldmljZUxvZ2luSWQiOiI4NzI1NzI1IiwibmJmIjoxNjM1NDExNTQ0LCJleHAiOjE2MzgwMDM1NDQsImlhdCI6MTYzNTQxMTU0NH0.em9Zc95iJpdjho8EQ2aYUtTGEt4Y_K1W_e4Ba0NUUqA"
   	end                  
 
 
