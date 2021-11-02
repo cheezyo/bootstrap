@@ -99,7 +99,7 @@ Rails.application.configure do
     :port           => '587',
     :authentication => :login,
     :user_name      => 'feedback@stavangertk.no',
-    :password       => 'Tilbakemelding2020',
+    :password       => 'Stavanger2021',
     :domain         => 'stavangertk.no',
     :enable_starttls_auto => true
 }
