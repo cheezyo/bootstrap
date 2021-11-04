@@ -1,6 +1,6 @@
 
 
-<% if @user.coach? || @user.admin? %>
+<% if @user.coach? || @user.admin? || @user.helper_coach %>
 <%= render 'users/partials/show_coach' %>
 <% elsif  @user.parent? %>
 <%= render 'users/partials/show_parent' %>
