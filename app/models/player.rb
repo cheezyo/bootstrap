@@ -343,7 +343,7 @@ class Player < ApplicationRecord
 	end
 	def get_json_matches(player)
 		matches = "https://agw-prod.myutr.com/v1/player/1739222/results?year=last&Type=singles"
-		json_matches = HTTParty.get(matches, headers: {"Authorization" => "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNZW1iZXJJZCI6IjEyOTQxMCIsImVtYWlsIjoiY2V6YXJzaW5jYW5AaG90bWFpbC5jb20iLCJWZXJzaW9uIjoiMSIsIkRldmljZUxvZ2luSWQiOiI3ODY5MTI0IiwibmJmIjoxNjI5NTUwNzk5LCJleHAiOjE2MzIxNDI3OTksImlhdCI6MTYyOTU1MDc5OX0.P_oKK8oNkRmrIY3yOtMyC2BmHuW24ZkxO0GxwT4apJ0"})
+		json_matches = HTTParty.get(matches, headers: {"Authorization" => "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNZW1iZXJJZCI6IjEyOTQxMCIsImVtYWlsIjoiY2V6YXJzaW5jYW5AaG90bWFpbC5jb20iLCJWZXJzaW9uIjoiMSIsIkRldmljZUxvZ2luSWQiOiI5MDQ5MDcwIiwibmJmIjoxNjM4MTkwOTMzLCJleHAiOjE2NDA3ODI5MzMsImlhdCI6MTYzODE5MDkzM30.VhQoJ1hensAB65EmK_YXEvc1mw5_OtKIRdGc4gzRR8Q"})
 		matches = "https://agw-prod.myutr.com/v1/player/" + player.utr_profile + "/results?year=last&Type=singles"
 		json_matches = HTTParty.get(matches, headers: {"Authorization" => get_token})
 		return json_matches.parsed_response
@@ -369,7 +369,7 @@ class Player < ApplicationRecord
 
 	 	
 	 def get_token 
-    	string = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNZW1iZXJJZCI6IjEyOTQxMCIsImVtYWlsIjoiY2V6YXJzaW5jYW5AaG90bWFpbC5jb20iLCJWZXJzaW9uIjoiMSIsIkRldmljZUxvZ2luSWQiOiI4NzI1NzI1IiwibmJmIjoxNjM1NDExNTQ0LCJleHAiOjE2MzgwMDM1NDQsImlhdCI6MTYzNTQxMTU0NH0.em9Zc95iJpdjho8EQ2aYUtTGEt4Y_K1W_e4Ba0NUUqA"
+    	string = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNZW1iZXJJZCI6IjEyOTQxMCIsImVtYWlsIjoiY2V6YXJzaW5jYW5AaG90bWFpbC5jb20iLCJWZXJzaW9uIjoiMSIsIkRldmljZUxvZ2luSWQiOiI5MDQ5MDcwIiwibmJmIjoxNjM4MTkwOTMzLCJleHAiOjE2NDA3ODI5MzMsImlhdCI6MTYzODE5MDkzM30.VhQoJ1hensAB65EmK_YXEvc1mw5_OtKIRdGc4gzRR8Q"
   	end                  
 
 
