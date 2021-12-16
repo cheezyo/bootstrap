@@ -80,7 +80,7 @@
 						      	</td>
 						      	<td>
 						      		<% if p.got_user? %>
-						      		<%= p.get_training_this_year %>
+						      		<%= (p.get_tennis_trainings(false, true, DateTime.now) + p.get_physical_trainings(false, true, DateTime.now)) / 60 %>
 						      		<% else %>
 						      		0
 						      		<% end %>
