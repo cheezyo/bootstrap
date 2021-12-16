@@ -94,7 +94,12 @@
 						      		<%= p.get_feedbacks_last_year.count %>
 						      	</td>
 						      	<% if @planet.ironman? %>
-						      		<td><%= p.get_last_ironman.test_score.to_i %></td>
+						      		<td><% if ! p.get_last_ironman.nil? %>
+						      				<%= p.get_last_ironman.test_score.to_i %>
+						      			<% else %> 
+						      			0
+						      			<% end %>
+						      		</td>
 						      		<td><%= p.get_diff_from_last_test[0] %> 
 						      			<i class="<%= p.get_diff_from_last_test[1] %>" style="color:<%= p.get_diff_from_last_test[2] %>"></i> <small>(<%= p.get_diff_from_last_test[3] %> | <%= p.get_diff_from_last_test[4] %>)</small>
 						      		</td>
