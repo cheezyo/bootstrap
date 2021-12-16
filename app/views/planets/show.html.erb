@@ -31,12 +31,13 @@
 						      <% if @planet.diary? %>
 						      	<th>7 days</th>
 						      	<th><%= DateTime.now.strftime("%b") %></th>
-						      	<th><%= DateTime.now.year %></th>
+						      	<th>Egen tr. 12mnd</th>
 						      <% end %>
 						      <th>Tasks </th>
 						      <th>Feedback</th>
 						      <% if @planet.ironman? %>
-						      	<th>Ironman</th>
+						      	<th>Last test</th>
+						      	<th>Imprv.</th>
 						      <% end %>
 						      <% if @planet.utr? %>
 							      <th>UTR</th>
@@ -93,6 +94,7 @@
 						      		<%= p.get_feedbacks_last_year.count %>
 						      	</td>
 						      	<% if @planet.ironman? %>
+						      		<td><%= p.get_last_ironman.test_score.to_i %></td>
 						      		<td><%= p.get_diff_from_last_test[0] %> 
 						      			<i class="<%= p.get_diff_from_last_test[1] %>" style="color:<%= p.get_diff_from_last_test[2] %>"></i> <small>(<%= p.get_diff_from_last_test[3] %> | <%= p.get_diff_from_last_test[4] %>)</small>
 						      		</td>
