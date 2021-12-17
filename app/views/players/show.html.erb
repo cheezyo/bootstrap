@@ -115,7 +115,49 @@
 			</div>
 
 			<div class="tab-pane" id="tasks">
-				<%= render 'players/partials/tasks', player: @player %>	
+				<div class="row">
+				<div class="col-md-6">
+					<%= render 'players/partials/tasks', player: @player %>	
+				</div>
+				
+				<div class="col-md-5 mt-4">
+					<% if @player.goals.empty? || @current_user.coach? %>
+						<%= link_to "Ny Målsettningsskjema", new_goal_path + "?player_id=" + @player.id.to_s, :class => "btn btn-primary pb-2 " %>
+					<% end %>
+					<% if !@player.goals.empty? %>
+					<div class="card mb-2">
+						<div class="card-header py-3" id="headingOne">
+							<div class="text-md font-weight-bold text-primary mb-2 ">
+								Målsettningsskjema
+								<span class="text-gray-800"> <%= @player.goals.last.updated_at.strftime("%d-%m-%Y") %></span>
+							</div>	   
+						</div>
+						<div class="card-body py-3">
+							<h1 class="h4 mb-3 text-gray-800">Kortsiktige mål:</h1>
+							<p><b>#1:</b> <%= @player.goals.last.short_one %></p>
+							<p><b>#2:</b> <%= @player.goals.last.short_two %></p>
+							<p><b>#3:</b> <%= @player.goals.last.short_three %></p>
+							<hr/>
+							<h1 class="h4 mb-3 text-gray-800">Mellomlange mål:</h1>
+							<p><b>#1:</b> <%= @player.goals.last.medium_one %></p>
+							<p><b>#2:</b> <%= @player.goals.last.medium_two %></p>
+					
+							<hr/>
+							<h1 class="h4 mb-3 text-gray-800">Langsiktig mål:</h1>
+							<p><b>#1:</b> <%= @player.goals.last.long %></p>
+						
+							<hr/>
+							<h1 class="h4 mb-3 text-gray-800">Drøm:</h1>
+							<p><b>#1:</b> <%= @player.goals.last.dream %></p>
+							<hr/>
+							<%= link_to "Rediger mål", edit_goal_path(@player.goals.last) + "?player_id=" + @player.id.to_s, :class => "btn btn-primary pb-2 "  %>
+
+						</div>
+					</div>
+					<% end %>
+				</div>
+				
+			</div>
 			</div>
 			
 			<% if @player.planet.diary? %>

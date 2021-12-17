@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Player:</strong>
+  <%= @goal.player_id %>
+</p>
+
+<p>
+  <strong>Short one:</strong>
+  <%= @goal.short_one %>
+</p>
+
+<p>
+  <strong>Short two:</strong>
+  <%= @goal.short_two %>
+</p>
+
+<p>
+  <strong>Short three:</strong>
+  <%= @goal.short_three %>
+</p>
+
+<p>
+  <strong>Medium one:</strong>
+  <%= @goal.medium_one %>
+</p>
+
+<p>
+  <strong>Medium two:</strong>
+  <%= @goal.medium_two %>
+</p>
+
+<p>
+  <strong>Long:</strong>
+  <%= @goal.long %>
+</p>
+
+<p>
+  <strong>Dream:</strong>
+  <%= @goal.dream %>
+</p>
+
+<%= link_to 'Edit', edit_goal_path(@goal) %> |
+<%= link_to 'Back', goals_path %>

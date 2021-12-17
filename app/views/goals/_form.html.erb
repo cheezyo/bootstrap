@@ -1,0 +1,85 @@
+<%= form_with(model: goal, local: true) do |form| %>
+  <% if goal.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(goal.errors.count, "error") %> prohibited this goal from being saved:</h2>
+
+      <ul>
+        <% goal.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<h1 class="h1 mb-3 text-gray-800"> Målsettningsskjema for <%= @player.fullname %></h1><hr/>
+  <% if @player.nil? && @current_user.coach?  %>
+  <div class="field">
+    <%= form.label :player_id %>
+    <%= form.collection_select :player_id, Player.all, :id, :fullname %>
+  </div>
+  <% else %>
+    <%= form.hidden_field :player_id, :value => @player.id %>
+  <% end %>
+  
+  <h1 class="h3 mb-3 text-gray-800">Kortsiktige mål:</h1>
+  <ul>
+    <li>Mål for neste semester som er realistiske og oppnåelige </li>
+    <li><b>For eksempel:</b></li>
+    <li>Forbedre et slag, lære et slag, få bedre styrke, kondisjon, hurtighet, bli skadefri osv...</li>
+    <li>Noe som du ønsker å bli bedre på <b>ikke</b> resultat</li>
+  </ul>
+  <div class="field">
+    <h1 class="h5 mb-3 text-gray-800" style="float:left">#1</h1>
+    <%= form.text_area :short_one %>
+  </div>
+
+  <div class="field">
+    <h1 class="h5 mb-3 text-gray-800" style="float:left">#2</h1>
+    <%= form.text_area :short_two %>
+  </div>
+
+  <div class="field">
+    <h1 class="h5 mb-3 text-gray-800" style="float:left">#3</h1>
+    <%= form.text_area :short_three %>
+  </div>
+<hr/>
+<h1 class="h3 mb-3 text-gray-800">Mellomlange mål:</h1>
+<ul>
+    <li>Mål for året som er realistiske og man kan oppnå i løpet av et år. Kan være mer resultat orientert.</li>
+    <li><b>For eksempel:</b></li>
+    <li>Øke Utr med XX, spille X antall turneringer, nå semifinale i en turnering, komme inn på idrettsskole osv...</li>
+  </ul>
+  <div class="field">
+    <h1 class="h5 mb-3 text-gray-800" style="float:left">#1</h1>
+    <%= form.text_area :medium_one %>
+  </div>
+
+  <div class="field">
+    <h1 class="h5 mb-3 text-gray-800" style="float:left">#2</h1>
+    <%= form.text_area :medium_two %>
+  </div>
+<hr/>
+<h1 class="h3 mb-3 text-gray-800">Langsiktig mål:</h1>
+  <ul>
+    <li>Mål for tre år frem i tid. Samme kategori som mellomlange mål men, med lenger tidshorisont og kan være enda mer ambisiøse.</li>
+    <li><b>For eksempel:</b></li>
+    <li>Øke Utr med XX, komme med på bruttotropp, nå semifinale i en turnering, komme inn på idrettsskole, få et scholarship i USA osv...</li>
+  </ul>
+  <div class="field">
+    <h1 class="h5 mb-3 text-gray-800" style="float:left">#1</h1>
+    <%= form.text_area :long %>
+  </div>
+<hr/>
+<h1 class="h3 mb-3 text-gray-800">Drøm:</h1>
+ <ul>
+    <li>Hva er din drøm. Trenger ikke være realistisk. Trenger ikke være tennisrelatert, kan være skole, jobb osv...  </li>
+  </ul>
+  <div class="field">
+   <h1 class="h5 mb-3 text-gray-800" style="float:left">#1</h1>
+    <%= form.text_area :dream %>
+  </div>
+<hr/>
+
+  <div class="actions">
+    <%= form.submit "Lagre", :class => "btn btn-success" %>
+  </div>
+<% end %>

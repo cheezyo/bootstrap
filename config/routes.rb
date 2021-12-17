@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :goals
   resources :notes
   resources :stringings do
     collection do 

@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  player_id: 1
+  short_one: MyText
+  short_two: MyText
+  short_three: MyText
+  medium_one: MyText
+  medium_two: MyText
+  long: MyText
+  dream: MyText
+
+two:
+  player_id: 1
+  short_one: MyText
+  short_two: MyText
+  short_three: MyText
+  medium_one: MyText
+  medium_two: MyText
+  long: MyText
+  dream: MyText

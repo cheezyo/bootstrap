@@ -21,6 +21,8 @@ class Ability
       can :toplist, Test
       can :show, Tournament
       can [:create, :update, :index, :destroy], Training
+      can [:create], Goal
+      can [:update], Goal, player_profile: user
 
      end  
       if user.parent? 
