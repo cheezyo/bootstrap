@@ -117,13 +117,14 @@
 			<div class="tab-pane" id="tasks">
 				<div class="row">
 				<div class="col-md-6">
+					<% if @player.goals.empty? || @current_user.coach? %>
+						<%= link_to "Ny Målsettningsskjema", new_goal_path + "?player_id=" + @player.id.to_s, :class => "btn btn-primary pb-2 m-4 " %>
+					<% end %>
 					<%= render 'players/partials/tasks', player: @player %>	
 				</div>
 				
 				<div class="col-md-5 mt-4">
-					<% if @player.goals.empty? || @current_user.coach? %>
-						<%= link_to "Ny Målsettningsskjema", new_goal_path + "?player_id=" + @player.id.to_s, :class => "btn btn-primary pb-2 mb-2 " %>
-					<% end %>
+					
 					<% if !@player.goals.empty? %>
 					<div class="card mb-2">
 						<div class="card-header py-3" id="headingOne">

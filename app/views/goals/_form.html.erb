@@ -19,7 +19,7 @@
   <% else %>
     <%= form.hidden_field :player_id, :value => @player.id %>
   <% end %>
-  <div style="background: #355c7d;color:#fff"class="p-4">
+  <div style="background: #305c7d;color:#fff"class="p-4">
   <h1 class="h3 mb-3 ">Kortsiktige mål:</h1>
   <ul>
     <li>Mål for neste semester som er realistiske og oppnåelige </li>
@@ -29,17 +29,17 @@
   </ul>
   <div class="field">
     <h1 class="h5 mb-3 " style="float:left; padding: 10px 5px 0 0">#1</h1>
-    <%= form.text_area :short_one, cols: 45 %>
+    <%= form.text_area :short_one, cols: 30 %>
   </div>
 
   <div class="field">
     <h1 class="h5 mb-3 " style="float:left; padding: 10px 5px 0 0">#2</h1>
-    <%= form.text_area :short_two, cols: 45 %>
+    <%= form.text_area :short_two, cols: 30 %>
   </div>
 
   <div class="field">
     <h1 class="h5 mb-3" style="float:left; padding: 10px 5px 0 0">#3</h1>
-    <%= form.text_area :short_three, cols: 45 %>
+    <%= form.text_area :short_three, cols: 30 %>
   </div>
 </div>
 <hr/>
@@ -52,16 +52,16 @@
   </ul>
   <div class="field">
     <h1 class="h5 mb-3 " style="float:left; padding: 10px 5px 0 0">#1</h1>
-    <%= form.text_area :medium_one, cols: 45 %>
+    <%= form.text_area :medium_one, cols: 30 %>
   </div>
 
   <div class="field">
     <h1 class="h5 mb-3 " style="float:left; padding: 10px 5px 0 0">#2</h1>
-    <%= form.text_area :medium_two, cols: 45 %>
+    <%= form.text_area :medium_two, cols: 30 %>
   </div>
 </div>
 <hr/>
-<div style="background: #355c7d;color:#fff"class="p-4">
+<div style="background: #305c7d;color:#fff"class="p-4">
 <h1 class="h3 mb-3 ">Langsiktigt mål:</h1>
   <ul>
     <li>Mål for tre år frem i tid. Samme kategori som mellomlange mål men, med lenger tidshorisont og kan være enda mer ambisiøse.</li>
@@ -70,7 +70,7 @@
   </ul>
   <div class="field">
     <h1 class="h5 mb-3 " style="float:left; padding: 10px 5px 0 0">#1 </h1>
-    <%= form.text_area :long, cols: 45  %>
+    <%= form.text_area :long, cols: 30  %>
   </div>
 </div>
 <hr/>
@@ -81,7 +81,7 @@
   </ul>
   <div class="field">
    <h1 class="h5 mb-3 " style="float:left; padding: 10px 5px 0 0">#1</h1>
-    <%= form.text_area :dream, cols: 45 %>
+    <%= form.text_area :dream, cols: 30 %>
   </div>
 </div>
 <hr/>
