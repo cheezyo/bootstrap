@@ -10,7 +10,7 @@ module Bootstrap
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
-    
+    config.serve_static_assets = true
     config.to_prepare do
       Devise::SessionsController.skip_before_action :authorized
     end
