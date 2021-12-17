@@ -17,9 +17,9 @@
     <% @goals.each do |goal| %>
       <tr>
         <td><%= link_to goal.player.fullname, goal.player %></td>
-        <td><b>#1: </b><%= goal.short_one %>| <b>#2: </b> <%= goal.short_two %>| <b>#3: </b> <%= goal.short_three %></td>
+        <td><b>#1: </b><%= goal.short_one %> <br/> <b>#2: </b> <%= goal.short_two %><br/> <b>#3: </b> <%= goal.short_three %></td>
       
-        <td><b>#1: </b><%= goal.medium_one %> |<b>#2: </b> <%= goal.medium_two %></td>
+        <td><b>#1: </b><%= goal.medium_one %> <br/><b>#2: </b> <%= goal.medium_two %></td>
      
         <td><%= goal.long %></td>
         <td><%= goal.dream %></td>
