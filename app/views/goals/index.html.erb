@@ -2,35 +2,28 @@
 
 <h1>Goals</h1>
 
-<table>
+<table class="table table-striped table-hover table-sm" id="dataTable" width="100%" cellspacing="0">
   <thead>
     <tr>
-      <th>Player</th>
-      <th>Short one</th>
-      <th>Short two</th>
-      <th>Short three</th>
-      <th>Medium one</th>
-      <th>Medium two</th>
-      <th>Long</th>
-      <th>Dream</th>
-      <th colspan="3"></th>
+      <th>Navn</th>
+      <th>Dette semesteret</th>
+      <th>Dette året</th>
+      <th>Om 3 år</th>
+      <th>Drøm</th>
     </tr>
   </thead>
 
   <tbody>
     <% @goals.each do |goal| %>
       <tr>
-        <td><%= goal.player_id %></td>
-        <td><%= goal.short_one %></td>
-        <td><%= goal.short_two %></td>
-        <td><%= goal.short_three %></td>
-        <td><%= goal.medium_one %></td>
-        <td><%= goal.medium_two %></td>
+        <td><%= link_to goal.player.fullname, goal.player %></td>
+        <td><b>#1: </b><%= goal.short_one %>| <b>#2: </b> <%= goal.short_two %>| <b>#3: </b> <%= goal.short_three %></td>
+      
+        <td><b>#1: </b><%= goal.medium_one %> |<b>#2: </b> <%= goal.medium_two %></td>
+     
         <td><%= goal.long %></td>
         <td><%= goal.dream %></td>
-        <td><%= link_to 'Show', goal %></td>
-        <td><%= link_to 'Edit', edit_goal_path(goal) %></td>
-        <td><%= link_to 'Destroy', goal, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        
       </tr>
     <% end %>
   </tbody>
