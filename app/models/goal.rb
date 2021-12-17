@@ -1,8 +1,6 @@
 class Goal < ApplicationRecord
 	belongs_to :player
-	validates :short_one, presence: true
-	validates :short_two, presence: true
-	validates :long, presence: true
+	
 
 
 
