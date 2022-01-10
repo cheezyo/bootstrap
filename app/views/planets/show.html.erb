@@ -112,15 +112,14 @@
 						        	0
 						        	<% end %>	
 						        </td>
-						        <% if p.got_utr_profile? %>
+						        <% if p.got_utr_profile? && ! p.utr_matches_array.nil?%>
 						        <% m = p.utr_matches_array %>
-							        <% if ! m.empty? %>
+							        
 								        <td><%= m[0] %></td>
 								        <td><%= m[1] %></td>
 								        <td><%= m[2] %></td>
 								        <td><%= m[3] %>%</td>
-							      	<% end %>
-						        <% else %>
+							    <% else %>
 						        <td>0</td>
 						        <td>0</td>
 						        <td>0</td>
