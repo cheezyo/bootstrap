@@ -114,10 +114,12 @@
 						        </td>
 						        <% if p.got_utr_profile? %>
 						        <% m = p.utr_matches_array %>
-						        <td><%= m[0] %></td>
-						        <td><%= m[1] %></td>
-						        <td><%= m[2] %></td>
-						        <td><%= m[3] %>%</td>
+							        <% if ! m.empty? %>
+								        <td><%= m[0] %></td>
+								        <td><%= m[1] %></td>
+								        <td><%= m[2] %></td>
+								        <td><%= m[3] %>%</td>
+							      	<% end %>
 						        <% else %>
 						        <td>0</td>
 						        <td>0</td>
