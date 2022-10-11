@@ -80,7 +80,10 @@ class StringingsController < ApplicationController
   # POST /stringings.json
   def create
     @stringing = Stringing.new(stringing_params)
+    if @stringing.amount.nil? 
 
+      @stringing.amount = 1 
+    end
     
     @stringing.registered_by = current_user.id
     if @stringing.amount > 1 
