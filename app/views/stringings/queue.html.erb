@@ -17,7 +17,7 @@
                   <th>Paid</th>
                 </thead>
                 <tbody>
-              <% Stringing.where.not(done: nil).order(done: :desc).limit(30).each do |a| %>
+              <% Stringing.where.not(done: nil).order(done: :desc).limit(100).each do |a| %>
 
               <tr>
                 <td><%= a.done.strftime("%Y-%m-%d") %></td>
