@@ -21,12 +21,13 @@ class Stringing < ApplicationRecord
 	end
 
 
-	def self.get_paid_and_done
-		Stringing.where.not(paid: nil, done: nil).where(pick_up: nil).order(done: :desc)
+	def self.get_not_paid_and_done
+		Stringing.where.not(done: nil).where(paid: nil).order(done: :desc)
 	end
 
 	def self.get_queue
-		Stringing.where.not(paid: nil).where(done: nil).order(paid: :asc)
+		#Stringing.where.not(paid: nil).where(done: nil).order(paid: :asc)
+		Stringing.where(done: nil).order(created_at: :desc)
 	end
 
 	def get_day_from_delivery

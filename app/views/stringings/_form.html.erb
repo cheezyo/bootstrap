@@ -11,62 +11,33 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :customer %>
-    <%= form.text_field :customer %>
-  </div>
 
-  <div class="field">
-    <%= form.label :type_of_strings %>
-    <%= form.text_field :type_of_strings %>
-  </div>
+  <table class="table table-bordered table-striped table-hover" width="100%" cellspacing="0">
+      <thead>
+        <tr>
+          <th>Customer</th>
+          <th>How many?</th>
+          <th>String type</th>
+          <th>Tension</th>
+          <th>Price</th>
+          <th>Comment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> <%= form.text_field :customer, autofocus: true, autocomplete: "Name", :class => "form-control form-control-user", placeholder: 'Name' %></td>
+          <td><%= form.number_field :amount, autocomplete: "", :class => "form-control form-control-user", placeholder: 'How many?' %></td>
+          <td><%= form.text_field :type_of_strings, autocomplete: "String type", :class => "form-control form-control-user", placeholder: 'String type'%></td>
 
-  <div class="field">
-    <%= form.label :tension %>
-    <%= form.text_field :tension %>
-  </div>
+          <td> <%= form.text_field :tension, autocomplete: "Tension", :class => "form-control form-control-user", placeholder: 'Tension'%></td>
+          
+          <td><%= form.number_field :price, autocomplete: "Price", :class => "form-control form-control-user", placeholder: 'Price' %></td>
+          
+          <td><%= form.text_area :comment, autocomplete: "Kommentar", :class => "form-control form-control-user", placeholder: 'Comment' %></td>
+          
+          <td> <%= form.submit "Update",class: "btn btn-success btn-user"%></td>
+        </tr>
+      </tbody>
+    </table>
 
-  <div class="field">
-    <%= form.label :price %>
-    <%= form.text_field :price %>
-  </div>
-
-  <div class="field">
-    <%= form.label :done %>
-    <%= form.date_select :done %>
-  </div>
-
-  <div class="field">
-    <%= form.label :delivered %>
-    <%= form.date_select :delivered %>
-  </div>
-
-  <div class="field">
-    <%= form.label :pick_up %>
-    <%= form.date_select :pick_up %>
-  </div>
-
-  <div class="field">
-    <%= form.label :paid %>
-    <%= form.date_select :paid %>
-  </div>
-
-  <div class="field">
-    <%= form.label :registered_by %>
-    <%= form.number_field :registered_by %>
-  </div>
-
-  <div class="field">
-    <%= form.label :payment_registration %>
-    <%= form.number_field :payment_registration %>
-  </div>
-
-  <div class="field">
-    <%= form.label :payment_type %>
-    <%= form.text_field :payment_type %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+  <% end %>

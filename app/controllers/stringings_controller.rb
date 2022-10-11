@@ -5,7 +5,7 @@ class StringingsController < ApplicationController
   # GET /stringings
   # GET /stringings.json
   def index
-    @stringings = Stringing.all
+    @stringings = Stringing.order(created_at: :desc)
   end
 
   # GET /stringings/1
@@ -80,8 +80,19 @@ class StringingsController < ApplicationController
   # POST /stringings.json
   def create
     @stringing = Stringing.new(stringing_params)
+
     
     @stringing.registered_by = current_user.id
+    if @stringing.amount > 1 
+      (1..(@stringing.amount-1)).each do 
+        s = Stringing.new(stringing_params)
+        s.registered_by = current_user.id
+        s.save
+      end
+
+    end
+
+
     respond_to do |format|
       if @stringing.save
         format.html { redirect_to stringings_url, notice: 'Stringing was successfully created.' }
@@ -98,7 +109,7 @@ class StringingsController < ApplicationController
   def update
     respond_to do |format|
       if @stringing.update(stringing_params)
-        format.html { redirect_to @stringing, notice: 'Stringing was successfully updated.' }
+        format.html { redirect_to stringings_path, notice: 'Stringing was successfully updated.' }
         format.json { render :show, status: :ok, location: @stringing }
       else
         format.html { render :edit }
@@ -125,6 +136,6 @@ class StringingsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def stringing_params
-      params.require(:stringing).permit(:picked_up, :customer, :type_of_strings, :tension, :price, :done, :delivered, :pick_up, :paid, :registered_by, :payment_registration, :payment_type)
+      params.require(:stringing).permit(:amount, :comment, :picked_up, :customer, :type_of_strings, :tension, :price, :done, :delivered, :pick_up, :paid, :registered_by, :payment_registration, :payment_type)
     end
 end

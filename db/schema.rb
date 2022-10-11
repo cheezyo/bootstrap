@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_16_114847) do
+ActiveRecord::Schema.define(version: 2022_10_11_200532) do
 
   create_table "coaches", force: :cascade do |t|
     t.string "name"
@@ -167,6 +167,8 @@ ActiveRecord::Schema.define(version: 2021_12_16_114847) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "done_by"
     t.boolean "picked_up"
+    t.integer "amount"
+    t.text "comment"
   end
 
   create_table "task_categories", force: :cascade do |t|

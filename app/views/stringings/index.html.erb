@@ -6,20 +6,24 @@
       <thead>
         <tr>
           <th>Customer</th>
+          <th>How many?</th>
           <th>String type</th>
           <th>Tension</th>
           <th>Price</th>
+          <th>Comment</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td> <%= form.text_field :customer, autofocus: true, autocomplete: "Name", :class => "form-control form-control-user", placeholder: 'Name' %></td>
+          <td><%= form.number_field :amount, autocomplete: "", :class => "form-control form-control-user", placeholder: 'How many?' %></td>
           <td><%= form.text_field :type_of_strings, autocomplete: "String type", :class => "form-control form-control-user", placeholder: 'String type'%></td>
 
           <td> <%= form.text_field :tension, autocomplete: "Tension", :class => "form-control form-control-user", placeholder: 'Tension'%></td>
           
           <td><%= form.number_field :price, autocomplete: "Price", :class => "form-control form-control-user", placeholder: 'Price' %></td>
           
+          <td><%= form.text_area :comment, autocomplete: "Kommentar", :class => "form-control form-control-user", placeholder: 'Comment' %></td>
           
           <td> <%= form.submit "Save",class: "btn btn-success btn-user"%></td>
         </tr>
@@ -29,31 +33,62 @@
   <% end %>
 <hr/>
 <div class="row mt-4">
-  <div class="col-lg-4 col-md-12 mb-4 mt-1">
-      <div class="card border-left-danger shadow h-100 py-2">
+  <div class="col-lg-8 col-md-12 mb-4 mt-1">
+      <div class="card border-left-warning shadow h-100 py-2">
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text font-weight-bold text-primary text-uppercase mb-3">Unpaid & not strung</div>
+              <div class="text font-weight-bold text-primary text-uppercase mb-3">QUEUE</div>
               <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Delivery date</th>
+                    <th>Customer</th>
+                    <th>String type</th>
+                    <th>Tension</th>
+                    <th>Comment</th>
+                    <th>Paid</th>
+                    <th>Done</th>
+                    <th>Edit</th>
+                  </tr>
+                </thead>
+
                 <tbody>
-              <% Stringing.get_un_paid.each do |a| %>
+              <% Stringing.get_queue.each do |a| %>
 
               <tr>
-                <td><%= a.created_at.strftime("%Y-%m-%d") %></td>
+                <td><%= a.created_at.strftime("%Y-%m-%d at %H:%M") %> </td>
                 <td><%= a.customer %></td>
+                <td><%= a.type_of_strings %></td>
+                <td><%= a.tension %></td>
+                <td><%= a.comment %> </td>
+                <td>
+                  <% if a.paid? %>
+                    <%= form_for(a, url: unpay_stringings_path, method: :post) do |form| %>
+                    <%= hidden_field_tag :id, a.id %>
+                    <%= form.submit "PAID",class: "btn btn-success btn-sm", data: { confirm: 'Are you sure you want to reverse payment?' }%>
+                    <% end %>
+                  <% else %>
+                     <%= form_for(a, url: paid_stringings_path, method: :post) do |form| %>
+                      <%= hidden_field_tag :id, a.id %>
+                      <%= form.submit "NOT PAID",class: "btn btn-danger btn-sm"%>
+                    <% end %>
+                  <% end %>
+                </td>
                 <td>
                   <% if a.done? %>
                   <i class="fas fa-check" style="color: green;"></i>
                   <% else %>
-                  <i class="fas fa-times" style="color: red;"></i>
+                     <%= form_for(a, url: done_stringings_path, method: :post) do |form| %>
+                     <%= hidden_field_tag :id, a.id %>
+                    <%= form.submit "NOT DONE",class: "btn btn-danger btn-sm" %>
+                    <% end %>
                   <% end %>
                 </td>
                 <td>
-                  <%= form_for(a, url: paid_stringings_path, method: :post) do |form| %>
-                    <%= hidden_field_tag :id, a.id %>
-                    <%= form.submit "PAID",class: "btn btn-danger btn-sm"%>
-                  <% end %>
+                    <%= link_to edit_stringing_path(a) do %>
+                    <span><i class="fas fa-pen mr-2 ml-2" style="color:black;"></i></span>
+                    <% end %>
                 </td>
               </tr>
               <% end %>
@@ -65,56 +100,39 @@
       </div>
     </div>
   </div>
+  
   <div class="col-xl-4 col-md-12 mb-4 mt-1">
-      <div class="card border-left-warning shadow h-100 py-2">
+      <div class="card border-left-danger shadow h-100 py-2">
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text font-weight-bold text-primary text-uppercase mb-3">Queue</div>
+            <div class="text font-weight-bold text-primary text-uppercase mb-3">Done but Not Paid</div>
               <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Done date</th>
+                    <th>Name</th>
+                    <th>Paid</th>
+                    <th>Done</th>
+                  </tr>
+                </thead>
                 <tbody>
-              <% Stringing.get_queue.each do |a| %>
-
-              <tr>
-                <td><%= a.paid.strftime("%Y-%m-%d") %></td>
-                <td><%= a.customer %></td>
-                <td><%= a.type_of_strings %></td>
-                <td><%= a.tension %></td>
-                <td>
-                  <%= form_for(a, url: done_stringings_path, method: :post) do |form| %>
-                   <%= hidden_field_tag :id, a.id %>
-                  <%= form.submit "DONE",class: "btn btn-warning btn-sm" %>
-                  <% end %>
-                </td>
-              </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-  <div class="col-xl-4 col-md-12 mb-4 mt-1">
-      <div class="card border-left-success shadow h-100 py-2">
-        <div class="card-body">
-          <div class="row no-gutters align-items-center">
-            <div class="col mr-2">
-            <div class="text font-weight-bold text-primary text-uppercase mb-3">Paid & Done</div>
-              <table class="table table-striped">
-                <tbody>
-              <% Stringing.get_paid_and_done.each do |a| %>
+              <% Stringing.get_not_paid_and_done.each do |a| %>
 
               <tr>
                 <td><%= a.done.strftime("%Y-%m-%d") %></td>
                 <td><%= a.customer %></td>
                 <td>
-                 <%= form_for(a, url: pick_ups_stringings_path, method: :post) do |form| %>
-                    <%= hidden_field_tag :id, a.id %>
-                    <%= form.submit "DELIVER",class: "btn btn-success btn-sm"%>
-                  <% end %>
-                
+                 <%= form_for(a, url: paid_stringings_path, method: :post) do |form| %>
+                      <%= hidden_field_tag :id, a.id %>
+                      <%= form.submit "NOT PAID",class: "btn btn-danger btn-sm"%>
+                    <% end %>
+                </td>
+                <td>
+                  <%= form_for(a, url: undo_stringings_path, method: :post) do |form| %>
+                 <%= hidden_field_tag :id, a.id %>
+                <%= form.submit "Done",class: "btn btn-success btn-sm", data: { confirm: 'Are you sure it not done?' }%>
+                <% end %>
                 </td>
               </tr>
               <% end %>
@@ -149,9 +167,9 @@
   </thead>
 
   <tbody>
-    <% @stringings.order(created_at: :desc).each do |stringing| %>
+    <% @stringings.each do |stringing| %>
       <tr>
-        <td><%= stringing.created_at.strftime("%Y-%m-%d") %></td>
+        <td><%= stringing.created_at.strftime("%Y-%m-%d") %> <br/> <%= stringing.created_at.strftime("%H:%M") %> </td>
         <td><%= stringing.customer %></td>
         <td><%= stringing.type_of_strings %></td>
         <td><%= stringing.tension %></td>
