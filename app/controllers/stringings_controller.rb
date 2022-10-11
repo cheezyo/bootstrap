@@ -5,7 +5,7 @@ class StringingsController < ApplicationController
   # GET /stringings
   # GET /stringings.json
   def index
-    @stringings = Stringing.order(created_at: :desc)
+    @stringings = Stringing.order(created_at: :asc)
   end
 
   # GET /stringings/1
